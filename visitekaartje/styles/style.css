@@ -1,0 +1,38 @@
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+button {
+	background: transparent;
+	border: 0;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+body {
+	background: #1a1a1a;
+}
+
+.album {
+	/* perspective: 100vw; */
+    /* perspective-origin: center top; */
+}
+
+.album article {
+	background: white;
+	width: 40%;
+	aspect-ratio: 1/1;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transform-origin: 0% 50%;
+}
+

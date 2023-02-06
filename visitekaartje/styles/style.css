@@ -41,36 +41,51 @@ body {
 
 .container > section {
 	position: absolute;
-	width: 100%;
+	width: 110%;
 	height: 100%;
 	display: flex;
 	justify-content: space-between;
+	/* background: pink; */
 }
 
 .container > section button {
 	background: none;
+	width: 15%;
+	position: relative;
+	opacity: 1;
+	transition: opacity 0.3s ease-in-out;
 }
 
 /* pijltjes via bron: https://codepen.io/reacraf/pen/ZPqRKV */
 .container > section button:first-of-type:before {
     border-left: 2px;
     border-bottom: 2px;
+	left: 20%;
 }
 
 .container > section button:last-of-type:before {
     border-right: 2px;
     border-top: 2px;
+	right: 20%;
 }
 
 .container > section button:first-of-type:before,
 .container > section button:last-of-type:before {
 	content: '';
-	width: 20px;
-    height: 20px;
+	position: absolute;
+	top: 45%;
+	height: 10%;
+	aspect-ratio: 1/1;
     transform: rotate(45deg);
     display: block;
 	border-style: solid;
 	border-color: #fff;
+}
+
+.container:not(.flipped) section.controls button:first-of-type,
+.container.flipped section.controls button:last-of-type {
+	opacity: 0;
+	cursor: initial;
 }
 
 /* ---------------
@@ -89,7 +104,7 @@ algemeen album
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	transition: transform 0.6s;
+	transition: transform 0.6s ease-in-out;
 	transform-origin: left;
 	transform-style: preserve-3d;
 }
@@ -120,9 +135,11 @@ algemeen album
 	transform: rotateY(180deg);
 }
 
+
+
 /* ---------------
 2e pagina
 --------------- */
-.album section:last-of-type {
-	background: red;
+.album section:last-of-type article:first-of-type {
+	background-color: red;
 }

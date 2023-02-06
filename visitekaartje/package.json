@@ -1,0 +1,26 @@
+{
+  "name": "visitekaartje",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Laurens256/visitekaartje.git"
+  },
+  "author": "Laurens256",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Laurens256/visitekaartje/issues"
+  },
+  "homepage": "https://github.com/Laurens256/visitekaartje#readme",
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1"
+  }
+}

@@ -4,11 +4,12 @@
 	margin: 0;
 	padding: 0;
 	border: 0;
+	box-sizing: border-box;
 }
 
 button {
-	background: transparent;
 	border: 0;
+	cursor: pointer;
 }
 
 ul,
@@ -16,23 +17,112 @@ ol {
 	list-style: none;
 }
 
+:root {
+	--bg-color: #1a1a1a;
+	--text-color: #fff;
+}
+
 body {
-	background: #1a1a1a;
+	height: 100vh;
+	background: var(--bg-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.album {
-	/* perspective: 100vw; */
-    /* perspective-origin: center top; */
+.container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 20%;
+	/* aspect-ratio: 1/1; */
 }
 
-.album article {
-	background: white;
-	width: 40%;
-	aspect-ratio: 1/1;
+.container > section {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	transform-origin: 0% 50%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
+.container > section button {
+	background: none;
+}
+
+/* pijltjes via bron: https://codepen.io/reacraf/pen/ZPqRKV */
+.container > section button:first-of-type:before {
+    border-left: 2px;
+    border-bottom: 2px;
+}
+
+.container > section button:last-of-type:before {
+    border-right: 2px;
+    border-top: 2px;
+}
+
+.container > section button:first-of-type:before,
+.container > section button:last-of-type:before {
+	content: '';
+	width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    display: block;
+	border-style: solid;
+	border-color: #fff;
+}
+
+/* ---------------
+algemeen album
+--------------- */
+.album {
+	position: relative;
+	background-color: transparent;
+	width: 90%;
+	aspect-ratio: 1/1;
+	perspective: 1000px;
+	z-index: -1;
+}
+
+.album section {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.6s;
+	transform-origin: left;
+	transform-style: preserve-3d;
+}
+
+.album section article {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+}
+
+.album section.flipped {
+	transform: rotateY(-180deg);
+	z-index: 0;
+}
+
+/* ---------------
+1e pagina
+--------------- */
+.album section:first-of-type article:first-of-type {
+	background-color: #bbb;
+	color: black;
+}
+
+.album section:first-of-type article:last-of-type {
+	background-color: #2980b9;
+	color: white;
+	transform: rotateY(180deg);
+}
+
+/* ---------------
+2e pagina
+--------------- */
+.album section:last-of-type {
+	background: red;
+}

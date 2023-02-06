@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="styles/style.css">
-	<script src="scripts/main.ts" type="module" defer></script>
-</head>
-<body>
-	<div class="album">
-		<section class="page1">
-			<article class="front"></article>
-			<article class="back"></article>
-		</section>
-		<section class="page2">
-			<article class="front"></article>
-			<article class="back"></article>
-		</section>
-	</div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="styles/style.css" />
+		<script src="scripts/main.ts" type="module" defer></script>
+	</head>
+	<body>
+		<div class="container">
+			<section>
+				<button class="prev-page-btn" aria-label="vorige pagina"></button>
+				<button class="next-page-btn" aria-label="volgende pagina"></button>
+			</section>
+			<div class="album">
+				<section>
+					<article>
+						<p>voorkant</p>
+					</article>
+					<article>
+						<p>achterkant</p>
+					</article>
+				</section>
+				<section>
+					<article>voorkant 2</article>
+				</section>
+			</div>
+		</div>
+	</body>
 </html>

@@ -25,7 +25,9 @@ ol {
 :root {
 	--bg-color: #1a1a1a;
 	--text-color: #fff;
+
 	--album-cover: #0093c9;
+	--album-cover-inner: blue;
 }
 
 body {
@@ -42,8 +44,7 @@ container
 .container {
 	position: relative;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	place-content: center;
 	width: 30%;
 }
 
@@ -65,20 +66,21 @@ controls
 	width: 15%;
 	position: relative;
 	opacity: 1;
-	transition: opacity 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 	pointer-events: all;
+	visibility: visible;
 }
 
 /* pijltjes via bron: https://codepen.io/reacraf/pen/ZPqRKV */
 .container > section button:first-of-type:before {
-	border-left: 2px;
-	border-bottom: 2px;
+	border-left: 3px;
+	border-bottom: 3px;
 	left: 20%;
 }
 
 .container > section button:last-of-type:before {
-	border-right: 2px;
-	border-top: 2px;
+	border-right: 3px;
+	border-top: 3px;
 	right: 20%;
 }
 
@@ -93,12 +95,35 @@ controls
 	display: block;
 	border-style: solid;
 	border-color: var(--text-color);
+	/* transition: all .2s ease-in-out; */
 }
 
 .container:not(.flipped) section.controls button:first-of-type,
 .container.flipped section.controls button:last-of-type {
 	opacity: 0;
-	cursor: initial;
+	pointer-events: none;
+	visibility: hidden;
+}
+
+/* zorgt ervoor dat kleur niet terug springt naar wit */
+.container > section button:focus::before {
+	border-color: var(--album-cover);
+}
+
+.container > section button:focus-visible::before,
+.container > section button:hover::before {
+	transition: all .2s ease-in-out;
+	border-color: var(--album-cover);
+	animation: hoverbounce 0.3s ease-in-out alternate infinite;
+}
+
+@keyframes hoverbounce {
+	from {
+		transform: translateX(0) rotate(45deg);
+	}
+	to {
+		transform: translateX(4px) rotate(45deg);
+	}
 }
 
 /* ---------------
@@ -152,6 +177,7 @@ algemeen album
 	right: 0;
 	bottom: 0;
 	box-shadow: inset 0px 0px 20px 10px rgba(0, 0, 0, 0.6);
+	pointer-events: none;
 }
 
 .album section:first-of-type article:first-of-type img {
@@ -183,7 +209,7 @@ algemeen album
 
 /* achterkant pagina 1 */
 .album section:first-of-type article:last-of-type {
-	background-color: #2980b9;
+	background-color: var(--album-cover-inner);
 	color: white;
 	transform: rotateY(180deg);
 }
@@ -233,5 +259,26 @@ loading animatie via bron: https://cssloaders.github.io/
 	100% {
 		transform: scale(1);
 		opacity: 0;
+	}
+}
+
+/* ---------------
+media queries
+--------------- */
+@media screen and (max-width: 1200px) {
+	.container {
+		width: 70%;
+	}
+}
+
+/* @media screen and (max-width: 768px) {
+	.container {
+		width: 90%;
+	}
+} */
+
+@media screen and (max-height: 400px) and (max-width: 1200px) {
+	.container {
+		width: 40%;
 	}
 }

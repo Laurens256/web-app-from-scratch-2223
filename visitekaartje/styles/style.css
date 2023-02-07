@@ -144,10 +144,21 @@ algemeen album
 	color: white;
 }
 
+.album section:first-of-type article:first-of-type::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	box-shadow: inset 0px 0px 20px 10px rgba(0, 0, 0, 0.6);
+}
+
 .album section:first-of-type article:first-of-type img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	filter: brightness(90%);
 }
 
 .album section:first-of-type article:first-of-type div {
@@ -162,7 +173,8 @@ algemeen album
 	text-transform: uppercase;
 	font-family: 'Readex';
 	font-size: 1.4em;
-	letter-spacing: .15em;
+	font-size: 2vw;
+	letter-spacing: 0.15em;
 }
 
 .album section:first-of-type article:first-of-type div h1:not(:empty) {
@@ -182,8 +194,6 @@ algemeen album
 .album section:last-of-type article:first-of-type {
 	background-color: red;
 }
-
-
 
 /* ---------------
 loading animatie via bron: https://cssloaders.github.io/

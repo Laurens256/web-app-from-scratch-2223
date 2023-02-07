@@ -1,5 +1,5 @@
 import { User } from 'assets/types';
-// import { defaultData } from 'assets/defaultData';
+import { defaultData } from './defaultData';
 
 const container = document.querySelector('.container')!;
 const pageControls = document.querySelectorAll('.controls button')!;
@@ -15,11 +15,10 @@ const fetchUser = async () => {
 	try {
 		user = await (await fetch(`https://whois.fdnd.nl/api/v1/member?id=${id}`)).json();
 	} catch {
-		// user = defaultData;
+		user = defaultData;
 		console.log('Fout bij het ophalen van data, standaard gebruiker wordt geladen');
 	}
 	generateUser(user.member);
-	container.classList.remove('loading');
 };
 
 const albumCover: HTMLImageElement = document.querySelector(
@@ -32,6 +31,7 @@ const albumTitle: HTMLHeadingElement = document.querySelector(
 // laadt data in visitekaartje
 const generateUser = (user: User['member']) => {
 	albumCover.addEventListener('load', () => {
+		container.classList.remove('loading');
 		if (user.name) {
 			albumCover.alt = `avatar van ${user.name}`;
 			albumTitle.textContent = user.name;

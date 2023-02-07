@@ -2,7 +2,7 @@ export const defaultData = {
 	member: {
 		avatar: 'https://avatars.githubusercontent.com/u/85798751?v=4',
 		bio: { html: '' },
-		gitHubHandle: 'Laurens257',
+		gitHubHandle: 'Laurens256',
 		id: 'cldep8zqq3wbh0av00ktcml8w',
 		name: 'Laurens',
 		nickname: 'Laurens256',

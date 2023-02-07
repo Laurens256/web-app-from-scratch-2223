@@ -1,30 +1,28 @@
 const container = document.querySelector('.container')!;
-const albumPages: NodeListOf<HTMLElement> = document.querySelectorAll('.album > section');
 const pageControls = document.querySelectorAll('.controls button')!;
-const nextButton = document.querySelector('.next-page-btn')!;
-const prevButton = document.querySelector('.prev-page-btn')!;
 
-const initAlbum = () => {
-	for (let i = 0; i < albumPages.length; i++) {
-		albumPages[i].style.zIndex = String(albumPages.length - i);
-	}
+const defaultUserId = 'cldep8zqq3wbh0av00ktcml8w';
+const defaultSquadId = 'cldcspecf0z0o0bw59l8bwqim';
+const fetchUser = async () => {
+	const id = new URLSearchParams(window.location.search).get('id') || defaultUserId;
+	const data = await (await fetch(`https://whois.fdnd.nl/api/v1/member?id=${id}`)).json();
+	console.log(data);
 };
 
-let pageState: 0 | 1 = 0;
+// fetchUser();
+
 const changePage = (e: Event) => {
 	const target = e.currentTarget as HTMLElement;
-	if (target.classList.contains('next-page-btn') && pageState === 0) {
-		pageState = 1;
-		albumPages[pageState - 1].classList.add('flipped');
-	} else if (target.classList.contains('prev-page-btn') && pageState === 1) {
-		pageState = 0;
-		albumPages[pageState].classList.remove('flipped');
-	} else {
+	// check of pagina verder naar voren of naar achter kan, anders return
+	if (
+		(target.classList.contains('next-page-btn') &&
+			container.classList.contains('flipped')) ||
+		(target.classList.contains('prev-page-btn') &&
+			!container.classList.contains('flipped'))
+	) {
 		return;
 	}
 	container.classList.toggle('flipped');
 };
 
 pageControls.forEach((button) => button.addEventListener('click', changePage));
-
-initAlbum();

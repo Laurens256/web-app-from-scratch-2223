@@ -1,4 +1,4 @@
-export const defaultData = {
+export const defaultUserData = {
 	member: {
 		avatar: 'https://avatars.githubusercontent.com/u/85798751?v=4',
 		bio: { html: '' },
@@ -14,3 +14,5 @@ export const defaultData = {
 		website: ''
 	}
 };
+
+export const defaultQuote = 'Unbothered. Moisturized. Happy. In My Lane. Focused. Flourishing.';

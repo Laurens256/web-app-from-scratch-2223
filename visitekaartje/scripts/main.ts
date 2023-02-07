@@ -1,5 +1,6 @@
 import { User } from 'assets/types';
-import { defaultData } from './defaultData';
+import { defaultUserData, defaultQuote } from './defaultData';
+import * as sanitizeHtml from 'sanitize-html';
 
 const container = document.querySelector('.container')!;
 const pageControls = document.querySelectorAll('.controls button')!;
@@ -15,21 +16,24 @@ const fetchUser = async () => {
 	try {
 		user = await (await fetch(`https://whois.fdnd.nl/api/v1/member?id=${id}`)).json();
 	} catch {
-		user = defaultData;
+		user = defaultUserData;
 		console.log('Fout bij het ophalen van data, standaard gebruiker wordt geladen');
 	}
-	generateUser(user.member);
+	generateAlbum(user.member);
 };
 
 const albumCover: HTMLImageElement = document.querySelector(
-	'.album section:first-of-type article img'
+	'.album section:first-of-type article:first-of-type img'
 )!;
 const albumTitle: HTMLHeadingElement = document.querySelector(
-	'.album section:first-of-type article h1'
+	'.album section:first-of-type article:first-of-type h1'
+)!;
+const albumCoverBack: Element = document.querySelector(
+	'.album section:first-of-type article:last-of-type'
 )!;
 
 // laadt data in visitekaartje
-const generateUser = (user: User['member']) => {
+const generateAlbum = (user: User['member']) => {
 	albumCover.addEventListener('load', () => {
 		container.classList.remove('loading');
 		if (user.name) {
@@ -38,8 +42,22 @@ const generateUser = (user: User['member']) => {
 		} else {
 			albumCover.alt = 'albumhoes';
 		}
+
 		if (user.nickname) {
 			albumTitle.textContent = user.nickname;
+		}
+
+		if (user.bio.html) {
+			albumCoverBack.innerHTML = `<blockquote>"${sanitizeHtml(user.bio.html, {
+				// prettier-ignore
+				allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
+				enforceHtmlBoundary: true,
+				transformTags: {
+					'h1': 'h2',
+				  }
+			})}"</blockquote>`;
+		} else {
+			albumCoverBack.innerHTML = `<blockquote>${defaultQuote}</blockquote>`;
 		}
 	});
 	albumCover.src = user.avatar || '/img/default-cover.jpg';

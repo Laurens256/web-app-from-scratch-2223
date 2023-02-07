@@ -59,6 +59,9 @@ controls
 	justify-content: space-between;
 	pointer-events: none;
 	z-index: 2;
+
+	/* nog nakijken wat duidelijker is */
+	transform: rotate(180deg);
 }
 
 .container > section button {
@@ -95,7 +98,7 @@ controls
 	display: block;
 	border-style: solid;
 	border-color: var(--text-color);
-	/* transition: all .2s ease-in-out; */
+	transition: border-color 0.2s ease-in-out;
 }
 
 .container:not(.flipped) section.controls button:first-of-type,
@@ -112,7 +115,7 @@ controls
 
 .container > section button:focus-visible::before,
 .container > section button:hover::before {
-	transition: all .2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 	border-color: var(--album-cover);
 	animation: hoverbounce 0.3s ease-in-out alternate infinite;
 }
@@ -158,7 +161,7 @@ algemeen album
 }
 
 /* ---------------
-1e pagina
+voorkant 1e pagina
 --------------- */
 .album section:first-of-type {
 	z-index: 1;
@@ -169,7 +172,7 @@ algemeen album
 	color: white;
 }
 
-.album section:first-of-type article:first-of-type::after {
+.container:not(.loading) .album section:first-of-type article:first-of-type::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -197,8 +200,7 @@ algemeen album
 
 .album section:first-of-type article:first-of-type div h1 {
 	text-transform: uppercase;
-	font-family: 'Readex';
-	font-size: 1.4em;
+	font-family: 'Readex', Arial, Helvetica, sans-serif;
 	font-size: 2vw;
 	letter-spacing: 0.15em;
 }
@@ -207,11 +209,39 @@ algemeen album
 	padding: 0.25em 0.75em 0.25em 0.6em;
 }
 
-/* achterkant pagina 1 */
+.container.loading .album section:first-of-type article:first-of-type svg {
+	display: none;
+}
+
+.album section:first-of-type article:first-of-type svg {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 15%;
+}
+
+/* ---------------
+achterkant 1e pagina
+--------------- */
 .album section:first-of-type article:last-of-type {
-	background-color: var(--album-cover-inner);
-	color: white;
 	transform: rotateY(180deg);
+	background-color: var(--album-cover-inner);
+	padding: 1.5em 1em;
+	color: white;
+	display: flex;
+	align-items: end;
+	overflow: hidden;
+	font-size: 1.2vw;
+	font-family: 'Readex', Arial, Helvetica, sans-serif;
+	font-weight: 900;
+	overflow: hidden;
+}
+
+.album section:first-of-type article:last-of-type blockquote {
+	position: relative;
+	border-left: 6px solid var(--album-cover);
+	padding-left: 0.8em;
+	quotes: '\201C''\201D';
 }
 
 /* ---------------
@@ -267,15 +297,48 @@ media queries
 --------------- */
 @media screen and (max-width: 1200px) {
 	.container {
-		width: 70%;
+		width: 35%;
+	}
+
+	.album section:first-of-type article:first-of-type div h1 {
+		font-size: 2.3vmin;
+	}
+
+	.album section:first-of-type article:last-of-type {
+		font-size: 2vmin;
 	}
 }
 
-/* @media screen and (max-width: 768px) {
+@media screen and (orientation: portrait) {
 	.container {
-		width: 90%;
+		width: 80%;
+		margin-bottom: -15vh;
 	}
-} */
+
+	.container > section {
+		transform: rotate(-90deg);
+	}
+
+	.album section:first-of-type {
+		transform-origin: top;
+	}
+
+	.container.flipped .album section:first-of-type {
+		transform: rotateX(180deg);
+	}
+
+	.album section:first-of-type article:last-of-type {
+		transform: rotateY(180deg) rotateZ(180deg);
+	}
+
+	.album section:first-of-type article:first-of-type div h1 {
+		font-size: 5.3vmin;
+	}
+
+	.album section:first-of-type article:last-of-type {
+		font-size: 4vmin;
+	}
+}
 
 @media screen and (max-height: 400px) and (max-width: 1200px) {
 	.container {

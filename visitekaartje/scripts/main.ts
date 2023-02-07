@@ -1,15 +1,44 @@
+import { User } from '../assets/types';
+
 const container = document.querySelector('.container')!;
 const pageControls = document.querySelectorAll('.controls button')!;
 
 const defaultUserId = 'cldep8zqq3wbh0av00ktcml8w';
 const defaultSquadId = 'cldcspecf0z0o0bw59l8bwqim';
+
+// fetch user profiel
 const fetchUser = async () => {
+	container.classList.add('loading');
 	const id = new URLSearchParams(window.location.search).get('id') || defaultUserId;
-	const data = await (await fetch(`https://whois.fdnd.nl/api/v1/member?id=${id}`)).json();
-	console.log(data);
+	const data: User = await (
+		await fetch(`https://whois.fdnd.nl/api/v1/member?id=${id}`)
+	).json();
+	generateUser(data.member);
+	container.classList.remove('loading');
 };
 
-// fetchUser();
+const albumCover: HTMLImageElement = document.querySelector(
+	'.album section:first-of-type article img'
+)!;
+const albumTitle: HTMLHeadingElement = document.querySelector(
+	'.album section:first-of-type article h1'
+)!;
+
+// laadt data in visitekaartje
+const generateUser = (user: User['member']) => {
+	albumCover.addEventListener('load', () => {
+		if(user.name) {
+			albumCover.alt = `avatar van ${user.name}`;
+			albumTitle.textContent = user.name;
+		} else {
+			albumCover.alt = 'albumhoes'
+		}
+		if(user.nickname) {
+			albumTitle.textContent = user.nickname;
+		}
+	});
+	albumCover.src = user.avatar || '/img/default-cover.jpg';
+};
 
 const changePage = (e: Event) => {
 	const target = e.currentTarget as HTMLElement;
@@ -26,3 +55,5 @@ const changePage = (e: Event) => {
 };
 
 pageControls.forEach((button) => button.addEventListener('click', changePage));
+
+fetchUser();

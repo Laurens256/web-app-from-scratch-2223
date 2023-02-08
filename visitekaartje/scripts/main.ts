@@ -1,6 +1,6 @@
 import { User } from 'assets/types';
 import { defaultUserData, defaultQuote } from './defaultData';
-import * as sanitize from 'sanitize-html';
+import * as sanitizeHtml from 'sanitize-html';
 
 const container = document.querySelector('.container')!;
 const pageControls: HTMLButtonElement = document.querySelector('.togglepage')!;
@@ -70,13 +70,10 @@ const generateAlbum = (user: User['member']) => {
 	}
 
 	if (user.bio.html) {
-		albumCoverBackQuote.innerHTML = `"${sanitize(user.bio.html, {
+		albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html, {
 			// prettier-ignore
-			allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
+			allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
 			enforceHtmlBoundary: true,
-			transformTags: {
-				h1: 'h2'
-			}
 		})}"`;
 	} else {
 		albumCoverBackQuote.textContent = `"${defaultQuote}"`;

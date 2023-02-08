@@ -48,10 +48,12 @@ const albumCoverBackQuote: Element = document.querySelector(
 const loadCover = (user: User['member']) => {
 	albumCover.addEventListener('error', () => {
 		generateAlbum(user);
+		console.log('error');
 		container.classList.add('imgerror');
 	});
 	albumCover.addEventListener('load', () => {
 		generateAlbum(user);
+		console.log('load');
 	});
 	albumCover.src = user.avatar;
 };

@@ -285,6 +285,10 @@ controls
 	border-color: var(--text-color);
 }
 
+.container button.togglepage:focus-visible {
+	outline-offset: 5px;
+}
+
 .container button.togglepage::before,
 .container button.togglepage::after {
 	text-transform: uppercase;

@@ -71,18 +71,18 @@ const generateAlbum = (user: User['member']) => {
 		albumTitle.textContent = user.nickname;
 	}
 
-	if (user.bio.html) {
-		albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html, {
-			// prettier-ignore
-			allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
-			enforceHtmlBoundary: true,
-			transformTags: {
-				h1: 'h2'
-			}
-		})}"`;
-	} else {
-		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
-	}
+	// if (user.bio.html) {
+	// 	albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html, {
+	// 		// prettier-ignore
+	// 		allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
+	// 		enforceHtmlBoundary: true,
+	// 		transformTags: {
+	// 			h1: 'h2'
+	// 		}
+	// 	})}"`;
+	// } else {
+	// 	albumCoverBackQuote.textContent = `"${defaultQuote}"`;
+	// }
 	container.classList.remove('loading');
 };
 

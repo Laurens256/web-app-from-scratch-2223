@@ -1,0 +1,117 @@
+/* record player bron: https://codepen.io/hexagoncircle/pen/WwOzwq?editors=0100 */
+.record {
+	width: 95%;
+	height: 95%;
+	background-color: #363636;
+	background: linear-gradient(
+		to right,
+		rgba(54, 54, 54, 1) 0%,
+		rgba(102, 102, 102, 1) 40%,
+		rgba(97, 97, 97, 1) 60%,
+		rgba(31, 30, 31, 1) 100%
+	);
+	border-radius: 50%;
+	box-shadow: inset #030303 0 0 0 1px, inset rgba(255, 255, 255, 0.3) 0 0 0 2px;
+	transform: rotate(0) translateZ(0);
+	/* animation: spin 15s linear infinite; */
+}
+
+.record::before,
+.record::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	background: linear-gradient(
+		to right,
+		rgba(54, 54, 54, 1) 0%,
+		rgba(102, 102, 102, 1) 41%,
+		rgba(97, 97, 97, 1) 61%,
+		rgba(31, 30, 31, 1) 100%
+	);
+	border-radius: 50%;
+}
+
+.record::before {
+	width: 95%;
+	height: 95%;
+	background-color: #505050;
+	/* box-shadow: inset #1d1d1d 0 0 0 1px, inset rgba(255, 255, 255, 0.4) 0 0 0 2px,
+		inset #292929 0 0 0 3px; */
+	background: repeating-radial-gradient(
+		circle at 50%,
+		#3b3b3b,
+		#505050 1px,
+		#505050 1px,
+		#3b3b3b 3px
+	);
+}
+
+.record::after {
+	width: 48%;
+	height: 48%;
+	background-color: #363636;
+	box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.1) 0 0 2px 3px;
+	transform: rotate(5deg);
+}
+
+.record .label {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 36%;
+	height: 36%;
+	padding: 4.5% 6%;
+	background-color: #ff4e5b;
+	background: repeating-linear-gradient(
+		-45deg,
+		#ff3543,
+		#ff3543 1px,
+		#ff4e5b 1px,
+		#ff4e5b 3px
+	);
+	text-align: center;
+	border-radius: 50%;
+	z-index: 2;
+}
+
+.record .label::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
+	z-index: -1;
+	width: 35%;
+	height: 35%;
+	border: solid 3px #ff2f3f;
+}
+
+.record .label h3 {
+	position: absolute;
+	top: 17.5%;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: .8em;
+	width: 75%;
+	overflow: hidden;
+	text-overflow: "-";
+	white-space: nowrap;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg) translateZ(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.record {
+		animation-play-state: paused;
+	}
+}

@@ -1,3 +1,5 @@
+/* Bron: https://codepen.io/hexagoncircle/pen/WwOzwq?editors=0100 */
+@import url('./record.css');
 @font-face {
 	font-family: 'Readex';
 	src: url(../assets/fonts/ReadexPro-VariableFont.ttf);
@@ -27,11 +29,10 @@ ol {
 	--album-text-color: #1a1a1a;
 	--text-color: #fff;
 
-	--album-border: solid 10px var(--album-cover);
+	--album-border: solid 10px pink;
 
-	--album-cover: #0093c9;
+	--album-main: #0093c9;
 	--album-cover-inner: white;
-	--album-main: pink;
 }
 
 body {
@@ -40,6 +41,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font-family: 'Readex', Arial, Helvetica, sans-serif;
 }
 
 /* ---------------
@@ -48,7 +50,8 @@ container
 .container {
 	position: relative;
 	display: flex;
-	place-content: center;
+	justify-content: center;
+	align-items: center;
 	width: 30%;
 }
 
@@ -114,13 +117,13 @@ controls
 
 /* zorgt ervoor dat kleur niet terug springt naar wit */
 .container > section button:focus::before {
-	border-color: var(--album-cover);
+	border-color: var(--album-main);
 }
 
 .container > section button:focus-visible::before,
 .container > section button:hover::before {
 	transition: all 0.2s ease-in-out;
-	border-color: var(--album-cover);
+	border-color: var(--album-main);
 	animation: hoverbounce 0.3s ease-in-out alternate infinite;
 }
 
@@ -172,7 +175,7 @@ voorkant 1e pagina
 }
 
 .album section:first-of-type article:first-of-type {
-	background-color: var(--album-cover);
+	background-color: var(--album-main);
 	color: var(--text-color);
 }
 
@@ -218,7 +221,6 @@ voorkant 1e pagina
 
 .album section:first-of-type article:first-of-type div h1 {
 	text-transform: uppercase;
-	font-family: 'Readex', Arial, Helvetica, sans-serif;
 	font-size: 2vw;
 	letter-spacing: 0.15em;
 	white-space: nowrap;
@@ -252,14 +254,13 @@ achterkant 1e pagina
 	align-items: end;
 	overflow: hidden;
 	font-size: 1.2vw;
-	font-family: 'Readex', Arial, Helvetica, sans-serif;
 	font-weight: 900;
 	overflow: hidden;
 }
 
 .album section:first-of-type article:last-of-type blockquote {
 	position: relative;
-	border-left: 6px solid var(--album-cover);
+	border-left: 6px solid var(--album-main);
 	padding-left: 0.8em;
 	quotes: '\201C''\201D';
 }
@@ -270,7 +271,22 @@ achterkant 1e pagina
 .album section:last-of-type article:first-of-type {
 	border-left: var(--album-border);
 	background-color: var(--album-main);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
+.album section:last-of-type article:first-of-type .recordholder {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 80%;
+	height: 25%;
+	background: var(--album-cover-inner);
+	border-top-left-radius: 5em;
+}
+
+
 
 /* ---------------
 loading animatie via bron: https://cssloaders.github.io/

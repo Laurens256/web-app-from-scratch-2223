@@ -70,7 +70,8 @@ const generateAlbum = (user: User['member']) => {
 	}
 
 	if (user.bio.html) {
-		albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html)}"`;
+		// albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html)}"`;
+		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
 	} else {
 		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
 	}

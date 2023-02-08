@@ -50,91 +50,13 @@ container
 .container {
 	position: relative;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 30%;
 }
 
-/* ---------------
-controls
---------------- */
-.container > section {
-	position: absolute;
-	width: 110%;
-	height: 100%;
-	display: flex;
-	justify-content: space-between;
-	pointer-events: none;
-	z-index: 2;
 
-	/* nog nakijken wat duidelijker is */
-	transform: rotate(180deg);
-}
-
-.container > section button {
-	background: none;
-	width: 15%;
-	position: relative;
-	opacity: 1;
-	transition: all 0.3s ease-in-out;
-	pointer-events: all;
-	visibility: visible;
-}
-
-/* pijltjes via bron: https://codepen.io/reacraf/pen/ZPqRKV */
-.container > section button:first-of-type:before {
-	border-left: 3px;
-	border-bottom: 3px;
-	left: 20%;
-}
-
-.container > section button:last-of-type:before {
-	border-right: 3px;
-	border-top: 3px;
-	right: 20%;
-}
-
-.container > section button:first-of-type:before,
-.container > section button:last-of-type:before {
-	content: '';
-	position: absolute;
-	top: 45%;
-	height: 10%;
-	aspect-ratio: 1/1;
-	transform: rotate(45deg);
-	display: block;
-	border-style: solid;
-	border-color: var(--text-color);
-	transition: border-color 0.2s ease-in-out;
-}
-
-.container:not(.flipped) section.controls button:first-of-type,
-.container.flipped section.controls button:last-of-type {
-	opacity: 0;
-	pointer-events: none;
-	visibility: hidden;
-}
-
-/* zorgt ervoor dat kleur niet terug springt naar wit */
-.container > section button:focus::before {
-	border-color: var(--album-main);
-}
-
-.container > section button:focus-visible::before,
-.container > section button:hover::before {
-	transition: all 0.2s ease-in-out;
-	border-color: var(--album-main);
-	animation: hoverbounce 0.3s ease-in-out alternate infinite;
-}
-
-@keyframes hoverbounce {
-	from {
-		transform: translateX(0) rotate(45deg);
-	}
-	to {
-		transform: translateX(4px) rotate(45deg);
-	}
-}
 
 /* ---------------
 algemeen album
@@ -328,6 +250,55 @@ loading animatie via bron: https://cssloaders.github.io/
 		opacity: 0;
 	}
 }
+
+
+
+/* ---------------
+controls
+--------------- */
+.container button.togglepage {
+	max-width: 100%;
+	width: 15rem;
+	height: 3em;
+	margin-top: 1em;
+	background-color: var(--album-main);
+	color: var(--text-color);
+	font-size: 1.2em;
+	border: solid 2px var(--text-color);
+	border-radius: 0.5em;
+	transition: all .25s ease-in-out;
+}
+
+.container.flipped button.togglepage,
+.container:not(.flipped) button.togglepage:focus-visible,
+.container:not(.flipped) button.togglepage:hover {
+	background-color: var(--text-color);
+	color: var(--album-main);
+	border-color: var(--album-main);
+}
+
+.container button.togglepage,
+.container.flipped button.togglepage:focus-visible,
+.container.flipped button.togglepage:hover {
+	background-color: var(--album-main);
+	color: var(--text-color);
+	border-color: var(--text-color);
+}
+
+.container button.togglepage::before,
+.container button.togglepage::after {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.container button.togglepage::before {
+	content: 'open';
+}
+
+.container.flipped button.togglepage::before {
+	content: 'close';
+}
+
 
 /* ---------------
 media queries

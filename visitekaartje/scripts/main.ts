@@ -3,7 +3,7 @@ import { defaultUserData, defaultQuote } from './defaultData';
 import * as sanitizeHtml from 'sanitize-html';
 
 const container = document.querySelector('.container')!;
-const pageControls = document.querySelectorAll('.controls button')!;
+const pageControls: HTMLButtonElement = document.querySelector('.togglepage')!;
 
 const id = new URLSearchParams(window.location.search).get('id');
 const slug = new URLSearchParams(window.location.search).get('slug');
@@ -84,20 +84,8 @@ const generateAlbum = (user: User['member']) => {
 	container.classList.remove('loading');
 };
 
-const changePage = (e: Event) => {
-	const target = e.currentTarget as HTMLElement;
-	// check of pagina verder naar voren of naar achter kan, anders return
-	if (
-		(target.classList.contains('next-page-btn') &&
-			container.classList.contains('flipped')) ||
-		(target.classList.contains('prev-page-btn') &&
-			!container.classList.contains('flipped'))
-	) {
-		return;
-	}
+pageControls.addEventListener('click', () => {
 	container.classList.toggle('flipped');
-};
-
-pageControls.forEach((button) => button.addEventListener('click', changePage));
+});
 
 fetchUser();

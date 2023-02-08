@@ -5,16 +5,17 @@ import * as sanitizeHtml from 'sanitize-html';
 const container = document.querySelector('.container')!;
 const pageControls = document.querySelectorAll('.controls button')!;
 
-const defaultUserId = 'cldep8zqq3wbh0av00ktcml8w';
+const defaultSlug = 'garfield-enjoyer';
 const defaultSquadId = 'cldcspecf0z0o0bw59l8bwqim';
 
 // fetch user profiel
 const fetchUser = async () => {
 	container.classList.add('loading');
-	const id = new URLSearchParams(window.location.search).get('id') || defaultUserId;
+	const slug = window.location.pathname.split('/')[1] || defaultSlug;
 	let user!: User;
 	try {
-		user = await (await fetch(`https://whois.fdnd.nl/api/v1/member?id=${id}`)).json();
+		user = await (await fetch(`https://whois.fdnd.nl/api/v1/member/${slug}`)).json();
+		if (!user.member) throw new Error();
 	} catch {
 		user = defaultUserData;
 		console.log('Fout bij het ophalen van data, standaard gebruiker wordt geladen');
@@ -37,11 +38,13 @@ const loadCover = (user: User['member']) => {
 	albumCover.addEventListener('error', () => {
 		generateAlbum(user);
 		container.classList.add('imgerror');
+		console.log('err');
 	});
 	albumCover.addEventListener('load', () => {
 		generateAlbum(user);
+		console.log('load');
 	});
-	albumCover.src = user.avatar || '/img/default-cover.jpg';
+	albumCover.src = user.avatar;
 };
 
 // laadt data in visitekaartje
@@ -66,8 +69,6 @@ const generateAlbum = (user: User['member']) => {
 				h1: 'h2'
 			}
 		})}"</blockquote>`;
-	} else {
-		albumCoverBack.innerHTML = `<blockquote>${defaultQuote}</blockquote>`;
 	}
 	container.classList.remove('loading');
 };

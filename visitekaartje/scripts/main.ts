@@ -79,6 +79,15 @@ const generateAlbum = (user: User['member']) => {
 	} else {
 		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
 	}
+
+	if (albumCoverBackQuote.textContent) {
+		if (albumCoverBackQuote.textContent.length < 100) {
+			albumCoverBackQuote.classList.add('big');
+		} else if (albumCoverBackQuote.textContent.length < 200) {
+			albumCoverBackQuote.classList.add('medium');
+		}
+	}
+
 	container.classList.remove('loading');
 };
 

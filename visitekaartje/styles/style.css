@@ -56,8 +56,6 @@ container
 	width: 30%;
 }
 
-
-
 /* ---------------
 algemeen album
 --------------- */
@@ -170,12 +168,10 @@ achterkant 1e pagina
 .album section:first-of-type article:last-of-type {
 	transform: rotateY(180deg);
 	background-color: var(--album-cover-inner);
-	padding: 1.5em 1em;
+	padding: 1em;
 	color: var(--album-text-color);
 	display: flex;
 	align-items: end;
-	overflow: hidden;
-	font-size: 1.2vw;
 	font-weight: 900;
 	overflow: hidden;
 }
@@ -185,6 +181,13 @@ achterkant 1e pagina
 	border-left: 6px solid var(--album-main);
 	padding-left: 0.8em;
 	quotes: '\201C''\201D';
+	font-size: 1vw;
+}
+.album section:first-of-type article:last-of-type blockquote.medium {
+	font-size: 1.2vw;
+}
+.album section:first-of-type article:last-of-type blockquote.big {
+	font-size: 1.2vw;
 }
 
 /* ---------------
@@ -207,8 +210,6 @@ achterkant 1e pagina
 	background: var(--album-cover-inner);
 	border-top-left-radius: 5em;
 }
-
-
 
 /* ---------------
 loading animatie via bron: https://cssloaders.github.io/
@@ -251,8 +252,6 @@ loading animatie via bron: https://cssloaders.github.io/
 	}
 }
 
-
-
 /* ---------------
 controls
 --------------- */
@@ -266,7 +265,7 @@ controls
 	font-size: 1.2em;
 	border: solid 2px var(--text-color);
 	border-radius: 0.5em;
-	transition: all .25s ease-in-out;
+	transition: all 0.25s ease-in-out;
 }
 
 .container.flipped button.togglepage,
@@ -303,7 +302,6 @@ controls
 	content: 'close';
 }
 
-
 /* ---------------
 media queries
 --------------- */
@@ -316,8 +314,15 @@ media queries
 		font-size: 2.3vmin;
 	}
 
-	.album section:first-of-type article:last-of-type {
-		font-size: 2vmin;
+	/* quote */
+	.album section:first-of-type article:last-of-type blockquote {
+		font-size: 1.5vw;
+	}
+	.album section:first-of-type article:last-of-type blockquote.medium {
+		font-size: 1.75vw;
+	}
+	.album section:first-of-type article:last-of-type blockquote.big {
+		font-size: 2vw;
 	}
 }
 
@@ -347,8 +352,15 @@ media queries
 		font-size: 5.3vmin;
 	}
 
-	.album section:first-of-type article:last-of-type {
-		font-size: 4vmin;
+	/* quote */
+	.album section:first-of-type article:last-of-type blockquote {
+		font-size: 3vmin;
+	}
+	.album section:first-of-type article:last-of-type blockquote.medium {
+		font-size: 3.7vmin;
+	}
+	.album section:first-of-type article:last-of-type blockquote.big {
+		font-size: 4.2vmin;
 	}
 
 	/* ---------------

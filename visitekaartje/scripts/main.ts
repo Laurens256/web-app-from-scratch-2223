@@ -19,6 +19,7 @@ const fetchUser = async () => {
 		user = defaultUserData;
 		console.log('Fout bij het ophalen van data, standaard gebruiker wordt geladen');
 	}
+	loadCover(user.member);
 	generateAlbum(user.member);
 };
 
@@ -32,35 +33,43 @@ const albumCoverBack: Element = document.querySelector(
 	'.album section:first-of-type article:last-of-type'
 )!;
 
-// laadt data in visitekaartje
-const generateAlbum = (user: User['member']) => {
+const loadCover = (user: User['member']) => {
+	albumCover.addEventListener('error', () => {
+		generateAlbum(user);
+		container.classList.add('imgerror');
+	});
 	albumCover.addEventListener('load', () => {
-		container.classList.remove('loading');
-		if (user.name) {
-			albumCover.alt = `avatar van ${user.name}`;
-			albumTitle.textContent = user.name;
-		} else {
-			albumCover.alt = 'albumhoes';
-		}
-
-		if (user.nickname) {
-			albumTitle.textContent = user.nickname;
-		}
-
-		if (user.bio.html) {
-			albumCoverBack.innerHTML = `<blockquote>"${sanitizeHtml(user.bio.html, {
-				// prettier-ignore
-				allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
-				enforceHtmlBoundary: true,
-				transformTags: {
-					'h1': 'h2',
-				  }
-			})}"</blockquote>`;
-		} else {
-			albumCoverBack.innerHTML = `<blockquote>${defaultQuote}</blockquote>`;
-		}
+		generateAlbum(user);
 	});
 	albumCover.src = user.avatar || '/img/default-cover.jpg';
+};
+
+// laadt data in visitekaartje
+const generateAlbum = (user: User['member']) => {
+	if (user.name) {
+		albumCover.alt = `avatar van ${user.name}`;
+		albumTitle.textContent = user.name;
+	} else {
+		albumCover.alt = 'albumhoes';
+	}
+
+	if (user.nickname) {
+		albumTitle.textContent = user.nickname;
+	}
+
+	if (user.bio.html) {
+		albumCoverBack.innerHTML = `<blockquote>"${sanitizeHtml(user.bio.html, {
+			// prettier-ignore
+			allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
+			enforceHtmlBoundary: true,
+			transformTags: {
+				h1: 'h2'
+			}
+		})}"</blockquote>`;
+	} else {
+		albumCoverBack.innerHTML = `<blockquote>${defaultQuote}</blockquote>`;
+	}
+	container.classList.remove('loading');
 };
 
 const changePage = (e: Event) => {

@@ -172,7 +172,15 @@ voorkant 1e pagina
 	color: white;
 }
 
-.container:not(.loading) .album section:first-of-type article:first-of-type::after {
+.container.imgerror .album section:first-of-type article:first-of-type {
+	background-color: none;
+	background: linear-gradient(to bottom right, rgb(255, 0, 226) 0%, rgb(90, 0, 189) 100%);
+}
+
+.container:not(.loading):not(.imgerror)
+	.album
+	section:first-of-type
+	article:first-of-type::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -190,12 +198,18 @@ voorkant 1e pagina
 	filter: brightness(90%);
 }
 
+.container.imgerror .album section:first-of-type article:first-of-type img {
+	display: none;
+}
+
 .album section:first-of-type article:first-of-type div {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	border-top-right-radius: 0.5em;
 	background: rgba(0, 0, 0, 0.2);
+	max-width: 100%;
+	overflow: hidden;
 }
 
 .album section:first-of-type article:first-of-type div h1 {
@@ -203,13 +217,15 @@ voorkant 1e pagina
 	font-family: 'Readex', Arial, Helvetica, sans-serif;
 	font-size: 2vw;
 	letter-spacing: 0.15em;
+	white-space: nowrap;
 }
 
 .album section:first-of-type article:first-of-type div h1:not(:empty) {
 	padding: 0.25em 0.75em 0.25em 0.6em;
 }
 
-.container.loading .album section:first-of-type article:first-of-type svg {
+.container.loading .album section:first-of-type article:first-of-type svg,
+.container.imgerror .album section:first-of-type article:first-of-type svg {
 	display: none;
 }
 

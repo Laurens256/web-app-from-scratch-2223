@@ -27,6 +27,8 @@ ol {
 	--album-text-color: #1a1a1a;
 	--text-color: #fff;
 
+	--album-border: solid 10px var(--album-cover);
+
 	--album-cover: #0093c9;
 	--album-cover-inner: white;
 	--album-main: pink;
@@ -266,7 +268,7 @@ achterkant 1e pagina
 2e pagina
 --------------- */
 .album section:last-of-type article:first-of-type {
-	border-left: solid 10px var(--album-cover);
+	border-left: var(--album-border);
 	background-color: var(--album-main);
 }
 
@@ -356,6 +358,14 @@ media queries
 
 	.album section:first-of-type article:last-of-type {
 		font-size: 4vmin;
+	}
+
+	/* ---------------
+	2e pagina
+	--------------- */
+	.album section:last-of-type article:first-of-type {
+		border-top: var(--album-border);
+		border-left: none;
 	}
 }
 

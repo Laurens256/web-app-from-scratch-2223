@@ -1,5 +1,5 @@
 import { User } from 'assets/types';
-import { defaultUserData } from './defaultData';
+import { defaultUserData, defaultQuote } from './defaultData';
 import * as sanitizeHtml from 'sanitize-html';
 
 const container = document.querySelector('.container')!;
@@ -26,11 +26,10 @@ const fetchUser = async () => {
 		if (!user.member) throw new Error();
 	} catch {
 		user = defaultUserData;
-		if(id) {
-			window.history.replaceState('id', 'id', `?id=${defaultId}`);
-		} else {
-			window.history.replaceState('slug', 'slug', `?slug=${defaultSlug}`);
-		}
+		id
+			? window.history.replaceState('id', 'id', `?id=${defaultId}`)
+			: window.history.replaceState('slug', 'slug', `?slug=${defaultSlug}`);
+
 		console.log('Fout bij het ophalen van data, standaard gebruiker wordt geladen');
 	}
 	loadCover(user.member);
@@ -42,8 +41,8 @@ const albumCover: HTMLImageElement = document.querySelector(
 const albumTitle: HTMLHeadingElement = document.querySelector(
 	'.album section:first-of-type article:first-of-type h1'
 )!;
-const albumCoverBack: Element = document.querySelector(
-	'.album section:first-of-type article:last-of-type'
+const albumCoverBackQuote: Element = document.querySelector(
+	'.album section:first-of-type article:last-of-type blockquote'
 )!;
 
 const loadCover = (user: User['member']) => {
@@ -71,14 +70,16 @@ const generateAlbum = (user: User['member']) => {
 	}
 
 	if (user.bio.html) {
-		albumCoverBack.innerHTML = `<blockquote>"${sanitizeHtml(user.bio.html, {
+		albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html, {
 			// prettier-ignore
 			allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
 			enforceHtmlBoundary: true,
 			transformTags: {
 				h1: 'h2'
 			}
-		})}"</blockquote>`;
+		})}"`;
+	} else {
+		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
 	}
 	container.classList.remove('loading');
 };

@@ -24,10 +24,12 @@ ol {
 
 :root {
 	--bg-color: #1a1a1a;
+	--album-text-color: #1a1a1a;
 	--text-color: #fff;
 
 	--album-cover: #0093c9;
-	--album-cover-inner: blue;
+	--album-cover-inner: white;
+	--album-main: pink;
 }
 
 body {
@@ -169,7 +171,7 @@ voorkant 1e pagina
 
 .album section:first-of-type article:first-of-type {
 	background-color: var(--album-cover);
-	color: white;
+	color: var(--text-color);
 }
 
 .container.imgerror .album section:first-of-type article:first-of-type {
@@ -243,7 +245,7 @@ achterkant 1e pagina
 	transform: rotateY(180deg);
 	background-color: var(--album-cover-inner);
 	padding: 1.5em 1em;
-	color: white;
+	color: var(--album-text-color);
 	display: flex;
 	align-items: end;
 	overflow: hidden;
@@ -264,7 +266,8 @@ achterkant 1e pagina
 2e pagina
 --------------- */
 .album section:last-of-type article:first-of-type {
-	background-color: red;
+	border-left: solid 10px var(--album-cover);
+	background-color: var(--album-main);
 }
 
 /* ---------------

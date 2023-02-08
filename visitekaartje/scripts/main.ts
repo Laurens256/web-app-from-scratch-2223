@@ -5,24 +5,32 @@ import * as sanitizeHtml from 'sanitize-html';
 const container = document.querySelector('.container')!;
 const pageControls = document.querySelectorAll('.controls button')!;
 
+const id = new URLSearchParams(window.location.search).get('id');
 const slug = new URLSearchParams(window.location.search).get('slug');
 const defaultSlug = 'garfield-enjoyer';
+const defaultId = 'cldep8zqq3wbh0av00ktcml8w';
 
-if (!slug) {
-	window.history.pushState('slug', 'slug', `?slug=${defaultSlug}`);
+if (!slug && !id) {
+	window.history.replaceState('slug', 'slug', `?slug=${defaultSlug}`);
 }
 
 // fetch user profiel
 const fetchUser = async () => {
 	container.classList.add('loading');
 	let user!: User;
+	let url = `https://whois.fdnd.nl/api/v1/member/${slug || defaultSlug}`;
+	if (id) url = `https://whois.fdnd.nl/api/v1/member?id=${id}`;
+
 	try {
-		user = await (
-			await fetch(`https://whois.fdnd.nl/api/v1/member/${slug || defaultSlug}`)
-		).json();
+		user = await (await fetch(url)).json();
 		if (!user.member) throw new Error();
 	} catch {
 		user = defaultUserData;
+		if(id) {
+			window.history.replaceState('id', 'id', `?id=${defaultId}`);
+		} else {
+			window.history.replaceState('slug', 'slug', `?slug=${defaultSlug}`);
+		}
 		console.log('Fout bij het ophalen van data, standaard gebruiker wordt geladen');
 	}
 	loadCover(user.member);

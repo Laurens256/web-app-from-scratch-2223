@@ -70,11 +70,7 @@ const generateAlbum = (user: User['member']) => {
 	}
 
 	if (user.bio.html) {
-		albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html, {
-			// prettier-ignore
-			allowedTags: ['p', 'b', 'i', 'em', 'strong', 'br', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
-			enforceHtmlBoundary: true,
-		})}"`;
+		albumCoverBackQuote.innerHTML = `"${sanitizeHtml(user.bio.html)}"`;
 	} else {
 		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
 	}

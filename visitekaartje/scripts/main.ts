@@ -9,19 +9,19 @@ const defaultId = 'cldep8zqq3wbh0av00ktcml8w';
 
 // DOM elements
 const container = document.querySelector('.container')!;
-const pageControls: HTMLButtonElement = document.querySelector('.togglepage')!;
+const pageControls: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.togglepage')!;
 const album: HTMLElement = document.querySelector('.album')!;
 const flippablePage: HTMLElement = document.querySelector(
-	'.album section:first-of-type'
+	'.album > button'
 )!;
 const albumCover: HTMLImageElement = document.querySelector(
-	'.album section:first-of-type article:first-of-type img'
+	'.album > button article:first-of-type img'
 )!;
 const albumTitle: HTMLHeadingElement = document.querySelector(
-	'.album section:first-of-type article:first-of-type h1'
+	'.album > button article:first-of-type h1'
 )!;
 const albumCoverBackQuote: Element = document.querySelector(
-	'.album section:first-of-type article:last-of-type blockquote'
+	'.album > button article:last-of-type blockquote'
 )!;
 const record: HTMLDivElement = document.querySelector('.record')!;
 const recordLabel: HTMLHeadingElement = document.querySelector('.record .label h3')!;
@@ -138,7 +138,9 @@ const manageIdleAnimation = () => {
 	}, 3000);
 };
 
-pageControls.addEventListener('click', togglePage);
+pageControls.forEach((pageControl) => pageControl.addEventListener('click', togglePage));
+// pageControls.forEach((=> ).addEventListener('click', togglePage);
+// pageControls.forEach((=> ).addEventListener('click', togglePage);
 recordSpinToggle.addEventListener('click', toggleRecordSpin);
 
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

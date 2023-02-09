@@ -86,24 +86,12 @@ algemeen album
 	backface-visibility: hidden;
 }
 
-.container:not(.flipped) .album section:first-of-type {
-	animation: albumIdle 3s infinite;
-}
-
 .container.flipped .album section:first-of-type {
 	transform: rotateY(-180deg);
 }
 
-@keyframes albumIdle {
-	0% {
-		transform: rotateY(0deg);
-	}
-	50% {
-		transform: rotateY(-15deg);
-	}
-	100% {
-		transform: rotateY(0deg);
-	}
+.container .album section:first-of-type.animate {
+	transform: rotateY(-15deg);
 }
 
 /* ---------------

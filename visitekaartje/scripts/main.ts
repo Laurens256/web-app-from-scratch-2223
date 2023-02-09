@@ -36,6 +36,9 @@ const fetchUser = async () => {
 	loadCover(user.member);
 };
 
+const flippablePage: HTMLElement = document.querySelector(
+	'.album section:first-of-type'
+)!;
 const albumCover: HTMLImageElement = document.querySelector(
 	'.album section:first-of-type article:first-of-type img'
 )!;
@@ -101,9 +104,18 @@ const toggleRecordSpin = () => {
 	record.classList.toggle('spin');
 };
 
+let idleAnimation: any;
 pageControls.addEventListener('click', () => {
 	container.classList.toggle('flipped');
 	recordSpinToggle.disabled = !recordSpinToggle.disabled;
+	flippablePage.classList.remove('animate');
+	if (!container.classList.contains('flipped')) {
+		idleAnimation = setInterval(() => {
+			flippablePage.classList.toggle('animate');
+		}, 1500);
+	} else {
+		clearInterval(idleAnimation);
+	}
 });
 
 recordSpinToggle.addEventListener('click', toggleRecordSpin);

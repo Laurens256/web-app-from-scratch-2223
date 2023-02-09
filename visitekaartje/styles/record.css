@@ -13,7 +13,11 @@
 	border-radius: 50%;
 	box-shadow: inset #030303 0 0 0 1px, inset rgba(255, 255, 255, 0.3) 0 0 0 2px;
 	transform: rotate(0) translateZ(0);
-	/* animation: spin 17s linear infinite; */
+	animation: spin 17s linear infinite paused;
+}
+
+.record.spin {
+	animation-play-state: running;
 }
 
 .record::before,
@@ -104,14 +108,27 @@
 	white-space: nowrap;
 }
 
+.record .label::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 10%;
+	height: 10%;
+	background: var(--album-main);
+	border-radius: 50%;
+
+}
+
 @keyframes spin {
 	to {
 		transform: rotate(360deg) translateZ(0);
 	}
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
 	.record {
 		animation-play-state: paused;
 	}
-}
+} */

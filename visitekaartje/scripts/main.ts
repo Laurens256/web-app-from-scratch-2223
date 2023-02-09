@@ -45,6 +45,10 @@ const albumTitle: HTMLHeadingElement = document.querySelector(
 const albumCoverBackQuote: Element = document.querySelector(
 	'.album section:first-of-type article:last-of-type blockquote'
 )!;
+const record: HTMLDivElement = document.querySelector('.record')!;
+const recordLabel: HTMLHeadingElement = document.querySelector('.record .label h3')!;
+const recordSpinToggle: HTMLButtonElement =
+	document.querySelector('.recordholder button')!;
 
 const loadCover = (user: User['member']) => {
 	albumCover.addEventListener('error', () => {
@@ -62,12 +66,14 @@ const generateAlbum = (user: User['member']) => {
 	if (user.name) {
 		albumCover.alt = `avatar van ${user.name}`;
 		albumTitle.textContent = user.name;
+		recordLabel.textContent = user.name;
 	} else {
 		albumCover.alt = 'albumhoes';
 	}
 
 	if (user.nickname) {
 		albumTitle.textContent = user.nickname;
+		recordLabel.textContent = user.nickname;
 	}
 
 	if (user.bio.html) {
@@ -91,8 +97,19 @@ const generateAlbum = (user: User['member']) => {
 	container.classList.remove('loading');
 };
 
+const toggleRecordSpin = () => {
+	record.classList.toggle('spin');
+};
+
 pageControls.addEventListener('click', () => {
 	container.classList.toggle('flipped');
+	recordSpinToggle.disabled = !recordSpinToggle.disabled;
 });
+
+recordSpinToggle.addEventListener('click', toggleRecordSpin);
+
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+	toggleRecordSpin();
+}
 
 fetchUser();

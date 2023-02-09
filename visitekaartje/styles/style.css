@@ -59,12 +59,15 @@ container
 /* ---------------
 algemeen album
 --------------- */
+.container.flipped .album {
+	/* perspective: 1000px; */
+}
 .album {
 	position: relative;
 	background-color: transparent;
 	width: 90%;
 	aspect-ratio: 1/1;
-	perspective: 1000px;
+	/* perspective: 1000px; */
 }
 
 .album section {
@@ -83,8 +86,24 @@ algemeen album
 	backface-visibility: hidden;
 }
 
+.container:not(.flipped) .album section:first-of-type {
+	animation: albumIdle 3s infinite;
+}
+
 .container.flipped .album section:first-of-type {
 	transform: rotateY(-180deg);
+}
+
+@keyframes albumIdle {
+	0% {
+		transform: rotateY(0deg);
+	}
+	50% {
+		transform: rotateY(-15deg);
+	}
+	100% {
+		transform: rotateY(0deg);
+	}
 }
 
 /* ---------------
@@ -209,11 +228,65 @@ achterkant 1e pagina
 	height: 25%;
 	background: var(--album-cover-inner);
 	border-top-left-radius: 5em;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 1em;
+}
+
+/* play/pause button styling */
+.album section:last-of-type article:first-of-type .recordholder button {
+	background: none;
+	border: none;
+	color: var(--album-text-color);
+	width: 4em;
+	height: 4em;
+	border-radius: 50%;
+	background: var(--album-main);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid 2px #fff;
+	transition: all 0.2s ease-in-out;
+}
+
+.album section:last-of-type article:first-of-type .recordholder button:focus-visible svg,
+.album section:last-of-type article:first-of-type .recordholder button:hover svg {
+	transform: scale(1.1);
+	fill: var(--album-main);
+}
+
+.album section:last-of-type article:first-of-type .recordholder button:focus-visible {
+	outline-offset: 2px;
+}
+
+.album section:last-of-type article:first-of-type .recordholder button:focus-visible,
+.album section:last-of-type article:first-of-type .recordholder button:hover {
+	border-color: var(--album-main);
+	background-color: #fff;
+}
+
+.album section:last-of-type article:first-of-type .recordholder button svg {
+	width: 40%;
+	height: 40%;
+	transition: all 0.2s ease-in-out;
+	fill: #fff;
+}
+
+.record:not(.spin) + .recordholder button svg:first-of-type,
+.record.spin + .recordholder button svg:last-of-type {
+	display: none;
 }
 
 /* ---------------
 loading animatie via bron: https://cssloaders.github.io/
 --------------- */
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.album span.loader {
+		display: none;
+	}
+}
 .container:not(.loading) .album span.loader {
 	display: none;
 }

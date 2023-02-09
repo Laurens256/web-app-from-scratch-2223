@@ -390,6 +390,10 @@ media queries
 		transform: rotateX(180deg);
 	}
 
+	.container .album > button.animate {
+		transform: rotateX(-15deg);
+	}
+
 	.album > button article:last-of-type {
 		transform: rotateY(180deg) rotateZ(180deg);
 	}

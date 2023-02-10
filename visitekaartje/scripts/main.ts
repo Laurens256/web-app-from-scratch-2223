@@ -105,7 +105,7 @@ const generateAlbum = (user: User['member']) => {
 			albumCoverBackQuote.classList.add('medium');
 		}
 	}
-
+	manageIdleAnimation();
 	container.classList.remove('loading');
 };
 
@@ -156,6 +156,5 @@ recordSpinToggle.addEventListener('click', toggleRecordSpin);
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 	toggleRecordSpin();
 }
-manageIdleAnimation();
 
 fetchUser();

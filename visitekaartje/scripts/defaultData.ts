@@ -13,7 +13,7 @@ export const defaultUserData = {
 			{ cohort: '2023', name: 'Minor Web', slug: 'minor-web-2023', website: null }
 		],
 		surname: 'Duin',
-		website: ''
+		website: 'https://web-app-from-scratch-2223.vercel.app/'
 	}
 };
 

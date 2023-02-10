@@ -185,7 +185,7 @@ achterkant 1e pagina
 	font-size: 1.2vw;
 }
 .album > button article:last-of-type blockquote.big {
-	font-size: 1.2vw;
+	font-size: 1.6vw;
 }
 
 /* ---------------
@@ -266,6 +266,7 @@ achterkant 1e pagina
 	height: 40%;
 	transition: all 0.2s ease-in-out;
 	fill: #fff;
+	pointer-events: none;
 }
 
 .record:not(.spin) + .recordholder button svg:first-of-type,

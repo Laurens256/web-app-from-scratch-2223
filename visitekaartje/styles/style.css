@@ -221,7 +221,7 @@ achterkant 1e pagina
 	font-size: 1.1vw;
 	text-decoration: none;
 	color: var(--bg-color);
-	width: 70%;
+	/* width: 90%; */
 	line-height: 1em;
 	/* background: red; */
 }

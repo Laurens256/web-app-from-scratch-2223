@@ -9,7 +9,8 @@ const defaultId = 'cldep8zqq3wbh0av00ktcml8w';
 
 // DOM elements
 const container = document.querySelector('.container')!;
-const pageControls: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.togglepage')!;
+const pageControls: NodeListOf<HTMLButtonElement> =
+	document.querySelectorAll('.togglepage')!;
 const albumCover: HTMLImageElement = document.querySelector(
 	'.album > button article:first-of-type img'
 )!;
@@ -50,7 +51,6 @@ const fetchUser = async () => {
 	loadCover(user.member);
 };
 
-
 const loadCover = (user: User['member']) => {
 	albumCover.addEventListener('error', () => {
 		generateAlbum(user);
@@ -89,8 +89,9 @@ const generateAlbum = (user: User['member']) => {
 
 	if (user.website) {
 		websiteLink.href = user.website;
-		user.website = user.website.split('://')[1] || user.website.split('://')[0] || user.website;
-		if(!user.website.startsWith('www.')) user.website = `www.${user.website}`;
+		user.website =
+			user.website.split('://')[1] || user.website.split('://')[0] || user.website;
+		if (!user.website.startsWith('www.')) user.website = `www.${user.website}`;
 		websiteLink.innerHTML = `Business inquiries:<br> <span>${user.website}</span>`;
 	}
 
@@ -111,7 +112,7 @@ const toggleRecordSpin = () => {
 
 const togglePage = () => {
 	container.classList.toggle('flipped');
-	recordSpinToggle.disabled = !recordSpinToggle.disabled;
+	// recordSpinToggle.disabled = !recordSpinToggle.disabled;
 	manageIdleAnimation();
 };
 
@@ -124,7 +125,6 @@ const manageIdleAnimation = () => {
 	clearInterval(animationInterval);
 	clearTimeout(animationTimeout);
 
-
 	animationTimeout = setTimeout(() => {
 		timeout = 3000;
 		if (!container.classList.contains('flipped')) {
@@ -136,7 +136,9 @@ const manageIdleAnimation = () => {
 };
 
 pageControls.forEach((pageControl) => pageControl.addEventListener('click', togglePage));
-recordSpinToggle.addEventListener('click', toggleRecordSpin);
+if (recordSpinToggle) {
+	recordSpinToggle.addEventListener('click', toggleRecordSpin);
+}
 
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 	toggleRecordSpin();

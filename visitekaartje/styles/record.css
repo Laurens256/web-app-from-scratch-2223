@@ -12,8 +12,8 @@
 	);
 	border-radius: 50%;
 	box-shadow: inset #030303 0 0 0 1px, inset rgba(255, 255, 255, 0.3) 0 0 0 2px;
-	transform: rotate(0) translateZ(0);
-	animation: spin 17s linear infinite paused;
+	/* transform: rotate(0) translateZ(0); */
+	animation: spin 15s linear infinite;
 	transition: all 1s ease-in-out;
 }
 

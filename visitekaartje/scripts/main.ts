@@ -8,7 +8,7 @@ const defaultSlug = 'garfield-enjoyer';
 const defaultId = 'cldep8zqq3wbh0av00ktcml8w';
 
 // DOM elements
-const container = document.querySelector('.container')!;
+const album = document.querySelector('.album')!;
 const pageControls: NodeListOf<HTMLButtonElement> =
 	document.querySelectorAll('.togglepage')!;
 const albumCover: HTMLImageElement = document.querySelector(
@@ -32,7 +32,7 @@ if (!slug && !id) {
 
 // fetch user profiel
 const fetchUser = async () => {
-	container.classList.add('loading');
+	album.classList.add('loading');
 	let user!: User;
 	let url = `https://whois.fdnd.nl/api/v1/member/${slug || defaultSlug}`;
 	if (id) url = `https://whois.fdnd.nl/api/v1/member?id=${id}`;
@@ -54,7 +54,7 @@ const fetchUser = async () => {
 const loadCover = (user: User['member']) => {
 	albumCover.addEventListener('error', () => {
 		generateAlbum(user);
-		container.classList.add('imgerror');
+		album.classList.add('imgerror');
 	});
 	albumCover.addEventListener('load', () => {
 		generateAlbum(user);
@@ -103,7 +103,7 @@ const generateAlbum = (user: User['member']) => {
 		}
 	}
 	manageIdleAnimation();
-	container.classList.remove('loading');
+	album.classList.remove('loading');
 };
 
 const toggleRecordSpin = () => {
@@ -111,7 +111,7 @@ const toggleRecordSpin = () => {
 };
 
 const togglePage = () => {
-	container.classList.toggle('flipped');
+	album.classList.toggle('flipped');
 	// recordSpinToggle.disabled = !recordSpinToggle.disabled;
 	manageIdleAnimation();
 };
@@ -121,15 +121,15 @@ let animationInterval!: ReturnType<typeof setInterval>;
 let animationTimeout!: ReturnType<typeof setTimeout>;
 let timeout = 0;
 const manageIdleAnimation = () => {
-	container.classList.remove('idleanimate');
+	album.classList.remove('idleanimate');
 	clearInterval(animationInterval);
 	clearTimeout(animationTimeout);
 
 	animationTimeout = setTimeout(() => {
 		timeout = 3000;
-		if (!container.classList.contains('flipped')) {
+		if (!album.classList.contains('flipped')) {
 			animationInterval = setInterval(() => {
-				container.classList.toggle('idleanimate');
+				album.classList.toggle('idleanimate');
 			}, timeout);
 		}
 	}, timeout);

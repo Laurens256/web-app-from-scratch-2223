@@ -17,7 +17,7 @@
 	transition: all 1s ease-in-out;
 }
 
-.container:not(.flipped) .record {
+.album:not(.flipped) .record {
 	animation: none;
 }
 
@@ -25,7 +25,7 @@
 	animation-play-state: running;
 }
 
-.container:not(.flipped).idleanimate .record {
+.album:not(.flipped).idleanimate .record {
 	transform: translateX(15%);
 }
 
@@ -111,18 +111,11 @@
 	top: 16%;
 	left: 50%;
 	transform: translateX(-50%);
-	font-size: 1.2em;
-	font-size: 1vw;
+	font-size: clamp(.7em , 1.1vw, 1.1em);
 	width: 75%;
 	overflow: hidden;
 	text-overflow: '-';
 	white-space: nowrap;
-}
-
-@media screen and (orientation: portrait) {
-	.record .label h3 {
-		font-size: 2.3vw;
-	}
 }
 
 .record .label img {

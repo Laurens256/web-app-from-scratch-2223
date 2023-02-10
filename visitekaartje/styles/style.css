@@ -50,24 +50,14 @@ body {
 }
 
 /* ---------------
-container
---------------- */
-.container {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 30%;
-}
-
-/* ---------------
 algemeen album
 --------------- */
 .album {
 	position: relative;
 	background-color: transparent;
-	width: 90%;
+	width: 30%;
+	min-width: 300px;
+	max-width: 450px;
 	aspect-ratio: 1/1;
 	perspective: 1000px;
 }
@@ -92,15 +82,13 @@ algemeen album
 	left: 0;
 }
 
-.container.flipped .album > button.togglepage {
+.album.flipped > button.togglepage {
 	transform: rotateY(-180deg);
 }
 
-.container.idleanimate .album > button {
+.album.idleanimate > button {
 	transform: rotateY(-15deg);
 }
-
-
 
 /* ---------------
 voorkant 1e pagina
@@ -114,12 +102,12 @@ voorkant 1e pagina
 	color: var(--text-color);
 }
 
-.container.imgerror .album > button article:first-of-type {
+.album.imgerror > button article:first-of-type {
 	background-color: none;
 	background: linear-gradient(to bottom right, rgb(255, 0, 226) 0%, rgb(90, 0, 189) 100%);
 }
 
-.container:not(.loading):not(.imgerror) .album > button article:first-of-type::after {
+.album:not(.loading):not(.imgerror) > button article:first-of-type::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -137,7 +125,7 @@ voorkant 1e pagina
 	filter: brightness(90%);
 }
 
-.container.imgerror .album > button article:first-of-type img {
+.album.imgerror > button article:first-of-type img {
 	display: none;
 }
 
@@ -153,7 +141,7 @@ voorkant 1e pagina
 
 .album > button article:first-of-type div h1 {
 	text-transform: uppercase;
-	font-size: 2vw;
+	font-size: clamp(1.5em, 2vw, 2.5em);
 	letter-spacing: 0.15em;
 	white-space: nowrap;
 }
@@ -181,20 +169,20 @@ achterkant 1e pagina
 	border-left: 6px solid var(--album-main);
 	padding-left: 0.8em;
 	quotes: '\201C''\201D';
-	font-size: 1vw;
+	font-size: clamp(1.1em, 1.4vw, 2em);
 	text-align: left;
 }
 .album > button article:last-of-type blockquote.medium {
-	font-size: 1.2vw;
+	font-size: clamp(1.2em, 1.6vw, 2em);
 }
 .album > button article:last-of-type blockquote.big {
-	font-size: 1.6vw;
+	font-size: clamp(1.4em, 1.8vw, 2em);
 }
 
 /* ---------------
 2e pagina
 --------------- */
-.album section:last-of-type article:first-of-type {
+.album section article:first-of-type {
 	border-left: var(--album-border);
 	background-color: var(--album-main);
 	display: flex;
@@ -202,7 +190,7 @@ achterkant 1e pagina
 	align-items: center;
 }
 
-.album section:last-of-type article:first-of-type .recordholder {
+.album section article:first-of-type .recordholder {
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -217,64 +205,16 @@ achterkant 1e pagina
 	overflow: hidden;
 }
 
-.album section:last-of-type article:first-of-type .recordholder a {
-	font-size: 1.1vw;
+.album section article:first-of-type .recordholder a {
+	font-size: clamp(.85em, 1.4vw, 1.2em);
 	text-decoration: none;
 	color: var(--bg-color);
-	/* width: 90%; */
 	line-height: 1em;
-	/* background: red; */
 }
 
-.album section:last-of-type article:first-of-type .recordholder a span {
+.album section article:first-of-type .recordholder a span {
 	color: var(--album-main);
-	font-size: .8em;
-}
-
-/* play/pause button styling */
-.album section:last-of-type article:first-of-type .recordholder button {
-	background: none;
-	border: none;
-	color: var(--album-text-color);
-	width: 4em;
-	height: 4em;
-	border-radius: 50%;
-	background: var(--album-main);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: solid 2px #fff;
-	transition: all 0.2s ease-in-out;
-	flex-shrink: 0;
-}
-
-.album section:last-of-type article:first-of-type .recordholder button:focus-visible svg,
-.album section:last-of-type article:first-of-type .recordholder button:hover svg {
-	transform: scale(1.1);
-	fill: var(--album-main);
-}
-
-.album section:last-of-type article:first-of-type .recordholder button:focus-visible {
-	outline-offset: 2px;
-}
-
-.album section:last-of-type article:first-of-type .recordholder button:focus-visible,
-.album section:last-of-type article:first-of-type .recordholder button:hover {
-	border-color: var(--album-main);
-	background-color: #fff;
-}
-
-.album section:last-of-type article:first-of-type .recordholder button svg {
-	width: 40%;
-	height: 40%;
-	transition: all 0.2s ease-in-out;
-	fill: #fff;
-	pointer-events: none;
-}
-
-.record:not(.spin) + .recordholder button svg:first-of-type,
-.record.spin + .recordholder button svg:last-of-type {
-	display: none;
+	font-size: 75%;
 }
 
 /* ---------------
@@ -286,7 +226,7 @@ loading animatie via bron: https://cssloaders.github.io/
 		display: none;
 	}
 }
-.container:not(.loading) .album span.loader {
+.album:not(.loading) span.loader {
 	display: none;
 }
 
@@ -326,146 +266,42 @@ loading animatie via bron: https://cssloaders.github.io/
 }
 
 /* ---------------
-controls
---------------- */
-.container > button.togglepage {
-	max-width: 100%;
-	width: 15rem;
-	height: 3em;
-	margin-top: 1em;
-	background-color: var(--album-main);
-	color: var(--text-color);
-	font-size: 1.2em;
-	border: solid 2px var(--text-color);
-	border-radius: 0.5em;
-	transition: all 0.25s ease-in-out;
-}
-
-.container.flipped > button.togglepage,
-.container:not(.flipped) > button.togglepage:focus-visible,
-.container:not(.flipped) > button.togglepage:hover {
-	background-color: var(--text-color);
-	color: var(--album-main);
-	border-color: var(--album-main);
-}
-
-.container > button.togglepage,
-.container.flipped > button.togglepage:focus-visible,
-.container.flipped > button.togglepage:hover {
-	background-color: var(--album-main);
-	color: var(--text-color);
-	border-color: var(--text-color);
-}
-
-.container > button.togglepage:focus-visible {
-	outline-offset: 5px;
-}
-
-.container > button.togglepage::before,
-.container > button.togglepage::after {
-	text-transform: uppercase;
-	font-weight: bold;
-}
-
-.container > button.togglepage::before {
-	content: 'open';
-}
-
-.container.flipped > button.togglepage::before {
-	content: 'close';
-}
-
-/* ---------------
 media queries
 --------------- */
-@media screen and (max-width: 1200px) {
-	.container {
-		width: 35%;
-	}
-
-	.album > button article:first-of-type div h1 {
-		font-size: 2.3vmin;
-	}
-
-	/* quote */
-	.album > button article:last-of-type blockquote {
-		font-size: 1.5vw;
-	}
-	.album > button article:last-of-type blockquote.medium {
-		font-size: 1.75vw;
-	}
-	.album > button article:last-of-type blockquote.big {
-		font-size: 2vw;
-	}
-}
-
 @media screen and (orientation: portrait) {
-	.container {
-		width: 80%;
-		margin-bottom: -15vh;
-	}
-
-	.container > section {
-		transform: rotate(-90deg);
+	.album {
+		margin-bottom: -20vh; 
 	}
 
 	.album > button {
 		transform-origin: top;
 	}
 
-	.container.flipped .album > button {
-		transform: rotateX(180deg);
+	.album.flipped > button.togglepage {
+		transform: rotateX(180deg) rotateY(0deg);
 	}
 
-	.container.idleanimate .album > button {
-		transform: rotateX(-15deg);
+	.album.idleanimate > button {
+		transform: rotateX(15deg);
 	}
 
 	.album > button article:last-of-type {
 		transform: rotateY(180deg) rotateZ(180deg);
 	}
 
-	.album > button article:first-of-type div h1 {
-		font-size: 5.3vmin;
-	}
-
-	/* quote */
-	.album > button article:last-of-type blockquote {
-		font-size: 3vmin;
-	}
-	.album > button article:last-of-type blockquote.medium {
-		font-size: 3.7vmin;
-	}
-	.album > button article:last-of-type blockquote.big {
-		font-size: 4.2vmin;
-	}
-
 	/* ---------------
 	2e pagina
 	--------------- */
-	.album section:last-of-type article:first-of-type {
+	.album section article:first-of-type {
 		border-top: var(--album-border);
 		border-left: none;
-	}
-
-	.album section:last-of-type article:first-of-type .recordholder a {
-		font-size: 2.8vmin;
-	}
-}
-
-@media screen and (max-height: 400px) and (max-width: 1200px) {
-	.container {
-		width: 40%;
 	}
 }
 
 /* ---------------
 album cover parental advisory
 --------------- */
-.container:not(.imgerror):not(.loading)
-	.album
-	> button
-	article:first-of-type::before {
+.album:not(.imgerror):not(.loading) > button article:first-of-type::before {
 	content: '';
 	position: absolute;
 	top: 0;

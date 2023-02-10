@@ -14,10 +14,19 @@
 	box-shadow: inset #030303 0 0 0 1px, inset rgba(255, 255, 255, 0.3) 0 0 0 2px;
 	transform: rotate(0) translateZ(0);
 	animation: spin 17s linear infinite paused;
+	transition: all 1s ease-in-out;
+}
+
+.container:not(.flipped) .record {
+	animation: none;
 }
 
 .record.spin {
 	animation-play-state: running;
+}
+
+.container:not(.flipped).idleanimate .record {
+	transform: translateX(15%);
 }
 
 .record::before,

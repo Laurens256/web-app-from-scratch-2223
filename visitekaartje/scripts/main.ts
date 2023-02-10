@@ -10,10 +10,6 @@ const defaultId = 'cldep8zqq3wbh0av00ktcml8w';
 // DOM elements
 const container = document.querySelector('.container')!;
 const pageControls: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.togglepage')!;
-const album: HTMLElement = document.querySelector('.album')!;
-const flippablePage: HTMLElement = document.querySelector(
-	'.album > button'
-)!;
 const albumCover: HTMLImageElement = document.querySelector(
 	'.album > button article:first-of-type img'
 )!;
@@ -116,16 +112,6 @@ const toggleRecordSpin = () => {
 const togglePage = () => {
 	container.classList.toggle('flipped');
 	recordSpinToggle.disabled = !recordSpinToggle.disabled;
-
-	// zorgt ervoor dat perspectief anders is voor idle animation
-	if(container.classList.contains('flipped')) {
-		album.style.perspective = '1000px';
-	} else {
-		setTimeout(() => {}, 1000);
-		album.addEventListener('transitionend', () => {
-			album.style.perspective = 'none';
-		}, { once: true });
-	}
 	manageIdleAnimation();
 };
 
@@ -134,23 +120,22 @@ let animationInterval!: ReturnType<typeof setInterval>;
 let animationTimeout!: ReturnType<typeof setTimeout>;
 let timeout = 0;
 const manageIdleAnimation = () => {
-	flippablePage.classList.remove('animate');
+	container.classList.remove('idleanimate');
 	clearInterval(animationInterval);
 	clearTimeout(animationTimeout);
+
 
 	animationTimeout = setTimeout(() => {
 		timeout = 3000;
 		if (!container.classList.contains('flipped')) {
 			animationInterval = setInterval(() => {
-				flippablePage.classList.toggle('animate');
+				container.classList.toggle('idleanimate');
 			}, timeout);
 		}
 	}, timeout);
 };
 
 pageControls.forEach((pageControl) => pageControl.addEventListener('click', togglePage));
-// pageControls.forEach((=> ).addEventListener('click', togglePage);
-// pageControls.forEach((=> ).addEventListener('click', togglePage);
 recordSpinToggle.addEventListener('click', toggleRecordSpin);
 
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

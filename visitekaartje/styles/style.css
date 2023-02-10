@@ -69,6 +69,7 @@ algemeen album
 	background-color: transparent;
 	width: 90%;
 	aspect-ratio: 1/1;
+	perspective: 1000px;
 }
 
 .album > button,
@@ -91,13 +92,15 @@ algemeen album
 	left: 0;
 }
 
-.container.flipped .album > button {
+.container.flipped .album > button.togglepage {
 	transform: rotateY(-180deg);
 }
 
-.container .album > button.animate {
+.container.idleanimate .album > button {
 	transform: rotateY(-15deg);
 }
+
+
 
 /* ---------------
 voorkant 1e pagina
@@ -414,7 +417,7 @@ media queries
 		transform: rotateX(180deg);
 	}
 
-	.container .album > button.animate {
+	.container.idleanimate .album > button {
 		transform: rotateX(-15deg);
 	}
 

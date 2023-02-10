@@ -20,11 +20,8 @@ const albumTitle: HTMLHeadingElement = document.querySelector(
 const albumCoverBackQuote: Element = document.querySelector(
 	'.album > button article:last-of-type blockquote'
 )!;
-const record: HTMLDivElement = document.querySelector('.record')!;
 const recordLabel: HTMLHeadingElement = document.querySelector('.record .label h3')!;
 const websiteLink: HTMLAnchorElement = document.querySelector('.recordholder a')!;
-const recordSpinToggle: HTMLButtonElement =
-	document.querySelector('.recordholder button')!;
 
 if (!slug && !id) {
 	window.history.replaceState('slug', 'slug', `?slug=${defaultSlug}`);
@@ -106,10 +103,6 @@ const generateAlbum = (user: User['member']) => {
 	album.classList.remove('loading');
 };
 
-const toggleRecordSpin = () => {
-	record.classList.toggle('spin');
-};
-
 const togglePage = () => {
 	album.classList.toggle('flipped');
 	// recordSpinToggle.disabled = !recordSpinToggle.disabled;
@@ -136,12 +129,5 @@ const manageIdleAnimation = () => {
 };
 
 pageControls.forEach((pageControl) => pageControl.addEventListener('click', togglePage));
-if (recordSpinToggle) {
-	recordSpinToggle.addEventListener('click', toggleRecordSpin);
-}
-
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-	toggleRecordSpin();
-}
 
 fetchUser();

@@ -13,16 +13,13 @@
 	border-radius: 50%;
 	box-shadow: inset #030303 0 0 0 1px, inset rgba(255, 255, 255, 0.3) 0 0 0 2px;
 	/* transform: rotate(0) translateZ(0); */
-	animation: spin 15s linear infinite;
+	animation: spin 15s linear infinite running;
 	transition: all 1s ease-in-out;
+	animation-delay: 1s;
 }
 
 .album:not(.flipped) .record {
 	animation: none;
-}
-
-.record.spin {
-	animation-play-state: running;
 }
 
 .album:not(.flipped).idleanimate .record {

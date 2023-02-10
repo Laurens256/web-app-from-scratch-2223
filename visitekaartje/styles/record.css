@@ -97,15 +97,38 @@
 }
 
 .record .label h3 {
+	font-family: 'Thunder', 'Readex', Arial, Helvetica, sans-serif;
 	position: absolute;
-	top: 17.5%;
+	top: 16%;
 	left: 50%;
 	transform: translateX(-50%);
-	font-size: .8em;
+	font-size: 1.2em;
+	font-size: 1vw;
 	width: 75%;
 	overflow: hidden;
-	text-overflow: "-";
+	text-overflow: '-';
 	white-space: nowrap;
+}
+
+@media screen and (orientation: portrait) {
+	.record .label h3 {
+		font-size: 2.3vw;
+	}
+}
+
+.record .label img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 32%;
+	height: 32%;
+}
+
+.record .label h3:last-of-type {
+	bottom: 16%;
+	top: auto;
+	transform: rotate(180deg) translateX(50%);
 }
 
 .record .label::after {
@@ -118,7 +141,6 @@
 	height: 10%;
 	background: var(--album-main);
 	border-radius: 50%;
-
 }
 
 @keyframes spin {
@@ -126,9 +148,3 @@
 		transform: rotate(360deg) translateZ(0);
 	}
 }
-
-/* @media (prefers-reduced-motion: reduce) {
-	.record {
-		animation-play-state: paused;
-	}
-} */

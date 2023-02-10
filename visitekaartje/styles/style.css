@@ -5,6 +5,11 @@
 	src: url(../assets/fonts/ReadexPro-VariableFont.ttf);
 }
 
+@font-face {
+	font-family: 'Thunder';
+	src: url(../assets/fonts/Godofthunder.ttf);
+}
+
 *,
 *:before,
 *:after {
@@ -203,9 +208,24 @@ achterkant 1e pagina
 	background: var(--album-cover-inner);
 	border-top-left-radius: 5em;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: center;
-	padding: 1em;
+	padding: 0 1em 0 2em;
+	overflow: hidden;
+}
+
+.album section:last-of-type article:first-of-type .recordholder a {
+	font-size: 1.1vw;
+	text-decoration: none;
+	color: var(--bg-color);
+	width: 70%;
+	line-height: 1em;
+	/* background: red; */
+}
+
+.album section:last-of-type article:first-of-type .recordholder a span {
+	color: var(--album-main);
+	font-size: .8em;
 }
 
 /* play/pause button styling */
@@ -222,6 +242,7 @@ achterkant 1e pagina
 	align-items: center;
 	border: solid 2px #fff;
 	transition: all 0.2s ease-in-out;
+	flex-shrink: 0;
 }
 
 .album section:last-of-type article:first-of-type .recordholder button:focus-visible svg,
@@ -279,6 +300,7 @@ loading animatie via bron: https://cssloaders.github.io/
 	content: '';
 	width: 100%;
 	height: 100%;
+	left: 0;
 	border-radius: 50%;
 	border: 3px solid var(--text-color);
 	position: absolute;
@@ -420,6 +442,10 @@ media queries
 	.album section:last-of-type article:first-of-type {
 		border-top: var(--album-border);
 		border-left: none;
+	}
+
+	.album section:last-of-type article:first-of-type .recordholder a {
+		font-size: 2.8vmin;
 	}
 }
 

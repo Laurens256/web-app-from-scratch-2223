@@ -25,6 +25,7 @@ const albumCoverBackQuote: Element = document.querySelector(
 )!;
 const record: HTMLDivElement = document.querySelector('.record')!;
 const recordLabel: HTMLHeadingElement = document.querySelector('.record .label h3')!;
+const websiteLink: HTMLAnchorElement = document.querySelector('.recordholder a')!;
 const recordSpinToggle: HTMLButtonElement =
 	document.querySelector('.recordholder button')!;
 
@@ -90,6 +91,13 @@ const generateAlbum = (user: User['member']) => {
 		albumCoverBackQuote.textContent = `"${defaultQuote}"`;
 	}
 
+	if (user.website) {
+		websiteLink.href = user.website;
+		user.website = user.website.split('://')[1] || user.website.split('://')[0] || user.website;
+		if(!user.website.startsWith('www.')) user.website = `www.${user.website}`;
+		websiteLink.innerHTML = `Business inquiries:<br> <span>${user.website}</span>`;
+	}
+
 	if (albumCoverBackQuote.textContent) {
 		if (albumCoverBackQuote.textContent.length < 100) {
 			albumCoverBackQuote.classList.add('big');
@@ -124,18 +132,20 @@ const togglePage = () => {
 // idle animation wanneer album dicht is, begint na 3 sec
 let animationInterval!: ReturnType<typeof setInterval>;
 let animationTimeout!: ReturnType<typeof setTimeout>;
+let timeout = 0;
 const manageIdleAnimation = () => {
 	flippablePage.classList.remove('animate');
 	clearInterval(animationInterval);
 	clearTimeout(animationTimeout);
 
 	animationTimeout = setTimeout(() => {
+		timeout = 3000;
 		if (!container.classList.contains('flipped')) {
 			animationInterval = setInterval(() => {
 				flippablePage.classList.toggle('animate');
-			}, 1050);
+			}, timeout);
 		}
-	}, 3000);
+	}, timeout);
 };
 
 pageControls.forEach((pageControl) => pageControl.addEventListener('click', togglePage));

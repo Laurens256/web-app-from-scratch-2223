@@ -1,10 +1,11 @@
 @import url(./header-footer.css);
 @import url(./pokemon-list.css);
 
-/* @font-face {
+/* bron font: https://www.cufonfonts.com/font/pokemon-fire-red*/
+@font-face {
 	font-family: 'Pokemon';
-	src: url(../assets/fonts/pokemon_fire_red.ttf);
-} */
+	src: url('../assets/fonts/pokemon_fire_red.woff');
+}
 
 *,
 *::before,
@@ -24,7 +25,9 @@ button {
 }
 
 body {
-	/* font-family: 'Pokemon', sans-serif; */
+	font-family: 'Pokemon', sans-serif;
+	font-size: 150%;
+	font-smooth: always;
 }
 
 :root {
@@ -35,7 +38,7 @@ body {
 	--text-black: #000;
 	--text-shadow-black: #e7dec6;
 
+	--header-height-min: 10vh;
 	--header-height: 100px;
 	--header-height-max: 120px;
-	--header-height-min: 10vh;
 }

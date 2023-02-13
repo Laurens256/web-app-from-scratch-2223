@@ -37,3 +37,7 @@ footer {
 footer ul {
 	justify-content: flex-end;
 }
+
+ul li {
+	font-size: 1em;
+}

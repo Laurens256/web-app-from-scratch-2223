@@ -1,0 +1,1 @@
+const rootElement = document.documentElement

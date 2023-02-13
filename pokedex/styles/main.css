@@ -36,4 +36,6 @@ body {
 	--text-shadow-black: #e7dec6;
 
 	--header-height: 100px;
+	--header-height-max: 120px;
+	--header-height-min: 10vh;
 }

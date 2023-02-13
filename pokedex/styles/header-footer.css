@@ -2,7 +2,11 @@ header,
 footer {
 	background: var(--header);
 	color: var(--text-white);
+	/* min-height: var(--header-height-min);
 	height: var(--header-height);
+	max-height: var(--header-height-max); */
+	height: clamp(var(--header-height-min), var(--header-height), var(--header-height-max));
+	text-shadow: 2px 2px var(--text-shadow-white);
 	position: fixed;
 	width: 100%;
 }
@@ -13,7 +17,6 @@ footer ul {
 	width: clamp(300px, 90%, 2000px);
 	display: flex;
 	align-items: center;
-	background: red;
 	margin: 0 auto;
 	padding: 0 5%;
 }

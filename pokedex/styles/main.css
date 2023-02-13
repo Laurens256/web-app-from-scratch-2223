@@ -1,0 +1,25 @@
+@font-face {
+	font-family: 'Pokemon';
+	src: url(../assets/fonts/pokemon_fire_red.ttf);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+button {
+	background: none;
+	border: none;
+}
+
+body {
+	font-family: 'Pokemon', sans-serif;
+}

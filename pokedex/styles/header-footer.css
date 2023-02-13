@@ -1,0 +1,36 @@
+header,
+footer {
+	background: var(--header);
+	color: var(--text-white);
+	height: var(--header-height);
+	position: fixed;
+	width: 100%;
+}
+
+header ul,
+footer ul {
+	height: 100%;
+	width: clamp(300px, 90%, 2000px);
+	display: flex;
+	align-items: center;
+	background: red;
+	margin: 0 auto;
+	padding: 0 5%;
+}
+
+header {
+	top: 0;
+}
+
+header ul {
+	justify-content: center;
+	gap: 2em;
+}
+
+footer {
+	bottom: 0;
+	justify-content: flex-end;
+}
+footer ul {
+	justify-content: flex-end;
+}

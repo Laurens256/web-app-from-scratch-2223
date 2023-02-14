@@ -17,7 +17,7 @@ export type Region = {
 	region: Url;
 };
 
-export type Pokemon = {
+export interface Pokemon {
 	base_happiness: number;
 	capture_rate: number;
 	color: Url;

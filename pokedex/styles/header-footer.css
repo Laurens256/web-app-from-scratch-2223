@@ -4,7 +4,7 @@ footer {
 	color: var(--text-white);
 	height: clamp(var(--header-height-min), var(--header-height), var(--header-height-max));
 	text-shadow: var(--text-shadow-white);
-	position: fixed;
+	position: sticky;
 	width: 100%;
 }
 

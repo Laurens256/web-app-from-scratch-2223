@@ -23,6 +23,7 @@ ol {
 button {
 	background: none;
 	border: none;
+	cursor: pointer;
 }
 
 body {

@@ -56,4 +56,4 @@ const fetchPokemonData = async (gen: number) => {
 }
 
 
-displayPokemonList(1);
+// displayPokemonList(1);

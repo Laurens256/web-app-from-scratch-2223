@@ -3,8 +3,7 @@ footer {
 	background: var(--header);
 	color: var(--text-white);
 	height: clamp(var(--header-height-min), var(--header-height), var(--header-height-max));
-	/* text-shadow: .15rem 0 var(--text-shadow-white), 0 .15rem var(--text-shadow-white), .15rem .15rem var(--text-shadow-white); */
-	text-shadow: .1em 0 var(--text-shadow-white), 0 .1em var(--text-shadow-white), .1em .1em var(--text-shadow-white);
+	text-shadow: var(--text-shadow-white);
 	position: fixed;
 	width: 100%;
 }
@@ -12,11 +11,12 @@ footer {
 header ul,
 footer ul {
 	height: 100%;
-	width: clamp(300px, 90%, 2000px);
+	width: clamp(150px, 90%, 2000px);
 	display: flex;
 	align-items: center;
 	margin: 0 auto;
 	padding: 0 5%;
+	text-align: center;
 }
 
 header {
@@ -28,14 +28,18 @@ header ul {
 	gap: 2em;
 }
 
+footer ul li,
+header ul li,
+header ul li h1 {
+	/* font-size: 2rem; */
+	font-size: clamp(0px, 2rem, 5vw)
+}
+
 footer {
 	bottom: 0;
 	justify-content: flex-end;
 }
 footer ul {
 	justify-content: flex-end;
-}
-
-ul li {
-	font-size: 1em;
+	gap: 1em;
 }

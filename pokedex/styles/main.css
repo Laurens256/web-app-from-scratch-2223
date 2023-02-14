@@ -15,7 +15,8 @@
 	padding: 0;
 }
 
-ul, ol {
+ul,
+ol {
 	list-style: none;
 }
 
@@ -27,18 +28,34 @@ button {
 body {
 	font-family: 'Pokemon', sans-serif;
 	/* hele coole regel die alleen in firefox werkt */
-	font-size-adjust: .5;
+	font-size-adjust: 0.5;
 }
 
 :root {
 	--header: #c6b58c;
 	--text-white: #fff;
-	--text-shadow-white: #636363;
-	--text-shadow-white-extra: #424242;
+	--text-shadow-white-color: #636363;
+	--text-shadow-white-extra-color: #424242;
 	--text-black: #000;
-	--text-shadow-black: #e7dec6;
+	--text-shadow-black-color: #e7dec6;
 
 	--header-height-min: 10vh;
 	--header-height: 100px;
 	--header-height-max: 120px;
+
+	/* ja ik houd van css variabelen */
+	--text-shadow-white: 
+	0.125em 0 var(--text-shadow-white-color),
+	0 0.125em var(--text-shadow-white-color), 
+	0.125em 0.125em var(--text-shadow-white-color);
+
+	--text-shadow-white-extra: 
+	0.125em 0 var(--text-shadow-white-extra-color),
+	0 0.125em var(--text-shadow-white-extra-color),
+	0.125em 0.125em var(--text-shadow-white-extra-color);
+
+	--text-shadow-black: 
+	0.125em 0 var(--text-shadow-black-color),
+	0 0.125em var(--text-shadow-black-color), 
+	0.125em 0.125em var(--text-shadow-black-color);
 }

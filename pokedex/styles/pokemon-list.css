@@ -1,7 +1,38 @@
-ol {
-	margin-left: 10em;
+main ol {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+	margin: 0 auto;
+	width: clamp(150px, 90%, 1000px);
 }
 
-ol li::marker {
-	content: var(--marker);
+main ol li {
+	position: relative;
+}
+
+main ol li button {
+	height: 100%;
+	width: 100%;
+	text-align: start;
+	padding: 0 2em;
+	display: flex;
+	justify-content: start;
+	font-size: clamp(0px, 1rem, 2.7vw);
+	text-shadow: var(--text-shadow-black);
+	text-transform: uppercase;
+}
+
+main ol li button:focus-visible {
+	outline: 0;
+}
+
+main ol li button:hover::before,
+main ol li button:focus-visible::before {
+	content: '';
+	position: absolute;
+	left: -1em;
+	height: 10px;
+	width: 10px;
+	transform: scale(.4);
+	box-shadow: var(--right-arrow-selection);
 }

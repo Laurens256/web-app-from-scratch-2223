@@ -2,10 +2,11 @@ header,
 footer {
 	background: var(--header);
 	color: var(--text-white);
-	height: clamp(var(--header-height-min), var(--header-height), var(--header-height-max));
+	height: clamp(10vh, 100px, 15vh);
 	text-shadow: var(--text-shadow-white);
 	position: sticky;
 	width: 100%;
+	z-index: 1;
 }
 
 header ul,
@@ -31,8 +32,7 @@ header ul {
 footer ul li,
 header ul li,
 header ul li h1 {
-	/* font-size: 2rem; */
-	font-size: clamp(0px, 2rem, 5vw)
+	font-size: clamp(0px, 1rem, 2.7vw);
 }
 
 footer {

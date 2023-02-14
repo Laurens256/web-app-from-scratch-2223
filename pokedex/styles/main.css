@@ -1,7 +1,7 @@
 @import url(./header-footer.css);
 @import url(./pokemon-list.css);
 
-/* bron font: https://www.cufonfonts.com/font/pokemon-fire-red */
+/* bron font: https://www.cufonfonts.com/font/pokemon-fire-#e7dec6 */
 @font-face {
 	font-family: 'Pokemon';
 	src: url('../assets/fonts/pokemon_fire_red.woff');
@@ -24,39 +24,51 @@ button {
 	background: none;
 	border: none;
 	cursor: pointer;
+	font-family: inherit;
+	font-size-adjust: 1;
 }
 
 body {
 	font-family: 'Pokemon', sans-serif;
 	/* hele coole regel die alleen in firefox werkt */
-	font-size-adjust: 0.5;
+	font-size-adjust: 1;
+	color: var(--text-black);
+
+	background-color: var(--bg-main);
+	background-image: linear-gradient(135deg, var(--bg-secondary) 25%, transparent 25%),
+		linear-gradient(225deg, var(--bg-secondary) 25%, transparent 25%),
+		linear-gradient(45deg, var(--bg-secondary) 25%, transparent 25%),
+		linear-gradient(315deg, var(--bg-secondary) 25%, var(--bg-main) 25%);
+	background-position: 10px 0, 10px 0, 0 0, 0 0;
+	background-size: 20px 20px;
+	background-repeat: repeat;
+	background-attachment: fixed;
 }
 
 :root {
 	--header: #c6b58c;
 	--text-white: #fff;
-	--text-shadow-white-color: #636363;
-	--text-shadow-white-extra-color: #424242;
 	--text-black: #000;
-	--text-shadow-black-color: #e7dec6;
 
-	--header-height-min: 10vh;
-	--header-height: 100px;
-	--header-height-max: 120px;
+	--bg-main: #fff7ef;
+	--bg-secondary: #fcfcf9;
 
 	/* ja ik houd van css variabelen */
-	--text-shadow-white: 
-	0.125em 0 var(--text-shadow-white-color),
-	0 0.125em var(--text-shadow-white-color), 
-	0.125em 0.125em var(--text-shadow-white-color);
+	--text-shadow-white: 0.125em 0 var(--text-shadow-white-color),
+		0 0.125em var(--text-shadow-white-color),
+		0.125em 0.125em var(--text-shadow-white-color);
 
-	--text-shadow-white-extra: 
-	0.125em 0 var(--text-shadow-white-extra-color),
-	0 0.125em var(--text-shadow-white-extra-color),
-	0.125em 0.125em var(--text-shadow-white-extra-color);
+	--text-shadow-white-extra: 0.125em 0 var(--text-shadow-white-extra-color),
+		0 0.125em var(--text-shadow-white-extra-color),
+		0.125em 0.125em var(--text-shadow-white-extra-color);
 
-	--text-shadow-black: 
-	0.125em 0 var(--text-shadow-black-color),
-	0 0.125em var(--text-shadow-black-color), 
-	0.125em 0.125em var(--text-shadow-black-color);
+	--text-shadow-black: 0.125em 0 var(--text-shadow-black-color),
+		0 0.125em var(--text-shadow-black-color),
+		0.125em 0.125em var(--text-shadow-black-color);
+
+	--text-shadow-white-color: #636363;
+	--text-shadow-white-extra-color: #424242;
+	--text-shadow-black-color: #e7dec6;
+
+	--right-arrow-selection: 10px 10px 0 0 #000, 20px 10px 0 0 #e7dec6, 10px 20px 0 0 #000, 20px 20px 0 0 #000, 30px 20px 0 0 #e7dec6, 10px 30px 0 0 #000, 20px 30px 0 0 #000, 30px 30px 0 0 #000, 40px 30px 0 0 #e7dec6, 10px 40px 0 0 #000, 20px 40px 0 0 #000, 30px 40px 0 0 #000, 40px 40px 0 0 #000, 50px 40px 0 0 #e7dec6, 10px 50px 0 0 #000, 20px 50px 0 0 #000, 30px 50px 0 0 #000, 40px 50px 0 0 #000, 50px 50px 0 0 #000, 60px 50px 0 0 #e7dec6, 10px 60px 0 0 #000, 20px 60px 0 0 #000, 30px 60px 0 0 #000, 40px 60px 0 0 #000, 50px 60px 0 0 #e7dec6, 60px 60px 0 0 #e7dec6, 10px 70px 0 0 #000, 20px 70px 0 0 #000, 30px 70px 0 0 #000, 40px 70px 0 0 #e7dec6, 50px 70px 0 0 #e7dec6, 10px 80px 0 0 #000, 20px 80px 0 0 #000, 30px 80px 0 0 #e7dec6, 40px 80px 0 0 #e7dec6, 10px 90px 0 0 #000, 20px 90px 0 0 #e7dec6, 30px 90px 0 0 #e7dec6, 10px 100px 0 0 #e7dec6, 20px 100px 0 0 #e7dec6;
 }

@@ -1,0 +1,7 @@
+ol {
+	margin-left: 10em;
+}
+
+ol li::marker {
+	content: var(--marker);
+}

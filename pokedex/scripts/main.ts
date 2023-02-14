@@ -1,59 +1,53 @@
+import { Url, Region, Pokemon } from '../assets/types';
+
 const rootElement = document.documentElement;
 
+const pokemonList: HTMLOListElement = document.querySelector('main ol')!;
+
+const defaultRegion = 'kanto';
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
 
-const fetchPokemonByGen = async (gen: number) => {
-	return (await (await fetch(`${baseApiUrl}generation/${gen}`)).json()).pokemon_species;
+// generieke functie om data op te halen
+const getDataFromAPI = async (query: string) => {
+	const url = query.includes('//') ? query : baseApiUrl + query;
+	return await (await fetch(url)).json();
 };
 
-const displayPokemonList = async (gen: number) => {
-	const data = await fetchPokemonData(gen);
-
-	// We now have all the individual Pokemon from a single color in an array, let's do 
-	// something with it!
- 	
-	// For every entry in the array, where d is the individual item and i is the index.
-	data.forEach((d, i) => {
-		console.log(d);
-		
-		// Grab the table we've created in the HTML already
-		const table = document.querySelector('table tbody');
-		
-		// Generate a new row for above table
-		const row = document.createElement('tr');
-		const tdName = document.createElement('td');
-		
-		// Add a property of the Pokemon Object as text
-		tdName.textContent = d.name;
-		
-		// Append the <td> to the previously created row.
-		row.appendChild(tdName);
-		
-		const tdId = document.createElement('td');
-		tdId.textContent = d.id;
-		row.appendChild(tdId);
-		
-		const tdGeneration = document.createElement('td');
-		tdGeneration.textContent = d.generation.name.split('-')[1];
-		row.appendChild(tdGeneration);
+// functie om data op te halen van meerdere urls (type: Url[])
+const getUrlData = async (urls: Url[]) => {
+	const promises = urls.map(async (dataUrl) => {
+		return await getDataFromAPI(dataUrl.url);
 	});
-};
-
-
-async function getDataFromAPI(id: string) {
-	const data = await (await fetch(baseApiUrl)).json();
-	return data;
-}
-
-const fetchPokemonData = async (gen: number) => {
-	const pokemonArr = await fetchPokemonByGen(gen);
-	
-	const promises = pokemonArr.map(async pokemon => {
-		return await getDataFromAPI(pokemon.url);
-	});
-
 	return Promise.all(promises);
-}
+};
 
+// functie om alle pokemon op te halen uit specifieke region
+const fetchPokemonByRegion = async (regionStr: string = defaultRegion) => {
+	const pokemonEntryArr: { pokemon_species: Url }[] = (
+		await getDataFromAPI(`pokedex/${regionStr}`)
+	).pokemon_entries;
 
-// displayPokemonList(1);
+	// maak een array met alleen de type: Url van de pokemon
+	const pokemonUrlArr = pokemonEntryArr.map((entry) => entry.pokemon_species);
+	return await getUrlData(pokemonUrlArr);
+};
+
+// functie om alle pokemon uit een array te tonen in de DOM
+const displayPokemonList = async (region: string = defaultRegion) => {
+	const pokemonArr: Pokemon[] = await fetchPokemonByRegion(region);
+	pokemonList.innerHTML = '';
+
+	pokemonArr.forEach((pokemon: Pokemon, i) => {
+		console.log(pokemon);
+		setTimeout(() => {
+			const listItem = document.createElement('li');
+			// style the marker of the list item
+			//@ts-ignore
+			listItem.style.setProperty('--marker', `${i + 1}`);
+			listItem.innerHTML = pokemon.name;
+			pokemonList.appendChild(listItem);
+		}, i * 50);
+	});
+};
+
+displayPokemonList();

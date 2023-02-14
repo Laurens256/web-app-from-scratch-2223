@@ -1,7 +1,7 @@
 @import url(./header-footer.css);
 @import url(./pokemon-list.css);
 
-/* bron font: https://www.cufonfonts.com/font/pokemon-fire-red*/
+/* bron font: https://www.cufonfonts.com/font/pokemon-fire-red */
 @font-face {
 	font-family: 'Pokemon';
 	src: url('../assets/fonts/pokemon_fire_red.woff');

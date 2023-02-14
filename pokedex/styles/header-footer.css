@@ -2,11 +2,9 @@ header,
 footer {
 	background: var(--header);
 	color: var(--text-white);
-	/* min-height: var(--header-height-min);
-	height: var(--header-height);
-	max-height: var(--header-height-max); */
 	height: clamp(var(--header-height-min), var(--header-height), var(--header-height-max));
-	text-shadow: 2px 2px var(--text-shadow-white);
+	/* text-shadow: .15rem 0 var(--text-shadow-white), 0 .15rem var(--text-shadow-white), .15rem .15rem var(--text-shadow-white); */
+	text-shadow: .1em 0 var(--text-shadow-white), 0 .1em var(--text-shadow-white), .1em .1em var(--text-shadow-white);
 	position: fixed;
 	width: 100%;
 }

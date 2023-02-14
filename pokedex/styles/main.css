@@ -26,8 +26,8 @@ button {
 
 body {
 	font-family: 'Pokemon', sans-serif;
-	font-size: 150%;
-	font-smooth: always;
+	/* hele coole regel die alleen in firefox werkt */
+	font-size-adjust: .5;
 }
 
 :root {

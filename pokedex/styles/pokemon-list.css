@@ -1,4 +1,4 @@
-main ol {
+.pokemonlist {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
@@ -6,33 +6,76 @@ main ol {
 	width: clamp(150px, 90%, 1000px);
 }
 
-main ol li {
+.pokemonlist li {
 	position: relative;
 }
 
-main ol li button {
+.pokemonlist li button {
 	height: 100%;
 	width: 100%;
 	text-align: start;
-	padding: 0 2em;
-	display: flex;
-	justify-content: start;
-	font-size: clamp(0px, 1rem, 2.7vw);
+	padding: 0 0.5em;
+	display: grid;
+	grid-template-columns: min-content 1fr minmax(16em, 1fr);
+	column-gap: 1em;
+	font-size: clamp(0px, 1rem, 2.4vw);
 	text-shadow: var(--text-shadow-black);
 	text-transform: uppercase;
+	font-weight: 500;
 }
 
-main ol li button:focus-visible {
+.pokemonlist li button:focus-visible {
 	outline: 0;
 }
 
-main ol li button:hover::before,
-main ol li button:focus-visible::before {
+.pokemonlist:not(:has(li button:focus)) li button:hover::before,
+.pokemonlist li button:focus-visible::before {
 	content: '';
 	position: absolute;
-	left: -1em;
+	left: -2em;
 	height: 10px;
 	width: 10px;
-	transform: scale(.4);
+	transform: scale(0.4);
 	box-shadow: var(--right-arrow-selection);
+}
+
+/* =================
+id section
+================= */
+.pokemonlist li button section:first-of-type p {
+	width: 5.5em;
+}
+
+.pokemonlist li button section:first-of-type p::before {
+	content: 'No';
+	text-transform: none;
+}
+
+/* =================
+name section
+================= */
+/* .pokemonlist li button section:last-of-type {
+	display: flex;
+	gap: .5em;
+} */
+
+
+/* =================
+types section
+================= */
+.pokemonlist li button section:last-of-type div {
+	position: relative;
+	display: inline-block;
+}
+.pokemonlist li button section:last-of-type div canvas {
+	width: 8em;
+}
+
+.pokemonlist li button section:last-of-type div span {
+	color: var(--text-white);
+	text-shadow: var(--text-shadow-white-extra);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -65%);
 }

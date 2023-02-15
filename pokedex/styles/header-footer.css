@@ -29,9 +29,12 @@ header ul {
 	gap: 2em;
 }
 
-footer ul li,
-header ul li,
 header ul li h1 {
+	font-size: clamp(0px, 2rem, 2.7vw);
+}
+
+footer ul li,
+header ul li {
 	font-size: clamp(0px, 1rem, 2.7vw);
 }
 

@@ -15,8 +15,12 @@
 	padding: 0;
 }
 
-ul,
-ol {
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 500;
+	font-size-adjust: .7;
+}
+
+ul, ol {
 	list-style: none;
 }
 
@@ -52,6 +56,26 @@ body {
 
 	--bg-main: #fff7ef;
 	--bg-secondary: #fcfcf9;
+
+	/* pokemon types */
+	--normal: #a8a878;
+	--fire: #f08030;
+	--water: #6890f0;
+	--grass: #78c850;
+	--electric: #f8b010;
+	--ice: #98d8d8;
+	--fight: #e83000;
+	--poison: linear-gradient(top, #f85888 0%, #f85888 49%, #a040a0 50%, #a040a0 100%);
+	--ground: ;
+	--flying: ;
+	--psychic: #f85888;
+	--bug: #d8e030;
+	--rock: #b8a038;
+	--ghost: #a040a0;
+	--dragon: ;
+	--dark: #507888;
+	--steel: ;
+	--fairy: #d692d4;
 
 	/* ja ik houd van css variabelen */
 	--text-shadow-white: 0.125em 0 var(--text-shadow-white-color),

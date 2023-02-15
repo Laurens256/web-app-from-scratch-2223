@@ -78,17 +78,17 @@ body {
 	--fairy: #d692d4;
 
 	/* ja ik houd van css variabelen */
-	--text-shadow-white: 0.125em 0 var(--text-shadow-white-color),
-		0 0.125em var(--text-shadow-white-color),
-		0.125em 0.125em var(--text-shadow-white-color);
+	--text-shadow-white: .2em 0 var(--text-shadow-white-color),
+		0 .2em var(--text-shadow-white-color),
+		.2em .2em var(--text-shadow-white-color);
 
-	--text-shadow-white-extra: 0.125em 0 var(--text-shadow-white-extra-color),
-		0 0.125em var(--text-shadow-white-extra-color),
-		0.125em 0.125em var(--text-shadow-white-extra-color);
+	--text-shadow-white-extra: .2em 0 var(--text-shadow-white-extra-color),
+		0 .2em var(--text-shadow-white-extra-color),
+		.2em .2em var(--text-shadow-white-extra-color);
 
-	--text-shadow-black: 0.125em 0 var(--text-shadow-black-color),
-		0 0.125em var(--text-shadow-black-color),
-		0.125em 0.125em var(--text-shadow-black-color);
+	--text-shadow-black: .2em 0 var(--text-shadow-black-color),
+		0 .2em var(--text-shadow-black-color),
+		.2em .2em var(--text-shadow-black-color);
 
 	--text-shadow-white-color: #636363;
 	--text-shadow-white-extra-color: #424242;

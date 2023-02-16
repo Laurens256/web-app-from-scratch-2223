@@ -1,11 +1,14 @@
 import { Pokemon, PokemonTypes } from '../assets/types';
 import { getTypeBadge } from './drawTypes';
+import { blah } from './manageListScroll';
 const pokemonList: HTMLOListElement = document.querySelector('main ol')!;
 
 const emptyHtml =
 	'<li><button><section><p></p></section><section><h2></h2></section><section></section></button></li>';
+	// '<li class="loading"><button><section><p></p></section><section><h2></h2></section><section></section></button></li>';
 
 const loadEmptyList = (n: number) => {
+	pokemonList.innerHTML = '';
 	pokemonList.innerHTML = emptyHtml.repeat(n);
 };
 
@@ -94,5 +97,7 @@ const populateList = (pokemonArr: Pokemon[]) => {
 		}, i * 50);
 	});
 };
+
+blah();
 
 export { loadEmptyList, populateList };

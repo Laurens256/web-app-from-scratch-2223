@@ -2,11 +2,11 @@ header,
 footer {
 	background: var(--header);
 	color: var(--text-white);
-	height: clamp(10vh, 100px, 15vh);
+	height: var(--header-footer-height);
 	text-shadow: var(--text-shadow-white);
 	position: sticky;
 	width: 100%;
-	z-index: 1;
+	/* z-index: -1; */
 }
 
 header ul,

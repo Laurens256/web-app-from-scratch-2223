@@ -1,18 +1,23 @@
 .pokemonlist {
+	box-sizing: content-box;
 	display: flex;
 	flex-direction: column;
-	/* gap: 1em; */
 	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
+	padding: none;
+	height: calc(100vh - (var(--header-footer-height) * 2));
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
 }
 
 .pokemonlist li {
 	position: relative;
+	scroll-snap-align: end;
 }
 
 /* css manier (gradient) */
 .pokemonlist li button {
-	height: calc(100% + 1em);
+	/* height: calc(100% + 1em); */
 	width: 100%;
 	text-align: start;
 	padding: 0.5em;
@@ -33,21 +38,23 @@
 
 /* pijltje voor select als scherm breed genoeg is */
 @media (min-width: 600px) {
+	/* nodig voor extra ruimte naast list want overflow-x:visible werkt niet icm overflow-y for some reason */
+	.pokemonlist {
+		padding: 0 3em;
+	}
 	.pokemonlist li button:hover,
 	.pokemonlist li button:focus-visible {
 		outline-color: transparent;
 	}
-	
-	.pokemonlist:not(:has(li button:focus)) li button:hover::before,
-	.pokemonlist li button:focus-visible::before {
+
+	.pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
+	.pokemonlist li:not(.loading) button:focus-visible::before {
 		content: '';
 		position: absolute;
 		left: -2.5em;
 		height: 10px;
 		width: 10px;
-		width: 1em;
-		height: 1em;
-		top: -10%;
+		top: 5%;
 		transform: scale(0.4);
 		box-shadow: var(--right-arrow-selection);
 	}
@@ -67,7 +74,7 @@ id section
 	width: 2.5em;
 }
 
-.pokemonlist li button section:first-of-type p::before {
+.pokemonlist li:not(.loading) button section:first-of-type p::before {
 	content: 'No';
 	text-transform: none;
 }
@@ -82,7 +89,6 @@ name section
 /* =================
 types section (css gradient)
 ================= */
-
 
 /* =================
 types section (canvas)
@@ -104,3 +110,34 @@ types section (canvas)
 	color: var(--text-white);
 	text-shadow: var(--text-shadow-white-extra);
 } */
+
+/* =================
+loading state
+================= */
+.pokemonlist li.loading {
+	/* height: 2em; */
+}
+
+.pokemonlist li.loading button {
+	/* padding: 0 0.5em; */
+	pointer-events: none;
+	background: green;
+}
+
+.pokemonlist li.loading button section:first-of-type {
+	background: red;
+}
+
+.pokemonlist li.loading button section:nth-of-type(2) {
+	background: blue;
+}
+
+.pokemonlist li.loading button section:last-of-type {
+	background: yellow;
+}
+
+.pokemonlist li.loading button::before {
+	content: '';
+	width: 8em;
+	aspect-ratio: 8 / 3;
+}

@@ -23,6 +23,7 @@ const getAllPokemon = async (urls: Url[]) => {
 
 // functie om alle pokemon op te halen uit specifieke region
 const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
+	// array met alle urls van pokemon
 	const pokemonEntryArr: { pokemon_species: Url }[] = (
 		await getDataFromAPI(`pokedex/${regionStr}`)
 	).pokemon_entries;

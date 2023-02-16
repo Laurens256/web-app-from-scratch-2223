@@ -1,23 +1,21 @@
 .pokemonlist {
 	display: flex;
 	flex-direction: column;
-	gap: 1em;
+	/* gap: 1em; */
 	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
 }
 
 .pokemonlist li {
 	position: relative;
-	/* min-height: 2em; */
-	/* height: 3.3em; */
 }
 
 /* css manier (gradient) */
 .pokemonlist li button {
-	height: 100%;
+	height: calc(100% + 1em);
 	width: 100%;
 	text-align: start;
-	padding: 0 0.5em;
+	padding: 0.5em;
 	display: grid;
 	grid-template-columns: min-content 1fr minmax(16em, 1fr);
 	align-items: center;
@@ -28,12 +26,14 @@
 	font-size: clamp(0px, 1rem, 2.2vw);
 }
 
+.pokemonlist li button:hover,
 .pokemonlist li button:focus-visible {
 	outline: solid 2px var(--text-black);
 }
 
 /* pijltje voor select als scherm breed genoeg is */
 @media (min-width: 600px) {
+	.pokemonlist li button:hover,
 	.pokemonlist li button:focus-visible {
 		outline-color: transparent;
 	}
@@ -64,6 +64,7 @@ id section
 ================= */
 .pokemonlist li button section:first-of-type p {
 	font-size: clamp(0px, 2.5em, 4.4vw);
+	width: 2.5em;
 }
 
 .pokemonlist li button section:first-of-type p::before {

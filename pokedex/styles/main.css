@@ -82,3 +82,17 @@ body {
 		10px 90px 0 0 #000, 20px 90px 0 0 #e7dec6, 30px 90px 0 0 #e7dec6,
 		10px 100px 0 0 #e7dec6, 20px 100px 0 0 #e7dec6;
 }
+
+@media only screen and (max-width: 680px) {
+	:root {
+		--text-shadow-white: 0.5vw 0 var(--text-shadow-white-color),
+		0 0.5vw var(--text-shadow-white-color), 0.5vw 0.5vw var(--text-shadow-white-color);
+
+	--text-shadow-white-extra: 0.5vw 0 var(--text-shadow-white-extra-color),
+		0 0.5vw var(--text-shadow-white-extra-color),
+		0.5vw 0.5vw var(--text-shadow-white-extra-color);
+
+	--text-shadow-black: 0.5vw 0 var(--text-shadow-black-color),
+		0 0.5vw var(--text-shadow-black-color), 0.5vw 0.5vw var(--text-shadow-black-color);
+	}
+}

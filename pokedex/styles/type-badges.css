@@ -1,21 +1,33 @@
-/* uitwerking van Sanne */
+/* background uitwerking van Sanne (heel cool) */
 div.typebadge {
+	--corner-size: 8px;
 	position: relative;
-	background: 
-	linear-gradient(
+	background: linear-gradient(
 				var(--badge-top, #9cdede) 50%,
 				var(--badge-bottom, #ff5a8c) 50%
 			)
-			center center / 100% calc(100% - 8px) no-repeat,
+			center center / 100% calc(100% - var(--corner-size)) no-repeat,
 		linear-gradient(var(--badge-top, #9cdede) 50%, var(--badge-bottom, #ff5a8c) 50%)
-			center center / calc(100% - 8px) 100% no-repeat;
+			center center / calc(100% - var(--corner-size)) 100% no-repeat;
 	text-align: center;
-	/* display: inline-block; */
+	width: 8em;
+	aspect-ratio: 8 / 3;
+}
+
+@media only screen and (max-width: 400px) {
+	div.typebadge {
+		--corner-size: 4px;
+	}
 }
 
 div.typebadge span {
 	color: var(--text-white);
 	text-shadow: var(--text-shadow-white-extra);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2em;
 }
 
 div.normal {

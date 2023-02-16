@@ -1,44 +1,62 @@
 .pokemonlist {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5em;
+	gap: 1em;
 	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
 }
 
 .pokemonlist li {
 	position: relative;
-	height: 5em;
+	/* min-height: 2em; */
+	/* height: 3.3em; */
 }
 
+/* css manier (gradient) */
 .pokemonlist li button {
 	height: 100%;
 	width: 100%;
 	text-align: start;
 	padding: 0 0.5em;
 	display: grid;
-	grid-template-columns: min-content 1fr minmax(8.5em, 1fr);
+	grid-template-columns: min-content 1fr minmax(16em, 1fr);
 	align-items: center;
 	column-gap: 1em;
 	text-shadow: var(--text-shadow-black);
 	text-transform: uppercase;
 	font-weight: 500;
+	font-size: clamp(0px, 1rem, 2.2vw);
 }
 
 .pokemonlist li button:focus-visible {
-	outline: 0;
+	outline: solid 2px var(--text-black);
 }
 
-.pokemonlist:not(:has(li button:focus)) li button:hover::before,
-.pokemonlist li button:focus-visible::before {
-	content: '';
-	position: absolute;
-	left: -2.5em;
-	height: 10px;
-	width: 10px;
-	top: 10%;
-	transform: scale(0.4);
-	box-shadow: var(--right-arrow-selection);
+/* pijltje voor select als scherm breed genoeg is */
+@media (min-width: 600px) {
+	.pokemonlist li button:focus-visible {
+		outline-color: transparent;
+	}
+	
+	.pokemonlist:not(:has(li button:focus)) li button:hover::before,
+	.pokemonlist li button:focus-visible::before {
+		content: '';
+		position: absolute;
+		left: -2.5em;
+		height: 10px;
+		width: 10px;
+		width: 1em;
+		height: 1em;
+		top: -10%;
+		transform: scale(0.4);
+		box-shadow: var(--right-arrow-selection);
+	}
+}
+
+.pokemonlist li button section {
+	height: 100%;
+	display: flex;
+	align-items: center;
 }
 
 /* =================
@@ -60,14 +78,40 @@ name section
 	font-size: clamp(0px, 1.8em, 4.4vw);
 }
 
-
 /* =================
-types section
+types section (css gradient)
 ================= */
 .pokemonlist li button section:last-of-type div {
 	position: relative;
-	width: 4.25em;
-	height: 1.4em;
-	line-height: 1.4em;
-	font-size: clamp(0px, 2.5em, 2.4vw);
+	width: 8em;
+	aspect-ratio: 8 / 3;
 }
+
+.pokemonlist li button section:last-of-type div span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2em;
+}
+
+/* =================
+types section (canvas)
+================= */
+/* .pokemonlist li button section:last-of-type div {
+	position: relative;
+	display: inline-block;
+}
+.pokemonlist li button section:last-of-type div canvas {
+	width: 8em;
+}
+
+.pokemonlist li button section:last-of-type div span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 200%
+	color: var(--text-white);
+	text-shadow: var(--text-shadow-white-extra);
+} */

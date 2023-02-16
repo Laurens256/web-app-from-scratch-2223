@@ -55,8 +55,6 @@ body {
 	--bg-main: #fff7ef;
 	--bg-secondary: #fcfcf9;
 
-	--header-font-size: clamp(0px, 2rem, 4.7vw);
-
 	/* ja ik houd van css variabelen */
 	--text-shadow-white: 0.2rem 0 var(--text-shadow-white-color),
 		0 0.2rem var(--text-shadow-white-color), 0.2rem 0.2rem var(--text-shadow-white-color);

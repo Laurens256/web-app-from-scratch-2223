@@ -1,16 +1,21 @@
 /* uitwerking van Sanne */
 div.typebadge {
-	background: linear-gradient(
+	position: relative;
+	background: 
+	linear-gradient(
 				var(--badge-top, #9cdede) 50%,
 				var(--badge-bottom, #ff5a8c) 50%
 			)
 			center center / 100% calc(100% - 8px) no-repeat,
 		linear-gradient(var(--badge-top, #9cdede) 50%, var(--badge-bottom, #ff5a8c) 50%)
 			center center / calc(100% - 8px) 100% no-repeat;
+	text-align: center;
+	/* display: inline-block; */
+}
+
+div.typebadge span {
 	color: var(--text-white);
 	text-shadow: var(--text-shadow-white-extra);
-	text-align: center;
-	display: inline-block;
 }
 
 div.normal {

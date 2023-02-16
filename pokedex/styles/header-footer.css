@@ -12,7 +12,7 @@ footer {
 header ul,
 footer ul {
 	height: 100%;
-	width: clamp(150px, 90%, 2000px);
+	width: clamp(150px, 100%, 2000px);
 	display: flex;
 	align-items: center;
 	margin: 0 auto;
@@ -32,12 +32,11 @@ header ul {
 header ul li h1,
 footer ul li,
 header ul li {
-	font-size: var(--header-font-size);
+	font-size: clamp(0px, 2rem, 6.5vw);
 }
 
 footer {
 	bottom: 0;
-	justify-content: flex-end;
 }
 footer ul {
 	justify-content: flex-end;

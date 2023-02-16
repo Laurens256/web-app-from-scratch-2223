@@ -6,7 +6,6 @@ const emptyHtml =
 	'<li><button><section><p></p></section><section><h2></h2></section><section></section></button></li>';
 
 const loadEmptyList = (n: number) => {
-	// shoutout aan github copilot
 	pokemonList.innerHTML = emptyHtml.repeat(n);
 };
 
@@ -36,8 +35,10 @@ const populateList = (pokemonArr: Pokemon[]) => {
 
 			nameField.textContent = pokemon.name;
 
+			// css manier (gradient)
 			pokemon.types.forEach((type) => {
 				const typeDiv = document.createElement('div');
+				const typeSpan = document.createElement('span');
 				typeDiv.classList.add('typebadge');
 				typeDiv.classList.add(type.type.name);
 
@@ -46,17 +47,50 @@ const populateList = (pokemonArr: Pokemon[]) => {
 					badgeName = 'fight';
 				} else if (type.type.name === 'psychic') {
 					badgeName = 'psychc';
-				} else if(type.type.name === 'electric') {
+				} else if (type.type.name === 'electric') {
 					badgeName = 'electr';
 				} else if (!PokemonTypes.includes(type.type.name)) {
 					badgeName = '???';
 				} else {
 					badgeName = type.type.name;
 				}
-				typeDiv.textContent = badgeName;
+				typeSpan.textContent = badgeName;
 
+				nameField.textContent = pokemon.name;
+
+				idField.textContent = pokemon.id.toLocaleString('nl-NL', {
+					minimumIntegerDigits: 3
+				});
+
+				typeDiv.appendChild(typeSpan);
 				typeSection.appendChild(typeDiv);
 			});
+
+			// js manier (canvas)
+			// pokemon.types.forEach((type) => {
+			// 	const typeDiv = document.createElement('div');
+			// 	const typeBadge = getTypeBadge(type.type.name);
+			// 	const typeSpan = document.createElement('span');
+
+			// 	let badgeName = '';
+			// 	if (type.type.name === 'fighting') {
+			// 		badgeName = 'fight';
+			// 	} else if (type.type.name === 'psychic') {
+			// 		badgeName = 'psychc';
+			// 	} else if (type.type.name === 'electric') {
+			// 		badgeName = 'electr';
+			// 	} else if (!PokemonTypes.includes(type.type.name)) {
+			// 		badgeName = '???';
+			// 	} else {
+			// 		badgeName = type.type.name;
+			// 	}
+			// 	typeSpan.textContent = badgeName;
+
+			// 	typeDiv.appendChild(typeSpan);
+			// 	typeDiv.appendChild(typeBadge);
+
+			// 	typeSection.appendChild(typeDiv);
+			// });
 		}, i * 50);
 	});
 };

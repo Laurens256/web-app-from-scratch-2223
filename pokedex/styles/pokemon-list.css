@@ -8,6 +8,7 @@
 
 .pokemonlist li {
 	position: relative;
+	height: 5em;
 }
 
 .pokemonlist li button {
@@ -16,9 +17,9 @@
 	text-align: start;
 	padding: 0 0.5em;
 	display: grid;
-	grid-template-columns: min-content 1fr minmax(16em, 1fr);
+	grid-template-columns: min-content 1fr minmax(8.5em, 1fr);
+	align-items: center;
 	column-gap: 1em;
-	font-size: clamp(0px, 1rem, 2.4vw);
 	text-shadow: var(--text-shadow-black);
 	text-transform: uppercase;
 	font-weight: 500;
@@ -32,9 +33,10 @@
 .pokemonlist li button:focus-visible::before {
 	content: '';
 	position: absolute;
-	left: -2em;
+	left: -2.5em;
 	height: 10px;
 	width: 10px;
+	top: 10%;
 	transform: scale(0.4);
 	box-shadow: var(--right-arrow-selection);
 }
@@ -43,7 +45,7 @@
 id section
 ================= */
 .pokemonlist li button section:first-of-type p {
-	width: 5.5em;
+	font-size: clamp(0px, 2.5em, 4.4vw);
 }
 
 .pokemonlist li button section:first-of-type p::before {
@@ -54,10 +56,9 @@ id section
 /* =================
 name section
 ================= */
-/* .pokemonlist li button section:last-of-type {
-	display: flex;
-	gap: .5em;
-} */
+.pokemonlist li button section:nth-of-type(2) {
+	font-size: clamp(0px, 1.8em, 4.4vw);
+}
 
 
 /* =================
@@ -65,17 +66,8 @@ types section
 ================= */
 .pokemonlist li button section:last-of-type div {
 	position: relative;
-	display: inline-block;
-}
-.pokemonlist li button section:last-of-type div canvas {
-	width: 8em;
-}
-
-.pokemonlist li button section:last-of-type div span {
-	color: var(--text-white);
-	text-shadow: var(--text-shadow-white-extra);
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -65%);
+	width: 4.25em;
+	height: 1.4em;
+	line-height: 1.4em;
+	font-size: clamp(0px, 2.5em, 2.4vw);
 }

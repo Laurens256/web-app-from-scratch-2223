@@ -38,9 +38,8 @@ const populateList = (pokemonArr: Pokemon[]) => {
 
 			pokemon.types.forEach((type) => {
 				const typeDiv = document.createElement('div');
-				const typeBadge = getTypeBadge(type.type.name);
-				const typeSpan = document.createElement('span');
-
+				typeDiv.classList.add('typebadge');
+				typeDiv.classList.add(type.type.name);
 
 				let badgeName = '';
 				if (type.type.name === 'fighting') {
@@ -54,10 +53,7 @@ const populateList = (pokemonArr: Pokemon[]) => {
 				} else {
 					badgeName = type.type.name;
 				}
-				typeSpan.textContent = badgeName;
-
-				typeDiv.appendChild(typeSpan);
-				typeDiv.appendChild(typeBadge);
+				typeDiv.textContent = badgeName;
 
 				typeSection.appendChild(typeDiv);
 			});

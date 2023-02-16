@@ -1,10 +1,10 @@
 @import url(./header-footer.css);
 @import url(./pokemon-list.css);
+@import url(./type-badges.css);
 
-/* bron font: https://www.cufonfonts.com/font/pokemon-fire-#e7dec6 */
 @font-face {
 	font-family: 'Pokemon';
-	src: url('../assets/fonts/pokemon_fire_red.woff');
+	src: url('../assets/fonts/Pokemon-Fire-Red.woff2');
 }
 
 *,
@@ -15,12 +15,13 @@
 	padding: 0;
 }
 
+/* prettier-ignore */
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 500;
-	font-size-adjust: .7;
 }
 
-ul, ol {
+ul,
+ol {
 	list-style: none;
 }
 
@@ -29,13 +30,10 @@ button {
 	border: none;
 	cursor: pointer;
 	font-family: inherit;
-	font-size-adjust: 1;
 }
 
 body {
 	font-family: 'Pokemon', sans-serif;
-	/* hele coole regel die alleen in firefox werkt */
-	font-size-adjust: 1;
 	color: var(--text-black);
 
 	background-color: var(--bg-main);
@@ -49,14 +47,6 @@ body {
 	background-attachment: fixed;
 }
 
-/* uiteindelijk gebruiken om font size te fixen in browsers naast firefox wip*/
-@supports not (font-size-adjust: 1) {
-	html {
-		font-size: 150%
-	}
-}
-
-
 :root {
 	--header: #c6b58c;
 	--text-white: #fff;
@@ -65,42 +55,32 @@ body {
 	--bg-main: #fff7ef;
 	--bg-secondary: #fcfcf9;
 
-	/* pokemon types */
-	--normal: #a8a878;
-	--fire: #f08030;
-	--water: #6890f0;
-	--grass: #78c850;
-	--electric: #f8b010;
-	--ice: #98d8d8;
-	--fight: #e83000;
-	--poison: linear-gradient(top, #f85888 0%, #f85888 49%, #a040a0 50%, #a040a0 100%);
-	--ground: ;
-	--flying: ;
-	--psychic: #f85888;
-	--bug: #d8e030;
-	--rock: #b8a038;
-	--ghost: #a040a0;
-	--dragon: ;
-	--dark: #507888;
-	--steel: ;
-	--fairy: #d692d4;
+	--header-font-size: clamp(0px, 2rem, 4.7vw);
 
 	/* ja ik houd van css variabelen */
-	--text-shadow-white: .2em 0 var(--text-shadow-white-color),
-		0 .2em var(--text-shadow-white-color),
-		.2em .2em var(--text-shadow-white-color);
+	--text-shadow-white: 0.2rem 0 var(--text-shadow-white-color),
+		0 0.2rem var(--text-shadow-white-color), 0.2rem 0.2rem var(--text-shadow-white-color);
 
-	--text-shadow-white-extra: .2em 0 var(--text-shadow-white-extra-color),
-		0 .2em var(--text-shadow-white-extra-color),
-		.2em .2em var(--text-shadow-white-extra-color);
+	--text-shadow-white-extra: 0.2rem 0 var(--text-shadow-white-extra-color),
+		0 0.2rem var(--text-shadow-white-extra-color),
+		0.2rem 0.2rem var(--text-shadow-white-extra-color);
 
-	--text-shadow-black: .2em 0 var(--text-shadow-black-color),
-		0 .2em var(--text-shadow-black-color),
-		.2em .2em var(--text-shadow-black-color);
+	--text-shadow-black: 0.2rem 0 var(--text-shadow-black-color),
+		0 0.2rem var(--text-shadow-black-color), 0.2rem 0.2rem var(--text-shadow-black-color);
 
 	--text-shadow-white-color: #636363;
 	--text-shadow-white-extra-color: #424242;
 	--text-shadow-black-color: #e7dec6;
 
-	--right-arrow-selection: 10px 10px 0 0 #000, 20px 10px 0 0 #e7dec6, 10px 20px 0 0 #000, 20px 20px 0 0 #000, 30px 20px 0 0 #e7dec6, 10px 30px 0 0 #000, 20px 30px 0 0 #000, 30px 30px 0 0 #000, 40px 30px 0 0 #e7dec6, 10px 40px 0 0 #000, 20px 40px 0 0 #000, 30px 40px 0 0 #000, 40px 40px 0 0 #000, 50px 40px 0 0 #e7dec6, 10px 50px 0 0 #000, 20px 50px 0 0 #000, 30px 50px 0 0 #000, 40px 50px 0 0 #000, 50px 50px 0 0 #000, 60px 50px 0 0 #e7dec6, 10px 60px 0 0 #000, 20px 60px 0 0 #000, 30px 60px 0 0 #000, 40px 60px 0 0 #000, 50px 60px 0 0 #e7dec6, 60px 60px 0 0 #e7dec6, 10px 70px 0 0 #000, 20px 70px 0 0 #000, 30px 70px 0 0 #000, 40px 70px 0 0 #e7dec6, 50px 70px 0 0 #e7dec6, 10px 80px 0 0 #000, 20px 80px 0 0 #000, 30px 80px 0 0 #e7dec6, 40px 80px 0 0 #e7dec6, 10px 90px 0 0 #000, 20px 90px 0 0 #e7dec6, 30px 90px 0 0 #e7dec6, 10px 100px 0 0 #e7dec6, 20px 100px 0 0 #e7dec6;
+	--right-arrow-selection: 10px 10px 0 0 #000, 20px 10px 0 0 #e7dec6, 10px 20px 0 0 #000,
+		20px 20px 0 0 #000, 30px 20px 0 0 #e7dec6, 10px 30px 0 0 #000, 20px 30px 0 0 #000,
+		30px 30px 0 0 #000, 40px 30px 0 0 #e7dec6, 10px 40px 0 0 #000, 20px 40px 0 0 #000,
+		30px 40px 0 0 #000, 40px 40px 0 0 #000, 50px 40px 0 0 #e7dec6, 10px 50px 0 0 #000,
+		20px 50px 0 0 #000, 30px 50px 0 0 #000, 40px 50px 0 0 #000, 50px 50px 0 0 #000,
+		60px 50px 0 0 #e7dec6, 10px 60px 0 0 #000, 20px 60px 0 0 #000, 30px 60px 0 0 #000,
+		40px 60px 0 0 #000, 50px 60px 0 0 #e7dec6, 60px 60px 0 0 #e7dec6, 10px 70px 0 0 #000,
+		20px 70px 0 0 #000, 30px 70px 0 0 #000, 40px 70px 0 0 #e7dec6, 50px 70px 0 0 #e7dec6,
+		10px 80px 0 0 #000, 20px 80px 0 0 #000, 30px 80px 0 0 #e7dec6, 40px 80px 0 0 #e7dec6,
+		10px 90px 0 0 #000, 20px 90px 0 0 #e7dec6, 30px 90px 0 0 #e7dec6,
+		10px 100px 0 0 #e7dec6, 20px 100px 0 0 #e7dec6;
 }

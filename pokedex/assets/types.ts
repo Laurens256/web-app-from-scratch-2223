@@ -45,6 +45,10 @@ export interface Pokemon {
 	weight: number;
 }
 
+export const PokemonTypes = [
+	'normal','fire','water','grass','electric','ice','fight','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'
+];
+
 // export interface Species {
 // 	base_happiness: number;
 // 	capture_rate: number;

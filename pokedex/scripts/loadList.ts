@@ -1,4 +1,4 @@
-import { Pokemon } from '../assets/types';
+import { Pokemon, PokemonTypes } from '../assets/types';
 import { getTypeBadge } from './drawTypes';
 const pokemonList: HTMLOListElement = document.querySelector('main ol')!;
 
@@ -47,8 +47,12 @@ const populateList = (pokemonArr: Pokemon[]) => {
 					badgeName = 'fight';
 				} else if (type.type.name === 'psychic') {
 					badgeName = 'psychc';
+				} else if(type.type.name === 'electric') {
+					badgeName = 'electr';
+				} else if (!PokemonTypes.includes(type.type.name)) {
+					badgeName = '???';
 				} else {
-					badgeName = type.type.name.substring(0, 6);
+					badgeName = type.type.name;
 				}
 				typeSpan.textContent = badgeName;
 

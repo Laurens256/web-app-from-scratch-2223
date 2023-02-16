@@ -49,6 +49,14 @@ body {
 	background-attachment: fixed;
 }
 
+/* uiteindelijk gebruiken om font size te fixen in browsers naast firefox wip*/
+@supports not (font-size-adjust: 1) {
+	html {
+		font-size: 150%
+	}
+}
+
+
 :root {
 	--header: #c6b58c;
 	--text-white: #fff;

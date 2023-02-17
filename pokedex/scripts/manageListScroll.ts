@@ -15,10 +15,11 @@ const followPokemonScroll = () => {
 	const focusedItem = document.activeElement as HTMLButtonElement;
 	const focusedItemIndex = visibleItems.indexOf(focusedItem);
 
-	if (focusedItemIndex >= visibleItems.length - 3) {
-		// get height of button
+	const scrollMargin = visibleItems.length > 5 ? 3 : 1;
+
+	if (focusedItemIndex >= visibleItems.length - scrollMargin) {
 		pokemonList.scrollTop += listItemHeight;
-	} else if (focusedItemIndex <= 1) {
+	} else if (focusedItemIndex <= scrollMargin - 1) {
 		pokemonList.scrollTop -= listItemHeight;
 	}
 };
@@ -65,6 +66,7 @@ const focusPokemon = (pokemonListParam: HTMLOListElement, follow: boolean = fals
 
 // berekenen van de boven- en ondergrens van de list, gebeurt bij resize en init
 const calcBoundingRect = () => {
+	if(!pokemonList) return;
 	topBoundary = pokemonList.getBoundingClientRect().top;
 	bottomBoundary = pokemonList.getBoundingClientRect().bottom;
 };

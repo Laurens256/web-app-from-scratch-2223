@@ -99,6 +99,4 @@ const populateList = (pokemonArr: Pokemon[]) => {
 	focusPokemon(pokemonList, true);
 };
 
-addEventListener('wheel', (event) => {console.log('wheel');});
-
 export { loadEmptyList, populateList };

@@ -4,7 +4,7 @@
 	flex-direction: column;
 	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
-	padding: none;
+	padding: 0;
 	height: calc(100vh - (var(--header-footer-height) * 2));
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
@@ -48,7 +48,7 @@
 	}
 
 	.pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
-	.pokemonlist li:not(.loading) button:focus-visible::before {
+	.pokemonlist li:not(.loading) button:focus::before {
 		content: '';
 		position: absolute;
 		left: -2.5em;

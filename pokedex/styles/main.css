@@ -35,6 +35,7 @@ button {
 body {
 	font-family: 'Pokemon', sans-serif;
 	color: var(--text-black);
+	overflow-x: hidden;
 
 	background-color: var(--bg-main);
 	background-image: linear-gradient(135deg, var(--bg-secondary) 25%, transparent 25%),

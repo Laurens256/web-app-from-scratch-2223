@@ -15,11 +15,13 @@ const followPokemonScroll = () => {
 	const focusedItem = document.activeElement as HTMLButtonElement;
 	const focusedItemIndex = visibleItems.indexOf(focusedItem);
 
-	const scrollMargin = visibleItems.length > 5 ? 3 : 1;
+	const scrollMarginDown = visibleItems.length > 5 ? 3 : 1;
+	const scrollMarginUp = visibleItems.length > 5 ? 1 : 0;
 
-	if (focusedItemIndex >= visibleItems.length - scrollMargin) {
+
+	if (focusedItemIndex >= visibleItems.length - scrollMarginDown) {
 		pokemonList.scrollTop += listItemHeight;
-	} else if (focusedItemIndex <= scrollMargin - 1) {
+	} else if (focusedItemIndex <= scrollMarginUp) {
 		pokemonList.scrollTop -= listItemHeight;
 	}
 };

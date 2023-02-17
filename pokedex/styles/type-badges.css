@@ -20,14 +20,15 @@ div.typebadge {
 	}
 }
 
-div.typebadge span {
-	color: var(--text-white);
-	text-shadow: var(--text-shadow-white-extra);
+div.typebadge::after {
+	content: attr(data-type-visual);
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 2em;
+	color: var(--text-white);
+	text-shadow: var(--text-shadow-white-extra);
 }
 
 div.normal {
@@ -54,7 +55,7 @@ div.ice {
 	--badge-top: #98d8d8;
 	--badge-bottom: #98d8d8;
 }
-div.fight {
+div.fighting {
 	--badge-top: #e83000;
 	--badge-bottom: #e83000;
 }

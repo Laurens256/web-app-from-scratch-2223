@@ -40,32 +40,7 @@ const populateList = (pokemonArr: Pokemon[]) => {
 
 			// css manier (gradient)
 			pokemon.types.forEach((type) => {
-				const typeDiv = document.createElement('div');
-				const typeSpan = document.createElement('span');
-				typeDiv.classList.add('typebadge');
-				typeDiv.classList.add(type.type.name);
-
-				let badgeName = '';
-				if (type.type.name === 'fighting') {
-					badgeName = 'fight';
-				} else if (type.type.name === 'psychic') {
-					badgeName = 'psychc';
-				} else if (type.type.name === 'electric') {
-					badgeName = 'electr';
-				} else if (!PokemonTypes.includes(type.type.name)) {
-					badgeName = '???';
-				} else {
-					badgeName = type.type.name;
-				}
-				typeSpan.textContent = badgeName;
-
-				nameField.textContent = pokemon.name;
-
-				idField.textContent = pokemon.id.toLocaleString('nl-NL', {
-					minimumIntegerDigits: 3
-				});
-
-				typeDiv.appendChild(typeSpan);
+				const typeDiv = getTypeBadge(type.type.name);
 				typeSection.appendChild(typeDiv);
 			});
 

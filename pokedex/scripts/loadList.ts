@@ -1,6 +1,6 @@
 import { Pokemon, PokemonTypes } from '../assets/types';
 import { getTypeBadge } from './drawTypes';
-import { blah } from './manageListScroll';
+import { focusPokemon } from './manageListScroll';
 const pokemonList: HTMLOListElement = document.querySelector('main ol')!;
 
 const emptyHtml =
@@ -96,8 +96,9 @@ const populateList = (pokemonArr: Pokemon[]) => {
 			// });
 		}, i * 50);
 	});
+	focusPokemon(pokemonList, true);
 };
 
-blah();
+addEventListener('wheel', (event) => {console.log('wheel');});
 
 export { loadEmptyList, populateList };

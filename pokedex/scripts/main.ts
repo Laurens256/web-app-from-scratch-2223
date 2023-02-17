@@ -1,5 +1,6 @@
 import { Url, Region, Pokemon } from '../assets/types';
 import { loadEmptyList, populateList } from './loadList';
+import { loadTemplate } from './template/loadTemplate';
 
 const defaultRegion = 'kanto';
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
@@ -28,13 +29,28 @@ const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
 		await getDataFromAPI(`pokedex/${regionStr}`)
 	).pokemon_entries;
 
-	loadEmptyList(pokemonEntryArr.length);
+	// loadEmptyList(pokemonEntryArr.length);
 
-	// maak een array met alleen de type: Url van de pokemon
+	// maak een array met alleen het type: Url van de pokemon
 	const pokemonUrlArr = pokemonEntryArr.map((entry) => entry.pokemon_species);
-	pokemonArr = await getAllPokemon(pokemonUrlArr);
-	console.log(pokemonArr);
-	populateList(pokemonArr);
+	// pokemonArr = await getAllPokemon(pokemonUrlArr);
+	// console.log(pokemonArr);
+	// populateList(pokemonArr);
+	return getAllPokemon(pokemonUrlArr);
 };
 
-getPokemonByRegion();
+const mainElement = document.querySelector('ol');
+if (mainElement) {
+	// mainElement.innerHTML = await loadTemplate();
+}
+
+const func = async () => {
+	const allPokemon = await getPokemonByRegion();
+	console.log(allPokemon);
+	if (mainElement) {
+		allPokemon.forEach(async (pokemon) => {
+			mainElement.insertAdjacentHTML('beforeend',await loadTemplate('pokemon-list', pokemon))
+		});
+	}
+};
+func();

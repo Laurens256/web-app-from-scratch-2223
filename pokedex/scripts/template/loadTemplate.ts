@@ -1,8 +1,5 @@
 const loadTemplate = async (templateName: string) => {
-	const template = await (
-		await window.fetch(`/templates/${templateName}.tmpl`)
-	).text();
-
+	const template = await (await fetch(`/templates/${templateName}.tmpl`)).text();
 	return template;
 };
 

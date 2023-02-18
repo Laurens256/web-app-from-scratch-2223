@@ -20,7 +20,7 @@ const generateListSkeleton = async (n: number) => {
 const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 	// generate skeleton
 	await generateListSkeleton(n);
-	return;
+	// return;
 
 	// wacht tot data binnen is
 	const pokemonArr = await data;

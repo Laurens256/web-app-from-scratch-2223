@@ -12,6 +12,7 @@ const loadEmptyList = (n: number) => {
 	pokemonList.innerHTML = emptyHtml.repeat(n);
 };
 
+// hele file kan weg zodra ik canvas methode heb gedocumenteerd
 const populateList = (pokemonArr: Pokemon[]) => {
 	const listItems = pokemonList.children;
 	const idFields = Array.from(listItems).map(

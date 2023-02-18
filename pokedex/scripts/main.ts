@@ -1,6 +1,5 @@
 import { Url, Region, Pokemon } from '../assets/types';
-import { loadEmptyList, populateList } from './loadList';
-import { loadTemplate } from './template/loadTemplate';
+import { generatePokemonList } from './template/loadPokemonList';
 
 const defaultRegion = 'kanto';
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
@@ -15,7 +14,7 @@ const getDataFromAPI = async (query: string) => {
 
 // functie om data op te halen van meerdere urls (type: Url[])
 const getAllPokemon = async (urls: Url[]) => {
-	const promises = urls.map(async (url) => {
+	const promises: Promise<Pokemon>[] = urls.map(async (url) => {
 		return await getDataFromAPI(`${baseApiUrl}pokemon/${url.name}`);
 	});
 
@@ -29,28 +28,16 @@ const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
 		await getDataFromAPI(`pokedex/${regionStr}`)
 	).pokemon_entries;
 
-	// loadEmptyList(pokemonEntryArr.length);
-
 	// maak een array met alleen het type: Url van de pokemon
 	const pokemonUrlArr = pokemonEntryArr.map((entry) => entry.pokemon_species);
-	// pokemonArr = await getAllPokemon(pokemonUrlArr);
-	// console.log(pokemonArr);
-	// populateList(pokemonArr);
-	return getAllPokemon(pokemonUrlArr);
-};
+	const pokemonArr = getAllPokemon(pokemonUrlArr);
 
-const mainElement = document.querySelector('ol');
-if (mainElement) {
-	// mainElement.innerHTML = await loadTemplate();
-}
+	return { n: pokemonEntryArr.length, promise: pokemonArr };
+};
 
 const func = async () => {
-	const allPokemon = await getPokemonByRegion();
-	console.log(allPokemon);
-	if (mainElement) {
-		allPokemon.forEach(async (pokemon) => {
-			mainElement.insertAdjacentHTML('beforeend',await loadTemplate('pokemon-list', pokemon))
-		});
-	}
+	const { n, promise } = await getPokemonByRegion();
+	generatePokemonList(n, promise);
 };
+
 func();

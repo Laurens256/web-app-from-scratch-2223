@@ -114,30 +114,50 @@ types section (canvas)
 /* =================
 loading state
 ================= */
-.pokemonlist li.loading {
-	/* height: 2em; */
+.pokemonlist li.skeleton {
+	/* hoe cool */
 }
 
-.pokemonlist li.loading button {
-	/* padding: 0 0.5em; */
-	pointer-events: none;
-	background: green;
+.pokemonlist li.skeleton button {
 }
 
-.pokemonlist li.loading button section:first-of-type {
-	background: red;
+.pokemonlist li.skeleton button section {
+	/* hoe cool */
+	container: loadbar / normal;
+	position: relative;
+	background: rgba(130, 130, 130, 0.2);
 }
 
-.pokemonlist li.loading button section:nth-of-type(2) {
-	background: blue;
+.pokemonlist li.skeleton button section::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+			to right,
+			rgba(130, 130, 130, 0.2) 8%,
+			rgba(130, 130, 130, 0.3) 18%,
+			rgba(130, 130, 130, 0.2) 33%
+		)
+		center/10% 100% no-repeat;
+	animation: skeleton 5s infinite ease-out;
 }
 
-.pokemonlist li.loading button section:last-of-type {
-	background: yellow;
-}
-
-.pokemonlist li.loading button::before {
+/* placeholder div zodat loading animation zelfde grootte houdt als geladen items */
+.pokemonlist li.skeleton button section:last-of-type div {
 	content: '';
 	width: 8em;
 	aspect-ratio: 8 / 3;
+}
+
+/* skeleton shimmer load effect */
+@keyframes skeleton {
+	0% {
+		background-position: 0cqw;
+	}
+	100% {
+		background-position: 100cqw;
+	}
 }

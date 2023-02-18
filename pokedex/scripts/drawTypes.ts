@@ -91,7 +91,7 @@ const getTypeBadge = (type: string) => {
 		badgeName = 'psychc';
 	} else if (type === 'electric') {
 		badgeName = 'electr';
-	} else if (!PokemonTypes.includes(type)) {
+	} else if (!PokemonTypes.includes(type.toLowerCase())) {
 		badgeName = '???';
 	} else {
 		badgeName = type;

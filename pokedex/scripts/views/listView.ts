@@ -1,33 +1,40 @@
+import { getPokemonByRegion } from '../dataFetch';
 import { Pokemon } from '../../assets/types';
 import { getTypeBadge } from '../drawTypes';
 import { focusPokemon } from '../manageListScroll';
-import { loadTemplate } from './loadTemplate';
+import { loadTemplate } from '../loadTemplate';
+import { mainElement } from '../routing/router';
 
-let pokemonList: HTMLOListElement;
-const mainElement = document.querySelector('main');
+const ListView = async () => {
+	mainElement.innerHTML = '';
+	const { n, promise } = await getPokemonByRegion();
+	await generatePokemonList(n, promise);
+};
 
 // generate skeleton voor pokemon list
 const generateListSkeleton = async (n: number) => {
-	pokemonList = document.createElement('ol');
+	const pokemonList = document.createElement('ol');
 	pokemonList.classList.add('pokemonlist');
-	const template = await loadTemplate('pokemon-list-item');
+	const template = await loadTemplate('pokemonListItem');
 
 	// voegt alle lege list items toe aan pokemonList
-	pokemonList.innerHTML = Array.from({ length: n }).map(() => template).join('');
+	pokemonList.innerHTML = Array.from({ length: n })
+		.map(() => template)
+		.join('');
 	mainElement?.appendChild(pokemonList);
 };
 
 const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 	// generate skeleton
 	await generateListSkeleton(n);
-	// return;
+	const pokemonList = document.querySelector('ol.pokemonlist') as HTMLOListElement;
 
-	// wacht tot data binnen is
 	const pokemonArr = await data;
 
 	// shoutout ninadepina
 	const listItems = Array.from(pokemonList.children).map((listItem) => ({
 		listItem,
+		button: listItem.querySelector('button') as HTMLButtonElement,
 		idField: listItem.querySelector('section:first-of-type p') as HTMLParagraphElement,
 		nameField: listItem.querySelector('section:nth-of-type(2) h2') as HTMLHeadingElement,
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
@@ -35,10 +42,23 @@ const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 
 	pokemonArr.forEach((pokemon, i) => {
 		setTimeout(() => {
+			// haal alle elementen uit listItems array
+			const listItem = listItems[i].listItem;
+			const button = listItems[i].button;
 			const idField = listItems[i].idField;
 			const nameField = listItems[i].nameField;
 			const typeSection = listItems[i].typeSection;
 
+			// verwijder loading en skeleton class en verwijder lege placeholder div
+			listItem.classList.remove('loading', 'skeleton');
+			listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
+
+			button.addEventListener('click', () => {
+				window.location.hash = `/pokemon/${pokemon.name}`;
+			});
+			button.setAttribute('aria-label', `view details of ${pokemon.name}`);
+
+			// voef id toe in structured format (001, 002, 003, etc.)
 			idField.textContent = pokemon.id.toLocaleString('nl-NL', {
 				minimumIntegerDigits: 3
 			});
@@ -50,12 +70,10 @@ const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 				const typeDiv = getTypeBadge(type.type.name);
 				typeSection.appendChild(typeDiv);
 			});
-			listItems[i].listItem.classList.remove('loading', 'skeleton');
-			listItems[i].listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 		}, i * 50);
 	});
-	// focus eerste pokemon in list
+	// focus eerste pokemon in list en geef aan dat pijltje moet volgen
 	focusPokemon(pokemonList, true);
 };
 
-export { generatePokemonList };
+export { ListView };

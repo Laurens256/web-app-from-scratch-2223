@@ -4,8 +4,9 @@
 	flex-direction: column;
 	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
-	padding: 0;
-	height: calc(100vh - (var(--header-footer-height) * 2));
+	padding: 1.25em .5em;
+	/* calc height 100vh - ruimte van header en footer - ruimte van padding boven en onder */
+	height: calc(100vh - (var(--header-footer-height) * 2) - 2.5em);
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
 }
@@ -40,7 +41,7 @@
 @media (min-width: 600px) {
 	/* nodig voor extra ruimte naast list want overflow-x:visible werkt niet icm overflow-y for some reason */
 	.pokemonlist {
-		padding: 0 3em;
+		padding: 1.25em 3em;
 	}
 	.pokemonlist li button:hover,
 	.pokemonlist li button:focus-visible {
@@ -48,7 +49,7 @@
 	}
 
 	.pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
-	.pokemonlist li:not(.loading) button:focus::before {
+	.pokemonlist li:not(.loading) button:focus-visible::before {
 		content: '';
 		position: absolute;
 		left: -2.5em;

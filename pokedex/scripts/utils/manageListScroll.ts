@@ -18,7 +18,6 @@ const followPokemonScroll = () => {
 	const scrollMarginDown = visibleItems.length > 5 ? 3 : 1;
 	const scrollMarginUp = visibleItems.length > 5 ? 1 : 0;
 
-
 	if (focusedItemIndex >= visibleItems.length - scrollMarginDown) {
 		pokemonList.scrollTop += listItemHeight;
 	} else if (focusedItemIndex <= scrollMarginUp) {
@@ -63,12 +62,15 @@ const focusPokemon = (pokemonListParam: HTMLOListElement, follow: boolean = fals
 	if (follow) {
 		pokemonList.addEventListener('focusin', followPokemonScroll);
 	}
-	focusItem.focus();
+	// media query omdat de focus stijl voor mobile niet zo mooi is lol
+	if (window.matchMedia('(min-width: 600px)').matches) {
+		focusItem.focus();
+	}
 };
 
 // berekenen van de boven- en ondergrens van de list, gebeurt bij resize en init
 const calcBoundingRect = () => {
-	if(!pokemonList) return;
+	if (!pokemonList) return;
 	topBoundary = pokemonList.getBoundingClientRect().top;
 	bottomBoundary = pokemonList.getBoundingClientRect().bottom;
 };

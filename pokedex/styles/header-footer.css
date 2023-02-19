@@ -4,9 +4,7 @@ footer {
 	color: var(--text-white);
 	height: var(--header-footer-height);
 	text-shadow: var(--text-shadow-white);
-	position: sticky;
 	width: 100%;
-	/* z-index: -1; */
 }
 
 header ul,
@@ -21,6 +19,7 @@ footer ul {
 }
 
 header {
+	position: sticky;
 	top: 0;
 }
 
@@ -36,7 +35,7 @@ header ul li {
 }
 
 footer {
-	bottom: 0;
+	position: relative;
 }
 footer ul {
 	justify-content: flex-end;

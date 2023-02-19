@@ -1,3 +1,6 @@
 [submodule "web-app-from-scratch-2223.wiki"]
 	path = web-app-from-scratch-2223.wiki
 	url = git@github.com:Laurens256/web-app-from-scratch-2223.wiki
+[submodule "wiki"]
+	path = web-app-from-scratch-2223.wiki
+	url = git@github.com:Laurens256/web-app-from-scratch-2223.wiki.git

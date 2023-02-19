@@ -1,4 +1,4 @@
-import { PokemonTypes } from '../assets/types';
+import { PokemonTypes } from '../../assets/types';
 
 // const typeColors = {
 // 	normal: '#a8a878',

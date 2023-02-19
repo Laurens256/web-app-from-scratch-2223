@@ -1,4 +1,4 @@
-import { Pokemon, Url } from '../assets/types';
+import { Pokemon, Url } from '../../assets/types';
 
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
 const defaultRegion = 'kanto';

@@ -1,8 +1,8 @@
-import { getPokemonByRegion } from '../dataFetch';
+import { getPokemonByRegion } from '../utils/dataFetch';
 import { Pokemon } from '../../assets/types';
-import { getTypeBadge } from '../drawTypes';
-import { focusPokemon } from '../manageListScroll';
-import { loadTemplate } from '../loadTemplate';
+import { getTypeBadge } from '../utils/getTypeBadge';
+import { focusPokemon } from '../utils/manageListScroll';
+import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 
 const ListView = async () => {

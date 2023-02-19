@@ -25,25 +25,19 @@ const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 	// wacht tot data binnen is
 	const pokemonArr = await data;
 
-	// selecteer alle list items en child elements
-	const listItems = pokemonList.children;
-	const idFields = Array.from(listItems).map(
-		(listItem) =>
-			listItem.querySelector('section:first-of-type p') as HTMLParagraphElement
-	);
-	const nameFields = Array.from(listItems).map(
-		(listItem) =>
-			listItem.querySelector('section:nth-of-type(2) h2') as HTMLHeadingElement
-	);
-	const typeSections = Array.from(listItems).map(
-		(listItem) => listItem.querySelector('section:last-of-type') as HTMLElement
-	);
+	// shoutout ninadepina
+	const listItems = Array.from(pokemonList.children).map((listItem) => ({
+		listItem,
+		idField: listItem.querySelector('section:first-of-type p') as HTMLParagraphElement,
+		nameField: listItem.querySelector('section:nth-of-type(2) h2') as HTMLHeadingElement,
+		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
+	}));
 
 	pokemonArr.forEach((pokemon, i) => {
 		setTimeout(() => {
-			const idField = idFields[i];
-			const nameField = nameFields[i];
-			const typeSection = typeSections[i];
+			const idField = listItems[i].idField;
+			const nameField = listItems[i].nameField;
+			const typeSection = listItems[i].typeSection;
 
 			idField.textContent = pokemon.id.toLocaleString('nl-NL', {
 				minimumIntegerDigits: 3
@@ -56,8 +50,8 @@ const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 				const typeDiv = getTypeBadge(type.type.name);
 				typeSection.appendChild(typeDiv);
 			});
-			listItems[i].classList.remove('loading', 'skeleton');
-			listItems[i].querySelector('section:last-of-type div:not(.typebadge)')?.remove();
+			listItems[i].listItem.classList.remove('loading', 'skeleton');
+			listItems[i].listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 		}, i * 50);
 	});
 	// focus eerste pokemon in list

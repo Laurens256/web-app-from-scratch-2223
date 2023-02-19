@@ -5,10 +5,19 @@ import { focusPokemon } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 
+let fullPokemonList: Pokemon[] = [];
+
 const ListView = async () => {
 	mainElement.innerHTML = '';
-	const { n, promise } = await getPokemonByRegion();
-	await generatePokemonList(n, promise);
+
+	// als de volledige nog niet is opgehaald, haal hem dan op
+	if (fullPokemonList.length === 0) {
+		const { n, promise } = await getPokemonByRegion();
+		await generatePokemonList(n, promise);
+		fullPokemonList = await promise;
+	} else {
+		await generatePokemonList(fullPokemonList.length, Promise.resolve(fullPokemonList));
+	}
 };
 
 // generate skeleton voor pokemon list
@@ -24,7 +33,11 @@ const generateListSkeleton = async (n: number) => {
 	mainElement?.appendChild(pokemonList);
 };
 
-const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
+const generatePokemonList = async (
+	n: number,
+	data: Promise<Pokemon[]>,
+	order?: string
+) => {
 	// generate skeleton
 	await generateListSkeleton(n);
 	const pokemonList = document.querySelector('ol.pokemonlist') as HTMLOListElement;
@@ -39,6 +52,16 @@ const generatePokemonList = async (n: number, data: Promise<Pokemon[]>) => {
 		nameField: listItem.querySelector('section:nth-of-type(2) h2') as HTMLHeadingElement,
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
 	}));
+
+	if (order === 'alphabetical') {
+		pokemonArr.sort((a, b) =>
+			a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+		);
+	} else if (order === 'lightest') {
+		pokemonArr.sort((a, b) => a.weight - b.weight);
+	} else if (order === 'smallest') {
+		pokemonArr.sort((a, b) => a.height - b.height);
+	}
 
 	pokemonArr.forEach((pokemon, i) => {
 		setTimeout(() => {

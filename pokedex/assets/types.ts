@@ -46,7 +46,11 @@ export interface Pokemon {
 }
 
 export const PokemonTypes = [
-	'normal','fire','water','grass','electric','ice','fight','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'
+	'normal','fire','water','grass','electric','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'
+];
+
+export const PokemonTypes1 = [
+	'normal','fighting','rock','flying','poison','ground','bug','ghost','fire','water','grass','electric','psychic','ice','dragon','dark','steel','fairy'
 ];
 
 // export interface Species {

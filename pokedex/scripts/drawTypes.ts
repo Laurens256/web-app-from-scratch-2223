@@ -81,8 +81,7 @@ import { PokemonTypes } from '../assets/types';
 
 const getTypeBadge = (type: string) => {
 	const typeDiv = document.createElement('div');
-	typeDiv.classList.add('typebadge');
-	typeDiv.classList.add(type);
+	typeDiv.classList.add('typebadge', type);
 
 	let badgeName = '';
 	if (type === 'fighting') {

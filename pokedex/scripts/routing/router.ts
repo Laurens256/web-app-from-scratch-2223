@@ -2,7 +2,7 @@ import { routes } from './routes';
 const mainElement = document.querySelector('main') as HTMLElement;
 
 const router = () => {
-	const path = window.location.hash.substring(1) || '/';
+	const path = window.location.pathname;
 	const route = routes.find((_route) => {
 		// kijk of de huidige path evenveel delen heeft als de route
 		const urlPathSegments = path.split('/').slice(1);

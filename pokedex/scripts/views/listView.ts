@@ -12,9 +12,9 @@ const ListView = async () => {
 
 	// als de volledige nog niet is opgehaald, haal hem dan op
 	if (fullPokemonList.length === 0) {
-		const { n, promise } = await getPokemonByRegion();
-		await generatePokemonList(n, promise);
-		fullPokemonList = await promise;
+		const { n, pokemonArr } = await getPokemonByRegion();
+		await generatePokemonList(n, pokemonArr);
+		fullPokemonList = await pokemonArr;
 	} else {
 		await generatePokemonList(fullPokemonList.length, Promise.resolve(fullPokemonList));
 	}
@@ -35,7 +35,7 @@ const generateListSkeleton = async (n: number) => {
 
 const generatePokemonList = async (
 	n: number,
-	data: Promise<Pokemon[]>,
+	data: Promise<Pokemon[]> | Pokemon[],
 	order?: string
 ) => {
 	// generate skeleton
@@ -77,8 +77,8 @@ const generatePokemonList = async (
 			listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 
 			button.addEventListener('click', () => {
+				// hash based routing
 				window.history.pushState({}, '', `/pokemon/${pokemon.name}`);
-				// window.location.hash = `/pokemon/${pokemon.name}`;
 			});
 			button.setAttribute('aria-label', `view details of ${pokemon.name}`);
 

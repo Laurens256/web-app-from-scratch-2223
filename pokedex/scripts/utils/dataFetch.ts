@@ -29,7 +29,7 @@ const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
 	const pokemonUrlArr = pokemonEntryArr.map((entry) => entry.pokemon_species);
 	const pokemonArr = getAllPokemon(pokemonUrlArr);
 
-	return { n: pokemonEntryArr.length, promise: pokemonArr };
+	return { n: pokemonEntryArr.length, pokemonArr: pokemonArr };
 };
 
-export { getPokemonByRegion };
+export { getDataFromAPI, getPokemonByRegion };

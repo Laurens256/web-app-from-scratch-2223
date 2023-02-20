@@ -53,6 +53,8 @@ export const PokemonTypes1 = [
 	'normal','fighting','rock','flying','poison','ground','bug','ghost','fire','water','grass','electric','psychic','ice','dragon','dark','steel','fairy'
 ];
 
+export const AllRegions = ['kanto', 'johto', 'hoenn', 'sinnoh', 'hisui', 'unova', 'kalos', 'alola', 'galar', 'paldea'];
+
 // export interface Species {
 // 	base_happiness: number;
 // 	capture_rate: number;

@@ -1,6 +1,7 @@
 @import url(./header-footer.css);
 @import url(./pokemon-list.css);
 @import url(./type-badges.css);
+@import url(./pokemon-details.css);
 
 @font-face {
 	font-family: 'Pokemon';
@@ -55,6 +56,8 @@ body {
 
 	--bg-main: #fff7ef;
 	--bg-secondary: #fcfcf9;
+
+	--bg-details: #e7dec6;
 
 	--header-footer-height: clamp(10vh, 100px, 15vh);
 

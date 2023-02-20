@@ -3,11 +3,9 @@ import { Pokemon } from '../../assets/types';
 import { getDataFromAPI } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 
-// const DetailView = async (name: string = 'bulbasaur') => {
-// 	mainElement.innerHTML = '';
-// 	mainElement.innerHTML = name;
-// 	console.log(name);
-// };
+//prettier-ignore
+const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
+const defaultSprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/placeholder-ball.png`;
 
 const DetailView = async () => {
 	mainElement.innerHTML = '';
@@ -47,12 +45,31 @@ const populatePokemonDetail = async (_pokemon: Pokemon | Promise<Pokemon>) => {
 	const pokemonWeight = topSection.querySelector('p.weight') as HTMLParagraphElement;
 	// const pokemonTypes = pokemonDetail.querySelector('section.types') as HTMLElement;
 
-	pokemonId.textContent = 'No'+pokemon.id.toLocaleString('nl-NL', {
-		minimumIntegerDigits: 3
-	});
+	pokemonId.textContent = `No
+		${pokemon.id.toLocaleString('nl-NL', {
+			minimumIntegerDigits: 3
+		})}`;
 	pokemonName.textContent = pokemon.name;
+	pokemonImage.addEventListener(
+		'load',
+		() => {
+			pokemonImage.alt = pokemon.name;
+		},
+		{ once: true }
+	);
+
+	pokemonImage.addEventListener(
+		'error',
+		() => {
+			pokemonImage.src = defaultSprite.replace(
+				'placeholder',
+				balls[Math.floor(Math.random() * balls.length)]
+			);
+			pokemonImage.alt = 'master ball';
+		},
+		{ once: true }
+	);
 	pokemonImage.src = pokemon.sprites.front_default;
-	pokemonImage.alt = pokemon.name;
 	pokemonSpecies.textContent = pokemon.species.name;
 	pokemonHeight.textContent = pokemon.height.toString();
 	pokemonWeight.textContent = pokemon.weight.toString();

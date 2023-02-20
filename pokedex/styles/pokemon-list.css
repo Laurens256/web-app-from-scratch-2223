@@ -4,7 +4,7 @@
 	flex-direction: column;
 	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
-	padding: 1.25em .5em;
+	padding: 1.25em 0.5em;
 	/* calc height 100vh - ruimte van header en footer - ruimte van padding boven en onder */
 	height: calc(100vh - (var(--header-footer-height) * 2) - 2.5em);
 	overflow-y: auto;

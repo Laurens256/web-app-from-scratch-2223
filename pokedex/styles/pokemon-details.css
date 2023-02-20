@@ -1,0 +1,45 @@
+.pokemondetailbg {
+	width: 100%;
+	height: calc(100vh - (var(--header-footer-height) * 2));
+	background: var(--bg-details);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pokemondetail {
+	height: 80%;
+	border: solid 7px var(--header);
+	border-radius: 1em;
+	width: clamp(150px, 90%, 1000px);
+	display: grid;
+	grid-template-rows: 60% 40%;
+	overflow: hidden;
+}
+
+/* section met text info en plaatje */
+.pokemondetail > section:first-of-type {
+	background: var(--text-white);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+/* section met text info */
+.pokemondetail > section:first-of-type > section div {
+	display: flex;
+	align-items: baseline;
+	font-size: 1.7em;
+	gap: 0.2em;
+}
+
+.pokemondetail > section:first-of-type > section div h2 {
+	text-transform: uppercase;
+}
+
+/* section met img */
+.pokemondetail > section:first-of-type > img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	image-rendering: crisp-edges;
+}

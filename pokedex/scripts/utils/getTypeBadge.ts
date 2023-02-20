@@ -84,17 +84,20 @@ const getTypeBadge = (type: string) => {
 	typeDiv.classList.add('typebadge', type);
 
 	let badgeName = '';
-	if (type === 'fighting') {
-		badgeName = 'fight';
-	} else if (type === 'psychic') {
-		badgeName = 'psychc';
-	} else if (type === 'electric') {
-		badgeName = 'electr';
-	} else if (!PokemonTypes.includes(type.toLowerCase())) {
-		badgeName = '???';
-	} else {
-		badgeName = type;
+	switch (type.toLowerCase()) {
+		case 'fighting':
+			badgeName = 'fight';
+			break;
+		case 'psychic':
+			badgeName = 'psychc';
+			break;
+		case 'electric':
+			badgeName = 'electr';
+			break;
+		default:
+			badgeName = PokemonTypes.includes(type.toLowerCase()) ? type : '???';
 	}
+
 	typeDiv.setAttribute('data-type-visual', badgeName);
 
 	return typeDiv;

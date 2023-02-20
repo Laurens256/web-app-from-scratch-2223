@@ -1,5 +1,5 @@
 import { mainElement } from '../routing/router';
-import { Pokemon } from '../../assets/types';
+import { Pokemon, Species, regionPerGame } from '../../assets/types';
 import { getDataFromAPI } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 
@@ -43,6 +43,13 @@ const populatePokemonDetail = async (_pokemon: Pokemon | Promise<Pokemon>) => {
 	const pokemonImage = topSection.querySelector('img') as HTMLImageElement;
 	const pokemonHeight = topSection.querySelector('p.height') as HTMLParagraphElement;
 	const pokemonWeight = topSection.querySelector('p.weight') as HTMLParagraphElement;
+
+	const pokemonFlavorText = bottomSection.querySelector(
+		'p.flavortext'
+	) as HTMLParagraphElement;
+
+	console.log(pokemon);
+
 	// const pokemonTypes = pokemonDetail.querySelector('section.types') as HTMLElement;
 
 	pokemonId.textContent = `No
@@ -50,29 +57,42 @@ const populatePokemonDetail = async (_pokemon: Pokemon | Promise<Pokemon>) => {
 			minimumIntegerDigits: 3
 		})}`;
 	pokemonName.textContent = pokemon.name;
-	pokemonImage.addEventListener(
-		'load',
-		() => {
+
+	//prettier-ignore
+	pokemonImage.addEventListener('load', () => {
 			pokemonImage.alt = pokemon.name;
-		},
-		{ once: true }
+		}, { once: true }
 	);
 
-	pokemonImage.addEventListener(
-		'error',
-		() => {
-			pokemonImage.src = defaultSprite.replace(
-				'placeholder',
-				balls[Math.floor(Math.random() * balls.length)]
-			);
-			pokemonImage.alt = 'master ball';
-		},
-		{ once: true }
+	//prettier-ignore
+	pokemonImage.addEventListener('error', () => {
+			const ball = balls[Math.floor(Math.random() * balls.length)];
+			pokemonImage.src = defaultSprite.replace('placeholder', ball);
+			pokemonImage.alt = `${ball} ball`;
+		}, { once: true }
 	);
-	pokemonImage.src = pokemon.sprites.front_default;
-	pokemonSpecies.textContent = pokemon.species.name;
+
+	// lol
+	if (pokemon.sprites.front_shiny && Math.random() < 1 / 8192) {
+		pokemonImage.src = pokemon.sprites.front_shiny;
+	} else {
+		pokemonImage.src = pokemon.sprites.front_default;
+	}
+
 	pokemonHeight.textContent = pokemon.height.toString();
 	pokemonWeight.textContent = pokemon.weight.toString();
+
+	const species = await getDataFromAPI(pokemon.species.url);
+	console.log(species);
+
+	const randomFlavorTexts = species.flavor_text_entries
+		.filter((text: { language: { name: string } }) => text.language.name === 'en')
+		.map((text: { flavor_text: string }) => text.flavor_text);
+
+	const randomFlavorText =
+		randomFlavorTexts[Math.floor(Math.random() * randomFlavorTexts.length)];
+
+	pokemonFlavorText.textContent = randomFlavorText;
 };
 
 export { DetailView };

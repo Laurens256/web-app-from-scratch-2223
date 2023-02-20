@@ -41,3 +41,9 @@ footer ul {
 	justify-content: flex-end;
 	gap: 1em;
 }
+
+@media screen and (max-width: 600px) {
+	footer {
+		display: none;
+	}
+}

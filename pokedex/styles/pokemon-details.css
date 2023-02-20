@@ -9,19 +9,27 @@
 
 .pokemondetail {
 	height: 80%;
-	border: solid 7px var(--header);
+	border: solid 10px var(--header);
 	border-radius: 1em;
 	width: clamp(150px, 90%, 1000px);
 	display: grid;
-	grid-template-rows: 60% 40%;
+	grid-template-rows: 65% 35%;
 	overflow: hidden;
+	color: var(--text-black);
+	text-shadow: var(--text-shadow-black);
 }
 
-/* section met text info en plaatje */
+/* =====================
+bovenste section
+===================== */
 .pokemondetail > section:first-of-type {
 	background: var(--text-white);
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+}
+
+.pokemondetail > section:first-of-type > section {
+	padding: 2em;
 }
 
 /* section met text info */
@@ -41,5 +49,52 @@
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+	/* image-rendering is de goat */
 	image-rendering: crisp-edges;
+}
+
+/* =====================
+onderste section
+===================== */
+.pokemondetail > section:last-of-type {
+	text-shadow: var(--text-shadow-black-extra);
+	border-top: solid 20px var(--header);
+	position: relative;
+}
+
+.pokemondetail > section:last-of-type::before {
+	content: '';
+	position: absolute;
+	top: -15px;
+	left: 0;
+	width: 100%;
+	height: 10px;
+	background: var(--details-divider);
+}
+
+.pokemondetail > section:last-of-type p {
+	/* vraag me niet hoe ik op deze nummers ben gekomen */
+	font-size: clamp(1.3rem, 3.5cqb, 3.3vw);
+	line-height: 1.2;
+	word-spacing: 0.4em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100% - 0.4em);
+}
+
+@media screen and (max-width: 600px) {
+	.pokemondetailbg {
+		height: calc(100vh - var(--header-footer-height));
+	}
+
+	.pokemondetail > section:first-of-type {
+		grid-template-columns: 1fr;
+		grid-template-rows: 70% 1fr;
+	}
+
+	.pokemondetail > section:first-of-type > section {
+		order: 1;
+	}
 }

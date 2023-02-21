@@ -36,14 +36,18 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 	const { id, name, sprites, height, weight, species } = await pokemon;
 
 	const {
-		topSection,
+		pokemonDetail,
+		imageSection,
 		pokemonId,
 		pokemonName,
+		pokemonSpecies,
 		pokemonImage,
 		pokemonHeight,
 		pokemonWeight,
 		pokemonFlavorText
 	} = getHtmlElements();
+
+	// await delay(5000)
 
 	pokemonId.textContent = `No
 		${id.toLocaleString('nl-NL', {
@@ -57,16 +61,18 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 	//prettier-ignore
 	pokemonImage.addEventListener('load', () => {
 		pokemonImage.alt = name;
-		topSection.appendChild(pokemonImage);
+		imageSection.appendChild(pokemonImage);
+		imageSection.classList.remove('imgloading');
 		}, { once: true }
 	);
 
 	//prettier-ignore
 	pokemonImage.addEventListener('error', () => {
-			const ball = balls[Math.floor(Math.random() * balls.length)];
-			pokemonImage.src = defaultSprite.replace('placeholder', ball);
-			pokemonImage.alt = `${ball} ball`;
-			topSection.appendChild(pokemonImage);
+		const ball = balls[Math.floor(Math.random() * balls.length)];
+		pokemonImage.src = defaultSprite.replace('placeholder', ball);
+		pokemonImage.alt = `${ball} ball`;
+		imageSection.appendChild(pokemonImage);
+		imageSection.classList.remove('imgloading');
 		}, { once: true }
 	);
 
@@ -77,8 +83,17 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 		pokemonImage.src = sprites.front_default;
 	}
 
+	pokemonDetail.classList.remove('loading-pokemon');
+
 	const speciesData = await getDataFromAPI(species.url);
-	console.log(species);
+
+	console.log(speciesData.egg_groups);
+
+	const randomEggGroup = speciesData.egg_groups[Math.floor(Math.random() * speciesData.egg_groups.length)];
+
+	if(randomEggGroup && !(randomEggGroup.name == 'no-eggs')) {
+		pokemonSpecies.textContent = `${randomEggGroup.name.toUpperCase()} POKéMON`;
+	}
 
 	const randomFlavorTexts = speciesData.flavor_text_entries
 		.filter((text: { language: { name: string } }) => text.language.name === 'en')
@@ -88,17 +103,19 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 		randomFlavorTexts[Math.floor(Math.random() * randomFlavorTexts.length)];
 
 	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
+
+	pokemonDetail.classList.remove('loading-species');
 };
-
-
 
 const getHtmlElements = () => {
 	const pokemonDetail = document.querySelector('article.pokemondetail') as HTMLElement;
 	const topSection = pokemonDetail.children[0] as HTMLElement;
 	const bottomSection = pokemonDetail.children[1] as HTMLElement;
 
+	const imageSection = topSection.querySelector('section:last-of-type') as HTMLElement;
 	const pokemonId = topSection.querySelector('div p') as HTMLParagraphElement;
 	const pokemonName = topSection.querySelector('div h2') as HTMLHeadingElement;
+	const pokemonSpecies = topSection.querySelector('p.species') as HTMLParagraphElement;
 	const pokemonImage = document.createElement('img') as HTMLImageElement;
 	const pokemonHeight = topSection.querySelector('p.height') as HTMLParagraphElement;
 	const pokemonWeight = topSection.querySelector('p.weight') as HTMLParagraphElement;
@@ -107,9 +124,12 @@ const getHtmlElements = () => {
 	) as HTMLParagraphElement;
 
 	//prettier-ignore
-	return {
-		topSection, pokemonId, pokemonName, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
+	return {pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
 	};
 };
+
+const delay = async (ms: number) => {
+	return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 export { DetailView };

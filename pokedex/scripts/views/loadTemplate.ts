@@ -7,5 +7,5 @@ const templates = {
 	pokemonListItem:
 		'<li class="loading skeleton"><button><section><p></p></section><section><h2></h2></section><section><div></div></section></button></li>',
 	pokemonDetail: 
-	'<div class="pokemondetailbg"><article class="pokemondetail"><section><section><div><p></p><h2></h2></div><p class="species"></p><p class="height"></p><p class="weight"></p></section></section><section><p class="flavortext"></p></section></article></div>'
+	'<div class="pokemondetailbg"><article class="pokemondetail loading-pokemon loading-species"><section><section><div><p>&nbsp;</p><h2>&nbsp;</h2></div><p class="species">&nbsp;</p><p class="height">&nbsp;</p><p class="weight">&nbsp;</p></section><section class="imgloading"></section></section><section><p class="flavortext">&nbsp;</p></section></article></div>'
 };

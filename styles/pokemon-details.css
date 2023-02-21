@@ -1,0 +1,195 @@
+.pokemondetailbg {
+	width: 100%;
+	height: calc(100vh - (var(--header-footer-height) * 2));
+	background: var(--bg-details);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pokemondetail {
+	height: 80%;
+	border: solid 10px var(--header);
+	border-radius: 1em;
+	width: clamp(150px, 800px, 90%);
+	/* width: clamp(150px, 90%, 900px); */
+	display: grid;
+	grid-template-rows: 70% 1fr;
+	overflow: hidden;
+	color: var(--text-black);
+	text-shadow: var(--text-shadow-black);
+}
+
+/* =====================
+bovenste section
+===================== */
+.pokemondetail > section:first-of-type {
+	background: var(--text-white);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+/* section met text info */
+.pokemondetail > section:first-of-type > section:first-of-type {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 0 2rem 2rem 2rem;
+	gap: 1rem;
+	width: fit-content;
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type div {
+	display: flex;
+	align-items: baseline;
+	gap: 0.8em;
+	margin-bottom: 0.5em;
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type div p {
+	font-size: 2rem;
+	white-space: nowrap;
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type div h2 {
+	text-transform: uppercase;
+	font-size: 2.5rem;
+	font-size: clamp(1rem, 2.5rem, 8vw);
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type p.species {
+	font-size: clamp(1rem, 1.8rem, 7vw);
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type :is(p.height, p.weight) {
+	font-size: clamp(1rem, 1.8rem, 3.5vw);
+	width: clamp(5rem, calc(100% - 2rem), 40cqw);
+	text-align: end;
+	position: relative;
+}
+
+.pokemondetail
+	> section:first-of-type
+	> section:first-of-type
+	:is(p.height, p.weight)::before {
+	position: absolute;
+	left: 0;
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type p.height::after {
+	content: '”';
+	position: absolute;
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type p.height::before {
+	content: 'HT';
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type p.weight::before {
+	content: 'WT';
+}
+
+.pokemondetail > section:first-of-type > section:first-of-type p.weight::after {
+	content: 'lbs.';
+	margin-left: 0.5em;
+	position: absolute;
+}
+
+.pokemondetail.loading-pokemon :is(p.weight, p.height)::before,
+.pokemondetail.loading-pokemon :is(p.weight, p.height)::after {
+	display: none;
+}
+
+/* section met img */
+.pokemondetail > section:first-of-type > section:last-of-type {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pokemondetail > section:first-of-type > section:last-of-type img {
+	max-width: 100%;
+	height: 100%;
+	object-fit: contain;
+	/* image-rendering is de goat */
+	image-rendering: pixelated;
+}
+
+/* =====================
+onderste section
+===================== */
+.pokemondetail > section:last-of-type {
+	text-shadow: var(--text-shadow-black-extra);
+	border-top: solid 20px var(--header);
+	position: relative;
+}
+
+.pokemondetail > section:last-of-type::before {
+	content: '';
+	position: absolute;
+	top: -15px;
+	left: 0;
+	width: 100%;
+	height: 10px;
+	background: var(--details-divider);
+}
+
+.pokemondetail > section:last-of-type p {
+	/* vraag me niet hoe ik op deze nummers ben gekomen */
+	font-size: clamp(1.3rem, 3.5cqb, 3.3vw);
+	line-height: 1.2;
+	word-spacing: 0.4em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100% - 0.4em);
+}
+
+@media screen and (max-width: 600px) {
+	.pokemondetailbg {
+		height: calc(100vh - var(--header-footer-height));
+	}
+
+	.pokemondetail {
+		height: 90%;
+	}
+
+	.pokemondetail > section:first-of-type {
+		grid-template-columns: 1fr;
+		grid-template-rows: 60% 1fr;
+	}
+
+	.pokemondetail > section:first-of-type > section:first-of-type {
+		order: 1;
+	}
+
+	.pokemondetail > section:first-of-type > section:first-of-type {
+		padding: 0 1rem 1rem;
+		gap: 0.5rem;
+	}
+
+	.pokemondetail.loading-species > section:last-of-type p.flavortext {
+		width: calc(100% - 2rem);
+	}
+}
+
+/* =================
+loading stuff
+================= */
+.pokemondetail.loading-species p.species {
+	width: clamp(5rem, calc(100% - 2rem), 40cqw);
+}
+
+.pokemondetail.loading-pokemon > section:first-of-type > section:first-of-type div p {
+	width: 2em;
+	font-size: clamp(1rem, 2.5rem, 8vw);
+}
+
+.pokemondetail.loading-pokemon > section:first-of-type > section:first-of-type div h2 {
+	width: 5em;
+}
+
+.pokemondetail.loading-species > section:last-of-type p {
+	width: calc(100% - 2.5rem);
+}

@@ -1,0 +1,95 @@
+.pokemonlist {
+	box-sizing: content-box;
+	display: flex;
+	flex-direction: column;
+	width: clamp(150px, 90%, 1000px);
+	padding: 0.5em;
+	margin: var(--header-height) auto 0;
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
+}
+
+.pokemonlist li {
+	position: relative;
+	scroll-snap-align: end;
+}
+
+/* css manier (gradient) */
+.pokemonlist li button {
+	/* height: calc(100% + 1em); */
+	width: 100%;
+	text-align: start;
+	padding: 0.5em;
+	display: grid;
+	grid-template-columns: min-content 1fr minmax(16em, 1fr);
+	align-items: center;
+	column-gap: 1em;
+	text-shadow: var(--text-shadow-black);
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: clamp(0px, 1rem, 2.2vw);
+}
+
+.pokemonlist li button:hover,
+.pokemonlist li button:focus-visible {
+	outline: solid 2px var(--text-black);
+}
+
+/* pijltje voor select als scherm breed genoeg is */
+@media (min-width: 600px) {
+	/* nodig voor extra ruimte naast list want overflow-x:visible werkt niet icm overflow-y for some reason */
+	.pokemonlist {
+		margin: 0 auto;
+		padding: 1.25em 3em;
+		height: calc(100vh - (var(--header-footer-height) * 2) - 2.5em);
+	}
+	.pokemonlist li button:hover,
+	.pokemonlist li button:focus-visible {
+		outline-color: transparent;
+	}
+
+	.pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
+	.pokemonlist li:not(.loading) button:focus-visible::before {
+		content: '';
+		position: absolute;
+		left: -2.5em;
+		height: 10px;
+		width: 10px;
+		top: 5%;
+		transform: scale(0.4);
+		box-shadow: var(--right-arrow-selection);
+	}
+}
+
+.pokemonlist li button section {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+/* =================
+id section
+================= */
+.pokemonlist li button section:first-of-type p {
+	font-size: clamp(0px, 2.5em, 4.4vw);
+	width: 2.5em;
+}
+
+.pokemonlist li:not(.loading) button section:first-of-type p::before {
+	content: 'No';
+	text-transform: none;
+}
+
+/* =================
+name section
+================= */
+.pokemonlist li button section:nth-of-type(2) {
+	font-size: clamp(0px, 1.8em, 4.4vw);
+}
+
+/* placeholder div zodat loading animation zelfde grootte houdt als geladen items */
+.pokemonlist li.skeleton button section:last-of-type div {
+	content: '';
+	width: 8em;
+	aspect-ratio: 8 / 3;
+}

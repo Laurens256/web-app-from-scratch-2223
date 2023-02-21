@@ -1,3 +1,8 @@
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+
 # PokéDex From Scratch
 PokéDex from Scratch is een Pokémon Fire Red geïnspireerde web-app die je helpt je Pokédex te vullen. Dit project is gemaakt voor het vak Web App From Scratch van CMD Amsterdam. De web-app kan bekeken worden via [deze link](https://pokedex-from-scratch.vercel.app/). <!-- als ik niet gecopyright striked wordt door nintendo lol -->
 ## Table of contents
@@ -25,19 +30,9 @@ Om deze web-app te realiseren maak ik gebruik van de [PokeApi](https://pokeapi.c
 4. Gebruik `npm run dev` om de web-app lokaal te start.
 5. Open de web-app in je browser via `http://localhost:3000/`
 
-## API
-De PokeApi is een uitgebreide api die (bijna) alle data bevat over de Pokémon die in de verschillende games voorkomen. De api bevat data over de Pokémon zelf, maar ook over bijvoorbeeld de verschillende moves, types, abilities en items. De api is gratis zonder api key te gebruiken. De data is opgedeeld in verschillende endpoints. De endpoints die ik gebruik zijn:
-- [Pokémon per generatie](https://pokeapi.co/docs/v2#generations)
-- [Specifieke Pokémon](https://pokeapi.co/docs/v2#pokemon)
-- [Pokémon soorten](https://pokeapi.co/docs/v2#pokemon-species)
-- [Pokémon types](https://pokeapi.co/docs/v2#types)
-- [Pokémon abilities](https://pokeapi.co/docs/v2#abilities)
-- [Pokémon moves](https://pokeapi.co/docs/v2#moves)
-- [Pokémon items](https://pokeapi.co/docs/v2#items)
-
 ## License
 PokéDex from scratch is gelicenseerd onder de Creative Commons Attribution-NonCommercial-ShareAlike 3.0 International Public License. Meer over deze licentie is te vinden op [Creative Commons](https://creativecommons.org/licenses/by-nc-sa/3.0/).
 
-Folders die niet onder de `pokedex` folder vallen zijn gelicenseerd onder de MIT license. Meer over deze licentie is te vinden op [MIT](https://opensource.org/licenses/MIT).
+Folders en subfolders daarvan met aan aparte license file vallen niet onder deze license maar onder de license die in de desbetreffende license file staat.
 
 ## Bronnen

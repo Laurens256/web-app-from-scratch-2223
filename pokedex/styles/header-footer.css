@@ -5,6 +5,7 @@ footer {
 	height: var(--header-footer-height);
 	text-shadow: var(--text-shadow-white);
 	width: 100%;
+	z-index: 1;
 }
 
 header ul,

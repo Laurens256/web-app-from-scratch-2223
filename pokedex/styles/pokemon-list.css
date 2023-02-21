@@ -2,11 +2,9 @@
 	box-sizing: content-box;
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
 	width: clamp(150px, 90%, 1000px);
-	padding: 1.25em 0.5em;
-	/* calc height 100vh - ruimte van header en footer - ruimte van padding boven en onder */
-	height: calc(100vh - var(--header-footer-height) - 5em);
+	padding: 0.5em;
+	margin: var(--header-height) auto 0;
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
 }
@@ -41,6 +39,7 @@
 @media (min-width: 600px) {
 	/* nodig voor extra ruimte naast list want overflow-x:visible werkt niet icm overflow-y for some reason */
 	.pokemonlist {
+		margin: 0 auto;
 		padding: 1.25em 3em;
 		height: calc(100vh - (var(--header-footer-height) * 2) - 2.5em);
 	}

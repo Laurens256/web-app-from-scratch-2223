@@ -11,9 +11,10 @@
 	height: 80%;
 	border: solid 10px var(--header);
 	border-radius: 1em;
-	width: clamp(150px, 90%, 1000px);
+	width: clamp(150px, 800px, 90%);
+	/* width: clamp(150px, 90%, 900px); */
 	display: grid;
-	grid-template-rows: 65% 35%;
+	grid-template-rows: 65% 1fr;
 	overflow: hidden;
 	color: var(--text-black);
 	text-shadow: var(--text-shadow-black);
@@ -28,29 +29,71 @@ bovenste section
 	grid-template-columns: 1fr 1fr;
 }
 
+/* section met text info */
 .pokemondetail > section:first-of-type > section {
-	padding: 2em;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 0 2em 2em 2em;
+	gap: 1rem;
+	width: fit-content;
 }
 
-/* section met text info */
 .pokemondetail > section:first-of-type > section div {
 	display: flex;
 	align-items: baseline;
-	font-size: 1.7em;
-	gap: 0.2em;
+	gap: .8em;
+}
+
+.pokemondetail > section:first-of-type > section div p {
+	font-size: 2rem;
+	white-space: nowrap;
 }
 
 .pokemondetail > section:first-of-type > section div h2 {
 	text-transform: uppercase;
+	font-size: 2.5rem;
+}
+
+.pokemondetail > section:first-of-type > section :is(p.height, p.weight) {
+	font-size: 2rem;
+	width: calc(100% - 2em);
+	text-align: end;
+	position: relative;
+}
+
+.pokemondetail > section:first-of-type > section :is(p.height, p.weight)::before {
+	position: absolute;
+	left: 0;
+}
+
+.pokemondetail > section:first-of-type > section p.height::after {
+	content: '”';
+	position: absolute;
+}
+
+.pokemondetail > section:first-of-type > section p.height::before {
+	content: 'HT';
+}
+
+.pokemondetail > section:first-of-type > section p.weight::before {
+	content: 'WT';
+}
+
+.pokemondetail > section:first-of-type > section p.weight::after {
+	content: 'lbs.';
+	margin-left: .5em;
+	position: absolute;
 }
 
 /* section met img */
 .pokemondetail > section:first-of-type > img {
-	width: 100%;
+	max-width: 100%;
 	height: 100%;
 	object-fit: contain;
+	margin: 0 auto;
 	/* image-rendering is de goat */
-	image-rendering: crisp-edges;
+	image-rendering: pixelated;
 }
 
 /* =====================
@@ -89,12 +132,21 @@ onderste section
 		height: calc(100vh - var(--header-footer-height));
 	}
 
+	.pokemondetail {
+		height: 90%;
+	}
+
 	.pokemondetail > section:first-of-type {
 		grid-template-columns: 1fr;
-		grid-template-rows: 70% 1fr;
+		grid-template-rows: 60% 1fr;
 	}
 
 	.pokemondetail > section:first-of-type > section {
 		order: 1;
+	}
+
+	.pokemondetail > section:first-of-type > section {
+		padding: 0 1em 1em;
+		gap: .5rem;
 	}
 }

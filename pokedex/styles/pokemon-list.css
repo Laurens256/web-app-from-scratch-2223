@@ -87,78 +87,9 @@ name section
 	font-size: clamp(0px, 1.8em, 4.4vw);
 }
 
-/* =================
-types section (css gradient)
-================= */
-
-/* =================
-types section (canvas)
-================= */
-/* .pokemonlist li button section:last-of-type div {
-	position: relative;
-	display: inline-block;
-}
-.pokemonlist li button section:last-of-type div canvas {
-	width: 8em;
-}
-
-.pokemonlist li button section:last-of-type div span {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 200%
-	color: var(--text-white);
-	text-shadow: var(--text-shadow-white-extra);
-} */
-
-/* =================
-loading state
-================= */
-.pokemonlist li.skeleton {
-	/* hoe cool */
-}
-
-.pokemonlist li.skeleton button {
-}
-
-.pokemonlist li.skeleton button section {
-	/* hoe cool */
-	container: loadbar / normal;
-	position: relative;
-	background: rgba(130, 130, 130, 0.2);
-}
-
-.pokemonlist li.skeleton button section::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: linear-gradient(
-			to right,
-			rgba(130, 130, 130, 0.2) 8%,
-			rgba(130, 130, 130, 0.3) 18%,
-			rgba(130, 130, 130, 0.2) 33%
-		)
-		center/10% 100% no-repeat;
-	animation: skeleton 5s infinite ease-out;
-}
-
 /* placeholder div zodat loading animation zelfde grootte houdt als geladen items */
 .pokemonlist li.skeleton button section:last-of-type div {
 	content: '';
 	width: 8em;
 	aspect-ratio: 8 / 3;
-}
-
-/* skeleton shimmer load effect */
-@keyframes skeleton {
-	0% {
-		background-position: 0cqw;
-	}
-	100% {
-		background-position: 100cqw;
-	}
 }

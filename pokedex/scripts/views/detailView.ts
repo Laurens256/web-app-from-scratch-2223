@@ -2,6 +2,7 @@ import { mainElement } from '../routing/router';
 import { Pokemon, Species, regionPerGame } from '../../assets/types';
 import { getDataFromAPI } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
+import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -30,37 +31,33 @@ const loadPokemonData = async () => {
 	return pokemon;
 };
 
-const populatePokemonDetail = async (_pokemon: Pokemon | Promise<Pokemon>) => {
+const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 	await generateDetailSkeleton();
-	const pokemon = await _pokemon;
-	const pokemonDetail = document.querySelector('article.pokemondetail') as HTMLElement;
-	const topSection = pokemonDetail.children[0] as HTMLElement;
-	const bottomSection = pokemonDetail.children[1] as HTMLElement;
+	const { id, name, sprites, height, weight, species } = await pokemon;
 
-	const pokemonId = topSection.querySelector('div p') as HTMLParagraphElement;
-	const pokemonName = topSection.querySelector('div h2') as HTMLHeadingElement;
-	const pokemonSpecies = topSection.querySelector('p.species') as HTMLHeadingElement;
-	const pokemonImage = topSection.querySelector('img') as HTMLImageElement;
-	const pokemonHeight = topSection.querySelector('p.height') as HTMLParagraphElement;
-	const pokemonWeight = topSection.querySelector('p.weight') as HTMLParagraphElement;
-
-	const pokemonFlavorText = bottomSection.querySelector(
-		'p.flavortext'
-	) as HTMLParagraphElement;
-
-	console.log(pokemon);
-
-	// const pokemonTypes = pokemonDetail.querySelector('section.types') as HTMLElement;
+	const {
+		topSection,
+		pokemonId,
+		pokemonName,
+		pokemonImage,
+		pokemonHeight,
+		pokemonWeight,
+		pokemonFlavorText
+	} = getHtmlElements();
 
 	pokemonId.textContent = `No
-		${pokemon.id.toLocaleString('nl-NL', {
+		${id.toLocaleString('nl-NL', {
 			minimumIntegerDigits: 3
 		})}`;
-	pokemonName.textContent = pokemon.name;
+	pokemonName.textContent = name;
+
+	pokemonHeight.textContent = decimeterToFoot(height);
+	pokemonWeight.textContent = hectogramToPound(weight);
 
 	//prettier-ignore
 	pokemonImage.addEventListener('load', () => {
-			pokemonImage.alt = pokemon.name;
+		pokemonImage.alt = name;
+		topSection.appendChild(pokemonImage);
 		}, { once: true }
 	);
 
@@ -69,30 +66,50 @@ const populatePokemonDetail = async (_pokemon: Pokemon | Promise<Pokemon>) => {
 			const ball = balls[Math.floor(Math.random() * balls.length)];
 			pokemonImage.src = defaultSprite.replace('placeholder', ball);
 			pokemonImage.alt = `${ball} ball`;
+			topSection.appendChild(pokemonImage);
 		}, { once: true }
 	);
 
 	// lol
-	if (pokemon.sprites.front_shiny && Math.random() < 1 / 8192) {
-		pokemonImage.src = pokemon.sprites.front_shiny;
+	if (sprites.front_shiny && Math.random() < 1 / 8192) {
+		pokemonImage.src = sprites.front_shiny;
 	} else {
-		pokemonImage.src = pokemon.sprites.front_default;
+		pokemonImage.src = sprites.front_default;
 	}
 
-	pokemonHeight.textContent = pokemon.height.toString();
-	pokemonWeight.textContent = pokemon.weight.toString();
-
-	const species = await getDataFromAPI(pokemon.species.url);
+	const speciesData = await getDataFromAPI(species.url);
 	console.log(species);
 
-	const randomFlavorTexts = species.flavor_text_entries
+	const randomFlavorTexts = speciesData.flavor_text_entries
 		.filter((text: { language: { name: string } }) => text.language.name === 'en')
 		.map((text: { flavor_text: string }) => text.flavor_text);
 
 	const randomFlavorText =
 		randomFlavorTexts[Math.floor(Math.random() * randomFlavorTexts.length)];
 
-	pokemonFlavorText.textContent = randomFlavorText;
+	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
+};
+
+
+
+const getHtmlElements = () => {
+	const pokemonDetail = document.querySelector('article.pokemondetail') as HTMLElement;
+	const topSection = pokemonDetail.children[0] as HTMLElement;
+	const bottomSection = pokemonDetail.children[1] as HTMLElement;
+
+	const pokemonId = topSection.querySelector('div p') as HTMLParagraphElement;
+	const pokemonName = topSection.querySelector('div h2') as HTMLHeadingElement;
+	const pokemonImage = document.createElement('img') as HTMLImageElement;
+	const pokemonHeight = topSection.querySelector('p.height') as HTMLParagraphElement;
+	const pokemonWeight = topSection.querySelector('p.weight') as HTMLParagraphElement;
+	const pokemonFlavorText = bottomSection.querySelector(
+		'p.flavortext'
+	) as HTMLParagraphElement;
+
+	//prettier-ignore
+	return {
+		topSection, pokemonId, pokemonName, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
+	};
 };
 
 export { DetailView };

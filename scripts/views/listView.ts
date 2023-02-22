@@ -97,7 +97,7 @@ const generatePokemonList = async (
 		}, i * 50);
 	});
 	// focus eerste pokemon in list en geef aan dat pijltje moet volgen
-	focusPokemon(pokemonList, true);
+	focusPokemon(pokemonList);
 };
 
 export { ListView };

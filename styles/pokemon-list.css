@@ -135,7 +135,7 @@ media query mobile
 	/* zorgt ervoor dat scroll beter werkt op mobile */
 	.pokemonlist {
 		padding: 0.5em;
-		margin: var(--header-height) auto 0;
+		margin: 0 auto;
 		height: initial;
 	}
 	.pokemonlist li button:hover,

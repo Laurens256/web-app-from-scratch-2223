@@ -93,6 +93,31 @@ body {
 		10px 80px 0 0 #000, 20px 80px 0 0 #000, 30px 80px 0 0 #e7dec6, 40px 80px 0 0 #e7dec6,
 		10px 90px 0 0 #000, 20px 90px 0 0 #e7dec6, 30px 90px 0 0 #e7dec6,
 		10px 100px 0 0 #e7dec6, 20px 100px 0 0 #e7dec6;
+
+	--up-arrow-scroll: 70px 10px 0 0 #842000, 80px 10px 0 0 #842000, 60px 20px 0 0 #842000,
+		70px 20px 0 0 #ff5100, 80px 20px 0 0 #ff5100, 90px 20px 0 0 #842000,
+		50px 30px 0 0 #842000, 60px 30px 0 0 #ff5100, 70px 30px 0 0 #ff5100,
+		80px 30px 0 0 #ff5100, 90px 30px 0 0 #ff5100, 100px 30px 0 0 #842000,
+		40px 40px 0 0 #842000, 50px 40px 0 0 #ff5100, 60px 40px 0 0 #ff5100,
+		70px 40px 0 0 #ff5100, 80px 40px 0 0 #ff5100, 90px 40px 0 0 #ff5100,
+		100px 40px 0 0 #ff5100, 110px 40px 0 0 #842000, 30px 50px 0 0 #842000,
+		40px 50px 0 0 #ff5100, 50px 50px 0 0 #ff5100, 60px 50px 0 0 #ff5100,
+		70px 50px 0 0 #ff5100, 80px 50px 0 0 #ff5100, 90px 50px 0 0 #ff5100,
+		100px 50px 0 0 #ff5100, 110px 50px 0 0 #ff5100, 120px 50px 0 0 #842000,
+		20px 60px 0 0 #842000, 30px 60px 0 0 #ff5100, 40px 60px 0 0 #ff5100,
+		50px 60px 0 0 #ff5100, 60px 60px 0 0 #ff5100, 70px 60px 0 0 #ff5100,
+		80px 60px 0 0 #ff5100, 90px 60px 0 0 #ff5100, 100px 60px 0 0 #ff5100,
+		110px 60px 0 0 #ff5100, 120px 60px 0 0 #ff5100, 130px 60px 0 0 #842000,
+		10px 70px 0 0 #842000, 20px 70px 0 0 #ff5100, 30px 70px 0 0 #ff5100,
+		40px 70px 0 0 #ff5100, 50px 70px 0 0 #ff5100, 60px 70px 0 0 #842000,
+		70px 70px 0 0 #842000, 80px 70px 0 0 #842000, 90px 70px 0 0 #842000,
+		100px 70px 0 0 #ff5100, 110px 70px 0 0 #ff5100, 120px 70px 0 0 #ff5100,
+		130px 70px 0 0 #ff5100, 140px 70px 0 0 #842000, 10px 80px 0 0 #842000,
+		20px 80px 0 0 #ff5100, 30px 80px 0 0 #ff5100, 40px 80px 0 0 #842000,
+		50px 80px 0 0 #842000, 100px 80px 0 0 #842000, 110px 80px 0 0 #842000,
+		120px 80px 0 0 #ff5100, 130px 80px 0 0 #ff5100, 140px 80px 0 0 #842000,
+		20px 90px 0 0 #842000, 30px 90px 0 0 #842000, 120px 90px 0 0 #842000,
+		130px 90px 0 0 #842000;
 }
 
 @media only screen and (max-width: 680px) {

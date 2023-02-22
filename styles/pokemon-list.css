@@ -5,7 +5,7 @@
 	width: clamp(150px, 90%, 1000px);
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
-
+	position: relative;
 	margin: 0 auto;
 	padding: 1.25em 3em;
 	height: calc(100vh - (var(--header-footer-height) * 2) - 2.5em);
@@ -48,25 +48,6 @@
 	box-shadow: var(--right-arrow-selection);
 }
 
-/* pijltje voor select als scherm breed genoeg is */
-@media (max-width: 600px) {
-	/* nodig voor extra ruimte naast list want overflow-x:visible werkt niet icm overflow-y for some reason */
-	.pokemonlist {
-		padding: 0.5em;
-		margin: var(--header-height) auto 0;
-		height: initial;
-	}
-	.pokemonlist li button:hover,
-	.pokemonlist li button:focus {
-		outline: solid 2px var(--text-black);
-	}
-
-	.pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
-	.pokemonlist li:not(.loading) button:focus-visible::before {
-		content: none;
-	}
-}
-
 .pokemonlist li button section {
 	height: 100%;
 	display: flex;
@@ -98,4 +79,78 @@ name section
 	content: '';
 	width: 8em;
 	aspect-ratio: 8 / 3;
+}
+
+/* =================
+list scroll pijl animatie
+================= */
+.pokemonlist.scrollableup::before,
+.pokemonlist.scrollabledown::after {
+	content: '';
+}
+
+.pokemonlist::before,
+.pokemonlist::after {
+	--initial-transform: scale(0.4);
+	position: fixed;
+	top: calc(var(--header-footer-height) - 1em);
+	right: clamp(20vw, 20vw, 200px);
+	width: 10px;
+	height: 10px;
+	box-shadow: var(--up-arrow-scroll);
+	animation: 0.4s infinite step-start bounce;
+	transform: var(--initial-transform);
+	z-index: 2;
+}
+
+.pokemonlist::after {
+	--initial-transform: scale(0.4) rotate(180deg);
+	bottom: calc(var(--header-footer-height) - 1em);
+	top: unset;
+	margin-right: -3.75em;
+}
+
+@keyframes bounce {
+	0% {
+		transform: var(--initial-transform) translateY(0);
+	}
+	25% {
+		transform: var(--initial-transform) translateY(-5px);
+	}
+	50% {
+		transform: var(--initial-transform) translateY(-10px);
+	}
+	75% {
+		transform: var(--initial-transform) translateY(-5px);
+	}
+	100% {
+		transform: var(--initial-transform) translateY(0);
+	}
+}
+
+/* =================
+media query mobile
+================= */
+@media (max-width: 600px) {
+	/* zorgt ervoor dat scroll beter werkt op mobile */
+	.pokemonlist {
+		padding: 0.5em;
+		margin: var(--header-height) auto 0;
+		height: initial;
+	}
+	.pokemonlist li button:hover,
+	.pokemonlist li button:focus {
+		outline: solid 2px var(--text-black);
+	}
+
+	/* pijltje aan de zijkant weg */
+	.pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
+	.pokemonlist li:not(.loading) button:focus-visible::before {
+		content: none;
+	}
+
+	/* plaatsing pijltje voor naar onder scroll */
+	.pokemonlist::after {
+		bottom: 1em;
+	}
 }

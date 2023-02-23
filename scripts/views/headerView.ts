@@ -1,5 +1,3 @@
-import { routes } from '../routing/routes';
-
 const headerElement = document.querySelector('header') as HTMLElement;
 const h1Element = headerElement.querySelector('h1') as HTMLElement;
 const h2Element = headerElement.querySelector('h2') as HTMLElement;

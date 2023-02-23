@@ -3,6 +3,7 @@
 @import url(./type-badges.css);
 @import url(./pokemon-details.css);
 @import url(./skeleton.css);
+@import url(./screen-transition.css);
 
 @font-face {
 	font-family: 'Pokemon';

@@ -84,8 +84,8 @@ name section
 /* =================
 list scroll pijl animatie
 ================= */
-.pokemonlist.scrollableup::before,
-.pokemonlist.scrollabledown::after {
+body:not(.fade) .pokemonlist.scrollableup::before,
+body:not(.fade) .pokemonlist.scrollabledown::after {
 	content: '';
 }
 
@@ -100,7 +100,7 @@ list scroll pijl animatie
 	box-shadow: var(--up-arrow-scroll);
 	animation: 0.4s infinite step-start bounce;
 	transform: var(--initial-transform);
-	z-index: 2;
+	z-index: 4;
 }
 
 .pokemonlist::after {

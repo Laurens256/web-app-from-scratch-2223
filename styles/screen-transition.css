@@ -1,0 +1,15 @@
+body.fade div.fadetransition {
+	opacity: 1;
+}
+
+div.fadetransition {
+	opacity: 0;
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: white;
+	transition: all var(--fade-length) ease-in-out;
+}

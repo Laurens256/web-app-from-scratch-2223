@@ -1,7 +1,7 @@
 .pokemondetailbg {
 	width: 100%;
 	height: calc(100vh - (var(--header-footer-height) * 2));
-	min-height: 500px;
+	min-height: 480px;
 	background: var(--bg-details);
 	display: flex;
 	justify-content: center;

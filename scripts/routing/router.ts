@@ -1,6 +1,7 @@
 import { routes } from './routes';
 import { HeaderView } from '../views/headerView';
 import { clearListEventListeners } from '../utils/manageListScroll';
+import { fadeTransition } from '../utils/fadeTransition';
 
 const mainElement = document.querySelector('main') as HTMLElement;
 
@@ -24,8 +25,11 @@ const router = () => {
 				return false;
 			}
 		}
-		_route.view(param);
-		HeaderView(_route.view.name);
+		// async werkt niet dus dan maar zo
+		fadeTransition().then(() => {
+			_route.view(param);
+			HeaderView(_route.view.name);
+		});
 		return true;
 	});
 	if (!route) {

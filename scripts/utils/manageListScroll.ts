@@ -75,8 +75,11 @@ const checkScroll = () => {
 };
 
 // function om pokemon 1 te focussen
-const focusPokemon = (pokemonListParam: HTMLOListElement) => {
-	const focusItem = pokemonListParam.querySelector('button') as HTMLButtonElement;
+const focusPokemon = (
+	pokemonListParam: HTMLOListElement,
+	selectItem?: HTMLButtonElement
+) => {
+	const firstItem = pokemonListParam.querySelector('button') as HTMLButtonElement;
 	pokemonList = pokemonListParam;
 	listItems = Array.from(pokemonList.querySelectorAll('button'));
 	calcBoundingRect();
@@ -85,7 +88,8 @@ const focusPokemon = (pokemonListParam: HTMLOListElement) => {
 
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
-		focusItem.focus();
+		selectItem ? selectItem.focus() : firstItem.focus();
+		
 		pokemonList.addEventListener('scroll', checkScroll);
 		pokemonList.dispatchEvent(new Event('scroll'));
 	}

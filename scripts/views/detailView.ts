@@ -36,6 +36,7 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 	const { id, name, sprites, height, weight, species } = await pokemon;
 
 	const {
+		backButton,
 		pokemonDetail,
 		imageSection,
 		pokemonId,
@@ -47,7 +48,11 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 		pokemonFlavorText
 	} = getHtmlElements();
 
-	// await delay(5000)
+	sessionStorage.setItem('selectedPokemonId', JSON.stringify({id: id}));
+
+	backButton.addEventListener('click', () => {
+		window.history.back();
+	});
 
 	pokemonId.textContent = `No
 		${id.toLocaleString('nl-NL', {
@@ -106,6 +111,7 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 };
 
 const getHtmlElements = () => {
+	const backButton = document.querySelector('button.back') as HTMLButtonElement;
 	const pokemonDetail = document.querySelector('article.pokemondetail') as HTMLElement;
 	const topSection = pokemonDetail.children[0] as HTMLElement;
 	const bottomSection = pokemonDetail.children[1] as HTMLElement;
@@ -122,12 +128,8 @@ const getHtmlElements = () => {
 	) as HTMLParagraphElement;
 
 	//prettier-ignore
-	return {pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
+	return {backButton,pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
 	};
 };
-
-const delay = async (ms: number) => {
-	return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
 export { DetailView };

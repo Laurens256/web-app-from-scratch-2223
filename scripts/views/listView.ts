@@ -24,6 +24,7 @@ const ListView = async () => {
 const generateListSkeleton = async (n: number) => {
 	const pokemonList = document.createElement('ol');
 	pokemonList.classList.add('pokemonlist');
+	pokemonList.id = 'ListView';
 	const template = await loadTemplate('pokemonListItem');
 
 	// voegt alle lege list items toe aan pokemonList

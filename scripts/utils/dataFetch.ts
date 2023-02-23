@@ -10,9 +10,9 @@ const getDataFromAPI = async (query: string) => {
 };
 
 // functie om data op te halen van meerdere urls (type: Url[])
-const getAllPokemon = async (urls: Url[]) => {
+const getAllPokemon = async (urls: Url[], params: string = '') => {
 	const promises: Promise<Pokemon>[] = urls.map(async (url) => {
-		return await getDataFromAPI(`${baseApiUrl}pokemon/${url.name}`);
+		return await getDataFromAPI(`${baseApiUrl}pokemon/${url.name}/?${params}`);
 	});
 
 	return Promise.all(promises);

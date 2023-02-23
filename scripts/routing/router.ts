@@ -1,4 +1,5 @@
 import { routes } from './routes';
+import { clearListEventListeners } from '../utils/manageListScroll';
 const mainElement = document.querySelector('main') as HTMLElement;
 
 const router = () => {
@@ -28,5 +29,18 @@ const router = () => {
 		mainElement.innerHTML = '<h1>404 Page Not Found</h1>';
 	}
 };
+
+// haalt oude eventlisteners weg als view wordt verwijderd
+const callback = (mutationList: { removedNodes: NodeList }[]) => {
+	const removedNode = mutationList[0].removedNodes[0] as HTMLElement;
+	if (removedNode) {
+		if (removedNode.id === 'ListView') {
+			clearListEventListeners();
+		}
+	}
+};
+
+const observer = new MutationObserver(callback);
+observer.observe(mainElement, { childList: true });
 
 export { router, mainElement };

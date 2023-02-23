@@ -87,8 +87,6 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 
 	const speciesData = await getDataFromAPI(species.url);
 
-	console.log(speciesData.egg_groups);
-
 	const randomEggGroup = speciesData.egg_groups[Math.floor(Math.random() * speciesData.egg_groups.length)];
 
 	if(randomEggGroup && !(randomEggGroup.name == 'no-eggs')) {

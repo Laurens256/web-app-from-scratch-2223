@@ -33,22 +33,26 @@ const followPokemonScroll = () => {
 // verplaats het pijltje omhoog of omlaag
 const moveArrow = (direction: number) => {
 	const focusedItem = document.activeElement as HTMLButtonElement;
-	const focusedItemIndex = listItems.indexOf(focusedItem);
-	const nextItem = listItems[focusedItemIndex + direction];
-	if (nextItem) {
-		nextItem.focus();
-		followPokemonScroll();
+
+	if (listItems.includes(focusedItem)) {
+		const focusedItemIndex = listItems.indexOf(focusedItem);
+		const nextItem = listItems[focusedItemIndex + direction];
+		if (nextItem) {
+			nextItem.focus();
+		}
+	} else {
+		const visibleItems = getVisibleItems();
+		visibleItems[Math.floor(visibleItems.length / 2)].focus();
 	}
+	followPokemonScroll();
 };
 
 // function om keyboard input te checken en te verwerken, uitiendelijk eigen util van maken
 const checkKey = (e: KeyboardEvent) => {
-	console.log('aaa');
-	if (pokemonList && !pokemonList.contains(document.activeElement)) return;
-	if (e.key === 'ArrowUp' || e.key === 'w') {
+	if (e.key === 'ArrowUp') {
 		e.preventDefault();
 		moveArrow(-1);
-	} else if (e.key === 'ArrowDown' || e.key === 's') {
+	} else if (e.key === 'ArrowDown') {
 		e.preventDefault();
 		moveArrow(1);
 	}
@@ -77,6 +81,7 @@ const focusPokemon = (pokemonListParam: HTMLOListElement) => {
 	listItems = Array.from(pokemonList.querySelectorAll('button'));
 	calcBoundingRect();
 	pokemonList.addEventListener('focusin', followPokemonScroll);
+	document.addEventListener('keydown', checkKey);
 
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
@@ -88,24 +93,14 @@ const focusPokemon = (pokemonListParam: HTMLOListElement) => {
 
 // berekenen van de boven- en ondergrens van de list, gebeurt bij resize en init
 const calcBoundingRect = () => {
-	resizeEventListener();
-
 	listItemHeight = listItems[0].getBoundingClientRect().height;
 	topBoundary = pokemonList.getBoundingClientRect().top;
 	bottomBoundary = pokemonList.getBoundingClientRect().bottom;
 };
 
-// zorg dat de eventlistener alleen aanwezig is als de list aanwezig is
-const resizeEventListener = () => {
-	const _pokemonList = document.querySelector('.pokemonlist') as HTMLOListElement;
-
-	if (_pokemonList) {
-		window.addEventListener('resize', calcBoundingRect);
-	} else {
-		window.removeEventListener('resize', calcBoundingRect);
-	}
+const clearListEventListeners = () => {
+	window.removeEventListener('resize', calcBoundingRect);
+	document.removeEventListener('keydown', checkKey);
 };
 
-document.onkeydown = checkKey;
-
-export { focusPokemon };
+export { focusPokemon, clearListEventListeners };

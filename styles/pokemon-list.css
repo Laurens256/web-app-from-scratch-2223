@@ -37,7 +37,7 @@
 }
 
 .pokemonlist:not(:has(li button:focus)) li:not(.loading) button:hover::before,
-.pokemonlist li:not(.loading) button:focus-visible::before {
+.pokemonlist li:not(.loading) button:focus::before {
 	content: '';
 	position: absolute;
 	left: -2.5em;

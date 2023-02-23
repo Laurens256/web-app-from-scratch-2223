@@ -1,5 +1,7 @@
 import { routes } from './routes';
+import { HeaderView } from '../views/headerView';
 import { clearListEventListeners } from '../utils/manageListScroll';
+
 const mainElement = document.querySelector('main') as HTMLElement;
 
 const router = () => {
@@ -23,6 +25,7 @@ const router = () => {
 			}
 		}
 		_route.view(param);
+		HeaderView(_route.view.name);
 		return true;
 	});
 	if (!route) {

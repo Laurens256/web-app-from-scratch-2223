@@ -11,10 +11,10 @@ const defaultSprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/
 
 const DetailView = async () => {
 	mainElement.innerHTML = '';
+	HeaderView('detailview');
 
 	const pokemon = loadPokemonData();
 	populatePokemonDetail(pokemon);
-	HeaderView('detailview');
 };
 
 const generateDetailSkeleton = async () => {

@@ -10,6 +10,7 @@ let fullPokemonList: Pokemon[] = [];
 
 const ListView = async () => {
 	mainElement.innerHTML = '';
+	HeaderView('listview');
 
 	// als de volledige nog niet is opgehaald, haal hem dan op
 	if (fullPokemonList.length === 0) {
@@ -18,7 +19,6 @@ const ListView = async () => {
 	} else {
 		await generatePokemonList(fullPokemonList.length, fullPokemonList);
 	}
-	HeaderView('listview');
 };
 
 // generate skeleton voor pokemon list

@@ -4,6 +4,7 @@ import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusPokemon } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
+import { HeaderView } from '../views/headerView';
 
 let fullPokemonList: Pokemon[] = [];
 
@@ -17,6 +18,7 @@ const ListView = async () => {
 	} else {
 		await generatePokemonList(fullPokemonList.length, fullPokemonList);
 	}
+	HeaderView('listview');
 };
 
 // generate skeleton voor pokemon list

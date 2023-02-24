@@ -3,6 +3,7 @@ import { Pokemon, Species, regionPerGame } from '../../assets/types';
 import { getDataFromAPI } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
+import { HeaderView } from './headerView';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -13,6 +14,7 @@ const DetailView = async () => {
 
 	const pokemon = loadPokemonData();
 	populatePokemonDetail(pokemon);
+	HeaderView('detailview');
 };
 
 const generateDetailSkeleton = async () => {

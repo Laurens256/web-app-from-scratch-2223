@@ -129,5 +129,3 @@ export interface Species {
 		pokemon: Url;
 	}[];
 };
-
-export type views = 'listview' | 'detailview';

@@ -1,6 +1,4 @@
 import { routes } from './routes';
-import { views } from '../../assets/types';
-import { HeaderView } from '../views/headerView';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { fadeTransition } from '../utils/fadeTransition';
 
@@ -29,7 +27,6 @@ const router = () => {
 		// async werkt niet dus dan maar zo
 		fadeTransition().then(() => {
 			_route.view(param);
-			HeaderView(_route.view.name.toLowerCase() as views);
 		});
 		return true;
 	});

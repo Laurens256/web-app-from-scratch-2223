@@ -26,10 +26,10 @@ const router = () => {
 			}
 		}
 		// async werkt niet dus dan maar zo
-		fadeTransition().then(() => {
+		// fadeTransition().then(() => {
 			_route.view(param);
 			HeaderView(_route.view.name);
-		});
+		// });
 		return true;
 	});
 	if (!route) {

@@ -13,8 +13,10 @@ const headings = {
 };
 
 const HeaderView = (view: string) => {
-	h1Element.innerHTML = headings[view].h1;
-	h2Element.innerHTML = headings[view].h2;
+	console.log(view);
+	console.log(headings[view]);
+	// h1Element.innerHTML = headings[view].h1;
+	// h2Element.innerHTML = headings[view].h2;
 };
 
 export { HeaderView };

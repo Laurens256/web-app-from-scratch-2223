@@ -81,10 +81,8 @@ const generatePokemonList = async (
 		listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 
 		button.addEventListener('click', () => {
-			// hash based routing
 			window.history.pushState({}, '', `/pokemon/${pokemon.name}`);
 		});
-		button.classList.add('pokemonlistitem');
 		button.setAttribute('aria-label', `view details of ${pokemon.name}`);
 		button.setAttribute('data-id', pokemon.id.toString());
 

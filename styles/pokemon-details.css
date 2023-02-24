@@ -8,12 +8,19 @@
 	align-items: center;
 }
 
+.wrapper {
+	display: grid;
+	grid-template-columns: 1fr min-content 1fr;
+	height: 80%;
+}
+
 .pokemondetail {
 	--border-width: 10px;
-	height: 80%;
+	place-self: center;
+	height: 100%;
 	border: solid var(--border-width) var(--header);
 	border-radius: 1em;
-	width: clamp(150px, 800px, 90%);
+	width: clamp(150px, 800px, 90vw);
 	display: grid;
 	grid-template-rows: 70% 1fr;
 	overflow: hidden;
@@ -60,7 +67,7 @@ bovenste section
 }
 
 .pokemondetail > section:first-of-type > section:first-of-type div p {
-	font-size: clamp(.8rem, 2rem, 7vw);
+	font-size: clamp(0.8rem, 2rem, 7vw);
 	white-space: nowrap;
 }
 
@@ -150,6 +157,15 @@ onderste section
 	width: calc(100% - 0.4em);
 }
 
+button.back {
+	justify-self: end;
+	align-self: start;
+	margin-top: .5rem;
+	margin-right: .5rem;
+	color: var(--text-black);
+	text-shadow: var(--text-shadow-black-extra);
+	font-size: 1.5rem;
+}
 
 /* =================
 mobile stuff
@@ -157,10 +173,6 @@ mobile stuff
 @media screen and (max-width: 600px) {
 	.pokemondetailbg {
 		height: calc(100vh - var(--header-footer-height));
-	}
-
-	.pokemondetail {
-		height: 90%;
 	}
 
 	.pokemondetail::after {
@@ -184,6 +196,22 @@ mobile stuff
 	.pokemondetail.loading-species > section:last-of-type p.flavortext {
 		width: calc(100% - 2rem);
 	}
+}
+
+/* =================
+iets groter dan mobile stuff
+================= */
+@media screen and (max-width: 800px) {
+.wrapper {
+	grid-template-columns: none;
+	grid-template-rows: 2em 1fr;
+	height: 95%;
+}
+
+button.back {
+	place-self: start;
+	margin-left: .5rem;
+}
 }
 
 /* =================

@@ -30,8 +30,11 @@ const followPokemonScroll = () => {
 	}
 };
 
+let isRunning = false;
 // verplaats het pijltje omhoog of omlaag
 const moveArrow = (direction: number) => {
+	if (isRunning) return;
+	isRunning = true;
 	const focusedItem = document.activeElement as HTMLButtonElement;
 
 	if (listItems.includes(focusedItem)) {
@@ -45,6 +48,9 @@ const moveArrow = (direction: number) => {
 		visibleItems[Math.floor(visibleItems.length / 2)].focus();
 	}
 	followPokemonScroll();
+	setTimeout(() => {
+		isRunning = false;
+	}, 100);
 };
 
 // function om keyboard input te checken en te verwerken, uitiendelijk eigen util van maken
@@ -79,7 +85,6 @@ const focusPokemon = (
 	pokemonListParam: HTMLOListElement,
 	selectItem?: HTMLButtonElement
 ) => {
-	console.log('aaaaaa');
 	const firstItem = pokemonListParam.querySelector('button') as HTMLButtonElement;
 	pokemonList = pokemonListParam;
 	listItems = Array.from(pokemonList.querySelectorAll('button'));

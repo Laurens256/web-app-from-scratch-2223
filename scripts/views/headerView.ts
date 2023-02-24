@@ -1,3 +1,5 @@
+import { views } from '../../assets/types';
+
 const headerElement = document.querySelector('header') as HTMLElement;
 const h1Element = headerElement.querySelector('h1') as HTMLElement;
 const h2Element = headerElement.querySelector('h2') as HTMLElement;
@@ -12,10 +14,8 @@ const headings = {
 	}
 };
 
-const HeaderView = (view: string) => {
-	view = view.toLowerCase();
-	console.log(view);
-	console.log(headings[view]);
+
+const HeaderView = (view: views) => {
 	h1Element.innerHTML = headings[view].h1;
 	h2Element.innerHTML = headings[view].h2;
 };

@@ -67,8 +67,15 @@ const generatePokemonList = async (
 		pokemonArr.sort((a, b) => a.height - b.height);
 	}
 
+	let firstLoaded = false;
+	let focusLocked = false;
+	const selectedPokemonJson = sessionStorage.getItem('selectedPokemonId');
 	for (const [i, pokemon] of pokemonArr.entries()) {
-		if(loadDelay) {
+		if (firstLoaded && !focusLocked && !selectedPokemonJson) {
+			focusLocked = true;
+			focusPokemon(pokemonList);
+		}
+		if (loadDelay) {
 			await delay();
 		}
 		// haal alle elementen uit listItems array
@@ -100,9 +107,9 @@ const generatePokemonList = async (
 			const typeDiv = getTypeBadge(type.type.name);
 			typeSection.appendChild(typeDiv);
 		});
+		firstLoaded = true;
 	}
 
-	const selectedPokemonJson = sessionStorage.getItem('selectedPokemonId');
 	if (selectedPokemonJson) {
 		const selectedPokemonId = JSON.parse(selectedPokemonJson).id;
 		sessionStorage.removeItem('selectedPokemonId');
@@ -111,9 +118,6 @@ const generatePokemonList = async (
 			`button[data-id="${selectedPokemonId}"]`
 		) as HTMLButtonElement;
 		focusPokemon(pokemonList, selectItem);
-	} else {
-		// focus eerste pokemon in list en geef aan dat pijltje moet volgen
-		focusPokemon(pokemonList);
 	}
 };
 

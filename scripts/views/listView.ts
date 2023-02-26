@@ -14,10 +14,15 @@ const ListView = async () => {
 
 	// als de volledige nog niet is opgehaald, haal hem dan op
 	if (fullPokemonList.length === 0) {
-		const { n, pokemonArr } = await getPokemonByRegion();
-		await generatePokemonList(n, pokemonArr);
+		let n: number, pokemonArr: Promise<Pokemon[]>;
+		try {
+			({ n, pokemonArr } = await getPokemonByRegion());
+			await generatePokemonList(n, pokemonArr, getSortOrder());
+		} catch (error) {
+			listError();
+		}
 	} else {
-		await generatePokemonList(fullPokemonList.length, fullPokemonList);
+		await generatePokemonList(fullPokemonList.length, fullPokemonList, getSortOrder());
 	}
 };
 
@@ -57,7 +62,10 @@ const generatePokemonList = async (
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
 	}));
 
-	if (order === 'alphabetical') {
+	// sorteer de pokemonArr op basis van query param
+	if (order === 'numerical') {
+		pokemonArr.sort((a, b) => a.id - b.id);
+	} else if (order === 'alphabetical') {
 		pokemonArr.sort((a, b) =>
 			a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
 		);
@@ -67,6 +75,7 @@ const generatePokemonList = async (
 		pokemonArr.sort((a, b) => a.height - b.height);
 	}
 
+	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;
 	let focusLocked = false;
 	const selectedPokemonJson = sessionStorage.getItem('selectedPokemonId');
@@ -76,7 +85,7 @@ const generatePokemonList = async (
 			focusPokemon(pokemonList);
 		}
 		if (loadDelay) {
-			await delay();
+			await delay(50);
 		}
 		// haal alle elementen uit listItems array
 		const listItem = listItems[i].listItem;
@@ -117,12 +126,28 @@ const generatePokemonList = async (
 		const selectItem = pokemonList.querySelector(
 			`button[data-id="${selectedPokemonId}"]`
 		) as HTMLButtonElement;
-		focusPokemon(pokemonList, selectItem);
+		if (selectItem) {
+			focusPokemon(pokemonList, selectItem);
+		} else {
+			focusPokemon(pokemonList);
+		}
 	}
 };
 
-const delay = () => {
-	return new Promise((resolve) => setTimeout(resolve, 50));
+const getSortOrder = () => {
+	const order = new URLSearchParams(window.location.search).get('order');
+	if (!order) {
+		history.replaceState({}, '', `${window.location.pathname}?order=numerical`);
+	}
+	return order || 'numerical';
+};
+
+const listError = () => {
+	console.log('errr');
+};
+
+const delay = (n: number) => {
+	return new Promise((resolve) => setTimeout(resolve, n));
 };
 
 export { ListView };

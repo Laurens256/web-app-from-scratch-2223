@@ -1,5 +1,5 @@
 import { mainElement } from '../routing/router';
-import { Pokemon, Species, regionPerGame } from '../../assets/types';
+import { Pokemon, Species, regionPerGame, Url } from '../../assets/types';
 import { getDataFromAPI } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
@@ -33,9 +33,15 @@ const loadPokemonData = async () => {
 	return pokemon;
 };
 
+let errorState = false;
 const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 	await generateDetailSkeleton();
-	const { id, name, sprites, height, weight, species } = await pokemon;
+	let id: number,
+		name: string,
+		sprites: { front_default: string; front_shiny: string },
+		height: number,
+		weight: number,
+		species: Url;
 
 	const {
 		backButton,
@@ -50,11 +56,18 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 		pokemonFlavorText
 	} = getHtmlElements();
 
-	sessionStorage.setItem('selectedPokemonId', JSON.stringify({id: id}));
+	backButton.addEventListener('click', backButtonLogic);
 
-	backButton.addEventListener('click', () => {
-		window.history.back();
-	});
+	try {
+		({ id, name, sprites, height, weight, species } = await pokemon);
+		errorState = false;
+	} catch (error) {
+		errorState = true;
+		detailError();
+		return;
+	}
+
+	sessionStorage.setItem('selectedPokemonId', JSON.stringify({ id: id }));
 
 	pokemonId.textContent = `No
 		${id.toLocaleString('nl-NL', {
@@ -94,9 +107,10 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 
 	const speciesData = await getDataFromAPI(species.url);
 
-	const randomEggGroup = speciesData.egg_groups[Math.floor(Math.random() * speciesData.egg_groups.length)];
+	const randomEggGroup =
+		speciesData.egg_groups[Math.floor(Math.random() * speciesData.egg_groups.length)];
 
-	if(randomEggGroup && !(randomEggGroup.name == 'no-eggs')) {
+	if (randomEggGroup && !(randomEggGroup.name == 'no-eggs')) {
 		pokemonSpecies.textContent = `${randomEggGroup.name.toUpperCase()} POKéMON`;
 	}
 
@@ -130,8 +144,26 @@ const getHtmlElements = () => {
 	) as HTMLParagraphElement;
 
 	//prettier-ignore
-	return {backButton,pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
+	return {topSection,backButton,pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
 	};
+};
+
+const detailError = () => {
+	const { topSection, pokemonDetail, imageSection } = getHtmlElements();
+	pokemonDetail.classList.remove('loading-pokemon');
+	pokemonDetail.classList.remove('loading-species');
+	imageSection.classList.remove('imgloading');
+	pokemonDetail.classList.add('error');
+
+	topSection.innerHTML = `<h2>Oops, something went wrong</h2><p>Try again later or try a different Pokémon</p>`;
+};
+
+const backButtonLogic = () => {
+	if (errorState === false) {
+		window.history.back();
+	} else {
+		window.history.replaceState(null, '', '/');
+	}
 };
 
 export { DetailView };

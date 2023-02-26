@@ -1,3 +1,5 @@
+import { playBeepSound } from './soundEffects';
+
 let pokemonList: HTMLOListElement;
 let topBoundary = 0;
 let bottomBoundary = 0;
@@ -47,10 +49,11 @@ const moveArrow = (direction: number) => {
 		const visibleItems = getVisibleItems();
 		visibleItems[Math.floor(visibleItems.length / 2)].focus();
 	}
+	playBeepSound();
 	followPokemonScroll();
 	setTimeout(() => {
 		isRunning = false;
-	}, 100);
+	}, 90);
 };
 
 // function om keyboard input te checken en te verwerken, uitiendelijk eigen util van maken

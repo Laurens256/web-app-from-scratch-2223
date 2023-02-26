@@ -33,7 +33,7 @@
 .pokemondetail::after {
 	content: '';
 	position: absolute;
-	bottom: 26%;
+	bottom: 27.3%;
 	left: 0;
 	width: 100%;
 	height: var(--border-width);
@@ -147,7 +147,7 @@ onderste section
 
 .pokemondetail > section:last-of-type p {
 	/* vraag me niet hoe ik op deze nummers ben gekomen */
-	font-size: clamp(1.3rem, 3.5cqb, 3.3vw);
+	font-size: clamp(1.3rem, 3.4cqb, 3.3vw);
 	line-height: 1.2;
 	word-spacing: 0.4em;
 	position: absolute;
@@ -160,11 +160,53 @@ onderste section
 button.back {
 	justify-self: end;
 	align-self: start;
-	margin-top: .5rem;
-	margin-right: .5rem;
+	margin-top: 0.5rem;
+	margin-right: 0.5rem;
 	color: var(--text-black);
 	text-shadow: var(--text-shadow-black-extra);
 	font-size: 1.5rem;
+}
+
+
+/* =================
+error message
+================= */
+.pokemondetail.error section:first-of-type {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.pokemondetail.error section:first-of-type h2 {
+	font-size: clamp(.9rem, 2rem, 5vw);
+}
+
+.pokemondetail.error section:first-of-type p {
+	font-size: clamp(.7rem, 1.5rem, 4vw);
+}
+
+/* =================
+iets groter dan mobile stuff
+================= */
+@media screen and (max-width: 800px) {
+	.wrapper {
+		grid-template-columns: none;
+		grid-template-rows: 2em 1fr;
+		height: 95%;
+	}
+
+	.pokemondetail::after {
+		bottom: 19cqh;
+		/* bottom: 27.6%; */
+	}
+
+	button.back {
+		place-self: start;
+		margin-left: 0.5rem;
+	}
 }
 
 /* =================
@@ -176,7 +218,7 @@ mobile stuff
 	}
 
 	.pokemondetail::after {
-		bottom: 27%;
+		bottom: 27.9%;
 	}
 
 	.pokemondetail > section:first-of-type {
@@ -196,22 +238,6 @@ mobile stuff
 	.pokemondetail.loading-species > section:last-of-type p.flavortext {
 		width: calc(100% - 2rem);
 	}
-}
-
-/* =================
-iets groter dan mobile stuff
-================= */
-@media screen and (max-width: 800px) {
-.wrapper {
-	grid-template-columns: none;
-	grid-template-rows: 2em 1fr;
-	height: 95%;
-}
-
-button.back {
-	place-self: start;
-	margin-left: .5rem;
-}
 }
 
 /* =================

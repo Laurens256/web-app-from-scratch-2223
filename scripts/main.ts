@@ -22,9 +22,4 @@ window.history.replaceState = new Proxy(window.history.replaceState, {
 	}
 });
 
-document.addEventListener('focusin', () => {
-	const focusAudio = new Audio('/assets/audio/select_effect.wav');
-	focusAudio.play();
-});
-
 init();

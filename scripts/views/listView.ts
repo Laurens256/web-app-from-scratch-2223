@@ -1,12 +1,12 @@
 import { getPokemonByRegion } from '../utils/dataFetch';
-import { Pokemon } from '../../assets/types';
+import { Pokemon, FullPokemonDetails } from '../../assets/types';
 import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusPokemon } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { HeaderView } from '../views/headerView';
 
-let fullPokemonList: Pokemon[] = [];
+let fullPokemonList: FullPokemonDetails[] = [];
 
 const ListView = async () => {
 	mainElement.innerHTML = '';
@@ -14,7 +14,7 @@ const ListView = async () => {
 
 	// als de volledige nog niet is opgehaald, haal hem dan op
 	if (fullPokemonList.length === 0) {
-		let n: number, pokemonArr: Promise<Pokemon[]>;
+		let n: number, pokemonArr: Promise<FullPokemonDetails[]>;
 		try {
 			({ n, pokemonArr } = await getPokemonByRegion());
 			await generatePokemonList(n, pokemonArr, getSortOrder());
@@ -42,7 +42,7 @@ const generateListSkeleton = async (n: number) => {
 
 const generatePokemonList = async (
 	n: number,
-	data: Promise<Pokemon[]> | Pokemon[],
+	data: FullPokemonDetails[] | Promise<FullPokemonDetails[]>,
 	order?: string
 ) => {
 	const loadDelay = data instanceof Promise ? true : false;

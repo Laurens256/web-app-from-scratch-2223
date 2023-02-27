@@ -55,44 +55,6 @@ export const PokemonTypes = [
 
 export const AllRegions = ['kanto', 'johto', 'hoenn', 'sinnoh', 'hisui', 'unova', 'kalos', 'alola', 'galar', 'paldea'];
 
-export const regionPerGame = {
-	red: 'kanto',
-	blue: 'kanto',
-	yellow: 'kanto',
-	gold: 'johto',
-	silver: 'johto',
-	crystal: 'johto',
-	'ruby': 'hoenn',
-	'sapphire': 'hoenn',
-	'emerald': 'hoenn',
-	'firered': 'hoenn',
-	'leafgreen': 'hoenn',
-	'diamond': 'sinnoh',
-	'pearl': 'sinnoh',
-	'platinum': 'sinnoh',
-	'heartgold': 'sinnoh',
-	'soulsilver': 'sinnoh',
-	'black': 'hisui',
-	'white': 'hisui',
-	'black-2': 'hisui',
-	'white-2': 'hisui',
-	'x': 'kalos',
-	'y': 'kalos',
-	'omega-ruby': 'alola',
-	'alpha-sapphire': 'alola',
-	'sun': 'alola',
-	'moon': 'alola',
-	'ultra-sun': 'alola',
-	'ultra-moon': 'alola',
-	'lets-go-pikachu': 'kanto',
-	'lets-go-eevee': 'kanto',
-	'sword': 'galar',
-	'shield': 'galar',
-	'home': 'paldea',
-	'snap': 'paldea',
-	'go': 'paldea',
-};
-
 export interface Species {
 	base_happiness: number;
 	capture_rate: number;
@@ -128,4 +90,18 @@ export interface Species {
 		is_default: boolean;
 		pokemon: Url;
 	}[];
+};
+
+export interface FullPokemonDetails extends Species {
+	types: {
+		slot: number;
+		type: Url;
+	}[];
+	sprites: {
+		front_default: string;
+		front_shiny: string;
+	};
+	weight: number;
+	height: number;
+
 };

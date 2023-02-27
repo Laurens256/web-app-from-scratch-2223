@@ -1,5 +1,5 @@
 import { mainElement } from '../routing/router';
-import { Pokemon, Species, regionPerGame, Url } from '../../assets/types';
+import { Pokemon, Url } from '../../assets/types';
 import { getDataFromAPI } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
@@ -28,6 +28,7 @@ const loadPokemonData = async () => {
 		pokemon = window.history.state.pokemon;
 	} else {
 		const name = window.location.pathname.split('/').pop() as string;
+		// pokemon = await getFullPokemonDetails(['']);
 		pokemon = await getDataFromAPI(`pokemon/${name}`);
 	}
 	return pokemon;

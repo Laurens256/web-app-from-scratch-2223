@@ -4,6 +4,7 @@ import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
 import { HeaderView } from './headerView';
+import { handleKeyDown } from '../utils/handleDetailControls';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -36,7 +37,9 @@ const loadPokemonData = async () => {
 };
 
 let errorState = false;
-const populatePokemonDetail = async (fullPokemonDetails: FullPokemonDetails | Promise<FullPokemonDetails>) => {
+const populatePokemonDetail = async (
+	fullPokemonDetails: FullPokemonDetails | Promise<FullPokemonDetails>
+) => {
 	// wacht tot skeleton is geladen
 	await generateDetailSkeleton();
 	let id: number,
@@ -65,7 +68,8 @@ const populatePokemonDetail = async (fullPokemonDetails: FullPokemonDetails | Pr
 
 	// await de promise zodat de data kan worden ingeladen. Als de promise rejected wordt, error state en return
 	try {
-		({ id, name, sprites, height, weight, egg_groups, flavor_text_entries } = await fullPokemonDetails);
+		({ id, name, sprites, height, weight, egg_groups, flavor_text_entries } =
+			await fullPokemonDetails);
 		errorState = false;
 	} catch (error) {
 		errorState = true;
@@ -110,23 +114,26 @@ const populatePokemonDetail = async (fullPokemonDetails: FullPokemonDetails | Pr
 	}
 
 	// kies een egg group voor de ondertitel
-	const randomEggGroup =
-		egg_groups[Math.floor(Math.random() * egg_groups.length)];
+	const randomEggGroup = egg_groups[Math.floor(Math.random() * egg_groups.length)];
 
 	if (randomEggGroup && !(randomEggGroup.name == 'no-eggs')) {
 		pokemonSpecies.textContent = `${randomEggGroup.name.toUpperCase()} POKéMON`;
 	}
 
 	// kies een van de engelse flavor texts
-	const randomFlavorTexts = flavor_text_entries
+	const flavorTexts = flavor_text_entries
 		.filter((text: { language: { name: string } }) => text.language.name === 'en')
 		.map((text: { flavor_text: string }) => text.flavor_text);
 
 	const randomFlavorText =
-		randomFlavorTexts[Math.floor(Math.random() * randomFlavorTexts.length)];
+		flavorTexts[Math.floor(Math.random() * flavorTexts.length)];
 
 	// vervang een of ander raar karakter wat in veel flavor texts staat met een spatie
-	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
+	pokemonFlavorText.textContent = flavorTexts[6].replace(//g, ' ');
+	// pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
+
+	window.addEventListener('keydown', handleKeyDown);
+	window.dispatchEvent(new KeyboardEvent('keydown', {'key': ' '}));
 
 	pokemonDetail.classList.remove('loading');
 };
@@ -153,6 +160,10 @@ const getHtmlElements = () => {
 	};
 };
 
+const clearDetailEventListeners = () => {
+	window.removeEventListener('keydown', handleKeyDown);
+};
+
 const detailError = () => {
 	const { topSection, pokemonDetail, imageSection } = getHtmlElements();
 	pokemonDetail.classList.remove('loading');
@@ -171,4 +182,4 @@ const backButtonLogic = () => {
 	}
 };
 
-export { DetailView };
+export { DetailView, clearDetailEventListeners };

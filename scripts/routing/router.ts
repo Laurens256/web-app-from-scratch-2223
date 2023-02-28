@@ -1,5 +1,6 @@
 import { routes } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
+import { clearDetailEventListeners } from '../views/detailView';
 import { fadeTransition } from '../utils/fadeTransition';
 
 const mainElement = document.querySelector('main') as HTMLElement;
@@ -41,6 +42,8 @@ const callback = (mutationList: { removedNodes: NodeList }[]) => {
 	if (removedNode) {
 		if (removedNode.id === 'listview') {
 			clearListEventListeners();
+		} else if (removedNode.id === 'detailview') {
+			clearDetailEventListeners();
 		}
 	}
 };

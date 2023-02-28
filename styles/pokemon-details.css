@@ -115,8 +115,8 @@ bovenste section
 	position: absolute;
 }
 
-.pokemondetail.loading-pokemon :is(p.weight, p.height)::before,
-.pokemondetail.loading-pokemon :is(p.weight, p.height)::after {
+.pokemondetail.loading :is(p.weight, p.height)::before,
+.pokemondetail.loading :is(p.weight, p.height)::after {
 	display: none;
 }
 
@@ -235,7 +235,7 @@ mobile stuff
 		gap: 0.5rem;
 	}
 
-	.pokemondetail.loading-species > section:last-of-type p.flavortext {
+	.pokemondetail.loading > section:last-of-type p.flavortext {
 		width: calc(100% - 2rem);
 	}
 }
@@ -243,19 +243,19 @@ mobile stuff
 /* =================
 loading stuff
 ================= */
-.pokemondetail.loading-species p.species {
+.pokemondetail.loading p.species {
 	width: clamp(5rem, calc(100% - 2rem), 40cqw);
 }
 
-.pokemondetail.loading-pokemon > section:first-of-type > section:first-of-type div p {
+.pokemondetail.loading > section:first-of-type > section:first-of-type div p {
 	width: 2em;
 	font-size: clamp(1rem, 2.5rem, 8vw);
 }
 
-.pokemondetail.loading-pokemon > section:first-of-type > section:first-of-type div h2 {
+.pokemondetail.loading > section:first-of-type > section:first-of-type div h2 {
 	width: 5em;
 }
 
-.pokemondetail.loading-species > section:last-of-type p {
+.pokemondetail.loading > section:last-of-type p {
 	width: calc(100% - 2.5rem);
 }

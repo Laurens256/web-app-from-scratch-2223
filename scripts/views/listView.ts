@@ -1,5 +1,5 @@
 import { getPokemonByRegion } from '../utils/dataFetch';
-import { Pokemon, FullPokemonDetails } from '../../assets/types';
+import { FullPokemonDetails } from '../../assets/types';
 import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusPokemon } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
@@ -99,7 +99,7 @@ const generatePokemonList = async (
 		listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 
 		button.addEventListener('click', () => {
-			window.history.pushState({}, '', `/pokemon/${pokemon.name}`);
+			window.history.pushState({pokemon: pokemon}, '', `/pokemon/${pokemon.name}`);
 		});
 		button.setAttribute('aria-label', `view details of ${pokemon.name}`);
 		button.setAttribute('data-id', pokemon.id.toString());

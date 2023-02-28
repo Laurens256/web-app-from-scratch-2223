@@ -1,6 +1,6 @@
 import { mainElement } from '../routing/router';
-import { Pokemon, Url } from '../../assets/types';
-import { getDataFromAPI } from '../utils/dataFetch';
+import { FullPokemonDetails, Pokemon, Url } from '../../assets/types';
+import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
 import { HeaderView } from './headerView';
@@ -13,37 +13,41 @@ const DetailView = async () => {
 	mainElement.innerHTML = '';
 	HeaderView('detailview');
 
-	const pokemon = loadPokemonData();
-	populatePokemonDetail(pokemon);
+	const fullPokemonDetails = loadPokemonData();
+	populatePokemonDetail(fullPokemonDetails);
 };
 
+// laad template in
 const generateDetailSkeleton = async () => {
 	const template = await loadTemplate('pokemonDetail');
 	mainElement.innerHTML = template;
 };
 
+// probeert pokemon data uit history state te halen zodat er niet opnieuw gefetched hoeft te worden, anders wel fetchen
 const loadPokemonData = async () => {
-	let pokemon!: Pokemon;
+	let fullPokemonDetails!: FullPokemonDetails;
 	if (window.history.state && window.history.state.pokemon) {
-		pokemon = window.history.state.pokemon;
+		fullPokemonDetails = window.history.state.pokemon;
 	} else {
 		const name = window.location.pathname.split('/').pop() as string;
-		// pokemon = await getFullPokemonDetails(['']);
-		pokemon = await getDataFromAPI(`pokemon/${name}`);
+		fullPokemonDetails = (await getFullPokemonDetails([name]))[0];
 	}
-	return pokemon;
+	return fullPokemonDetails;
 };
 
 let errorState = false;
-const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
+const populatePokemonDetail = async (fullPokemonDetails: FullPokemonDetails | Promise<FullPokemonDetails>) => {
+	// wacht tot skeleton is geladen
 	await generateDetailSkeleton();
 	let id: number,
 		name: string,
 		sprites: { front_default: string; front_shiny: string },
 		height: number,
 		weight: number,
-		species: Url;
+		egg_groups: Url[],
+		flavor_text_entries: { flavor_text: string; language: { name: string } }[];
 
+	// haal html elementen op
 	const {
 		backButton,
 		pokemonDetail,
@@ -59,8 +63,9 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 
 	backButton.addEventListener('click', backButtonLogic);
 
+	// await de promise zodat de data kan worden ingeladen. Als de promise rejected wordt, error state en return
 	try {
-		({ id, name, sprites, height, weight, species } = await pokemon);
+		({ id, name, sprites, height, weight, egg_groups, flavor_text_entries } = await fullPokemonDetails);
 		errorState = false;
 	} catch (error) {
 		errorState = true;
@@ -104,27 +109,26 @@ const populatePokemonDetail = async (pokemon: Pokemon | Promise<Pokemon>) => {
 		pokemonImage.src = sprites.front_default;
 	}
 
-	pokemonDetail.classList.remove('loading-pokemon');
-
-	const speciesData = await getDataFromAPI(species.url);
-
+	// kies een egg group voor de ondertitel
 	const randomEggGroup =
-		speciesData.egg_groups[Math.floor(Math.random() * speciesData.egg_groups.length)];
+		egg_groups[Math.floor(Math.random() * egg_groups.length)];
 
 	if (randomEggGroup && !(randomEggGroup.name == 'no-eggs')) {
 		pokemonSpecies.textContent = `${randomEggGroup.name.toUpperCase()} POKéMON`;
 	}
 
-	const randomFlavorTexts = speciesData.flavor_text_entries
+	// kies een van de engelse flavor texts
+	const randomFlavorTexts = flavor_text_entries
 		.filter((text: { language: { name: string } }) => text.language.name === 'en')
 		.map((text: { flavor_text: string }) => text.flavor_text);
 
 	const randomFlavorText =
 		randomFlavorTexts[Math.floor(Math.random() * randomFlavorTexts.length)];
 
+	// vervang een of ander raar karakter wat in veel flavor texts staat met een spatie
 	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
 
-	pokemonDetail.classList.remove('loading-species');
+	pokemonDetail.classList.remove('loading');
 };
 
 const getHtmlElements = () => {
@@ -151,14 +155,14 @@ const getHtmlElements = () => {
 
 const detailError = () => {
 	const { topSection, pokemonDetail, imageSection } = getHtmlElements();
-	pokemonDetail.classList.remove('loading-pokemon');
-	pokemonDetail.classList.remove('loading-species');
+	pokemonDetail.classList.remove('loading');
 	imageSection.classList.remove('imgloading');
 	pokemonDetail.classList.add('error');
 
 	topSection.innerHTML = `<h2>Oops, something went wrong</h2><p>Try again later or try a different Pokémon</p>`;
 };
 
+// hier misschien nog iets met session storage doen zodat je bij de goede lijst terug komt
 const backButtonLogic = () => {
 	if (errorState === false) {
 		window.history.back();

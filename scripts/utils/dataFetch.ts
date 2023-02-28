@@ -10,39 +10,20 @@ const getDataFromAPI = async (query: string) => {
 	return await (await fetch(url)).json();
 };
 
-// functie om pokemon op te halen met naam ipv url, zo gedaan omdat types anders niet worden geleverd
-const getPokemonData = async (urls: Url[], endpoint: string = 'pokemon') => {
-	const promises: Promise<Pokemon>[] = urls.map(async (url) => {
-		return await getDataFromAPI(`${baseApiUrl}${endpoint}/${url.name}`);
-	});
-	return Promise.all(promises);
-};
-
-// const getPokemonSpecies = async (urls: Url[]) => {
-// 	const promises: Promise<Pokemon>[] = urls.map(async (url) => {
-// 		return await getDataFromAPI(`${baseApiUrl}pokemon-species/${url.name}`);
-// 	});
-// 	return Promise.all(promises);
-// };
-
 // function om pokemon species op te halen en type toe te voegen. pokemon species endpoint wordt gekozen omdat hierbij de naam altijd accuraat is, bij de pokemon endpoint is dit niet altijd het geval
-const getFullPokemonDetails = async (urls: Url[], name?: string) => {
-	const promises = urls.map(async (url) => {
-		const pokemonSpecies: Species = await getDataFromAPI(url.url);
+const getFullPokemonDetails = async (names: string[]) => {
+	const promises = names.map(async (name) => {
+		const pokemonSpecies: Species = await getDataFromAPI(`pokemon-species/${name}`);
+		const pokemon: Pokemon = await getDataFromAPI(`pokemon/${pokemonSpecies.id}`);
 
-		let types: Pokemon['types'];
-		let sprites: Pokemon['sprites'];
-		let weight: number, height: number;
-		({ types, sprites, weight, height } = await getDataFromAPI(`${baseApiUrl}pokemon/${pokemonSpecies.id}`));
-
-		const pokemon: FullPokemonDetails = {
+		const fullPokemonDetails: FullPokemonDetails = {
 			...pokemonSpecies,
-			types: types,
-			sprites: sprites,
-			weight: weight,
-			height: height
+			types: pokemon.types,
+			sprites: pokemon.sprites,
+			weight: pokemon.weight,
+			height: pokemon.height
 		};
-		return pokemon;
+		return fullPokemonDetails;
 	});
 	return Promise.all(promises);
 };
@@ -50,14 +31,13 @@ const getFullPokemonDetails = async (urls: Url[], name?: string) => {
 // functie om alle pokemon op te halen uit specifieke region
 const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
 	// maakt een array met alle urls van pokemon
-	const pokemonUrlArr: Url[] = (
+	const pokemonNameArr: string[] = (
 		await getDataFromAPI(`pokedex/${regionStr}`)
-	).pokemon_entries.map((entry: { pokemon_species: Url }) => entry.pokemon_species);
+	).pokemon_entries.map((entry: { pokemon_species: Url }) => entry.pokemon_species.name);
 
-	const pokemonArr = getFullPokemonDetails(pokemonUrlArr);
-	// const pokemonArr = getPokemonData(pokemonUrlArr);
+	const pokemonArr = getFullPokemonDetails(pokemonNameArr);
 
-	return { n: pokemonUrlArr.length, pokemonArr: pokemonArr };
+	return { n: pokemonNameArr.length, pokemonArr: pokemonArr };
 };
 
-export { getDataFromAPI, getPokemonByRegion, getFullPokemonDetails };
+export { getPokemonByRegion, getFullPokemonDetails };

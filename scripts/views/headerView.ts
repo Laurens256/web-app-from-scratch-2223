@@ -9,6 +9,9 @@ const headings = {
 	}, detailview: {
 		h1: 'POKéMON&nbsp;&nbsp;LIST',
 		h2: 'TEST',
+	}, filterview: {
+		h1: 'POKéDEX',
+		h2: 'TABLE OF CONTENTS',
 	}
 };
 

@@ -33,7 +33,7 @@ header ul li h1,
 header ul li h2,
 footer ul li,
 header ul li {
-	font-size: clamp(0px, 2rem, 6.5vw);
+	font-size: clamp(0px, 2rem, 6.2vw);
 }
 
 footer {

@@ -1,6 +1,7 @@
 import { mainElement } from '../routing/router';
 import { HeaderView } from './headerView';
 import { loadTemplate } from './loadTemplate';
+import { focusListItem } from '../utils/manageListScroll';
 
 const sortOrders = [
 	{ className: 'numerical', textContent: 'NUMERICAL MODE' },
@@ -18,7 +19,10 @@ const FilterView = async () => {
 	const template: string = await loadTemplate('pokedexFilter');
 	mainElement.innerHTML = template;
 
+	const list = mainElement.querySelector('ul') as HTMLUListElement;
+
 	generateSortOrders();
+	focusListItem(list);
 };
 
 const generateSortOrders = async () => {

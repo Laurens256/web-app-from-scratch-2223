@@ -1,6 +1,6 @@
 import { playBeepSound } from './soundEffects';
 
-let pokemonList: HTMLOListElement;
+let list: HTMLOListElement | HTMLUListElement;
 let topBoundary = 0;
 let bottomBoundary = 0;
 let listItemHeight = 0;
@@ -16,7 +16,7 @@ const getVisibleItems = () => {
 };
 
 // function om de list te laten scrollen als je binnen een marge van de boven- of ondergrens bent
-const followPokemonScroll = () => {
+const followScroll = () => {
 	const visibleItems = getVisibleItems();
 
 	const focusedItem = document.activeElement as HTMLButtonElement;
@@ -26,9 +26,9 @@ const followPokemonScroll = () => {
 	const scrollMarginUp = visibleItems.length > 5 ? 1 : 0;
 
 	if (focusedItemIndex >= visibleItems.length - scrollMarginDown) {
-		pokemonList.scrollTop += listItemHeight;
+		list.scrollTop += listItemHeight;
 	} else if (focusedItemIndex <= scrollMarginUp) {
-		pokemonList.scrollTop -= listItemHeight;
+		list.scrollTop -= listItemHeight;
 	}
 };
 
@@ -38,6 +38,11 @@ const moveArrow = (direction: number) => {
 	if (isRunning) return;
 	isRunning = true;
 	const focusedItem = document.activeElement as HTMLButtonElement;
+
+	if((focusedItem === listItems[0] && direction === -1) || (focusedItem === listItems[listItems.length - 1] && direction === 1)) {
+		isRunning = false;
+		return;
+	}
 
 	if (listItems.includes(focusedItem)) {
 		const focusedItemIndex = listItems.indexOf(focusedItem);
@@ -50,7 +55,7 @@ const moveArrow = (direction: number) => {
 		visibleItems[Math.floor(visibleItems.length / 2)].focus();
 	}
 	playBeepSound();
-	followPokemonScroll();
+	followScroll();
 	setTimeout(() => {
 		isRunning = false;
 	}, 90);
@@ -71,43 +76,44 @@ const checkScroll = () => {
 	const visibleItems = getVisibleItems();
 
 	if (visibleItems[0] !== listItems[0]) {
-		pokemonList.classList.add('scrollableup');
+		list.classList.add('scrollableup');
 	} else {
-		pokemonList.classList.remove('scrollableup');
+		list.classList.remove('scrollableup');
 	}
 
 	if (visibleItems[visibleItems.length - 1] !== listItems[listItems.length - 1]) {
-		pokemonList.classList.add('scrollabledown');
+		list.classList.add('scrollabledown');
 	} else {
-		pokemonList.classList.remove('scrollabledown');
+		list.classList.remove('scrollabledown');
 	}
 };
 
-// function om pokemon 1 te focussen
-const focusPokemon = (
-	pokemonListParam: HTMLOListElement,
+// function om list item 1 te focussen
+const focusListItem = (
+	listParam: HTMLOListElement | HTMLUListElement,
 	selectItem?: HTMLButtonElement
 ) => {
-	const firstItem = pokemonListParam.querySelector('button') as HTMLButtonElement;
-	pokemonList = pokemonListParam;
-	listItems = Array.from(pokemonList.querySelectorAll('button'));
+	console.log(listParam.outerHTML);
+	const firstItem = listParam.querySelector('button') as HTMLButtonElement;
+	list = listParam;
+	listItems = Array.from(list.querySelectorAll('button'));
 	calcBoundingRect();
-	pokemonList.addEventListener('focusin', followPokemonScroll);
+	list.addEventListener('focusin', followScroll);
 	document.addEventListener('keydown', checkKey);
 
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
 		selectItem ? selectItem.focus() : firstItem.focus();
-		pokemonList.addEventListener('scroll', checkScroll);
-		pokemonList.dispatchEvent(new Event('scroll'));
+		list.addEventListener('scroll', checkScroll);
+		list.dispatchEvent(new Event('scroll'));
 	}
 };
 
 // berekenen van de boven- en ondergrens van de list, gebeurt bij resize en init
 const calcBoundingRect = () => {
 	listItemHeight = listItems[0].getBoundingClientRect().height;
-	topBoundary = pokemonList.getBoundingClientRect().top;
-	bottomBoundary = pokemonList.getBoundingClientRect().bottom;
+	topBoundary = list.getBoundingClientRect().top;
+	bottomBoundary = list.getBoundingClientRect().bottom;
 };
 
 const clearListEventListeners = () => {
@@ -115,4 +121,4 @@ const clearListEventListeners = () => {
 	document.removeEventListener('keydown', checkKey);
 };
 
-export { focusPokemon, clearListEventListeners };
+export { focusListItem, clearListEventListeners };

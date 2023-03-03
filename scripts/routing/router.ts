@@ -40,7 +40,7 @@ const router = () => {
 const callback = (mutationList: { removedNodes: NodeList }[]) => {
 	const removedNode = mutationList[0].removedNodes[0] as HTMLElement;
 	if (removedNode) {
-		if (removedNode.id === 'listview') {
+		if (removedNode.id === 'listview' || removedNode.id === 'filtersview') {
 			clearListEventListeners();
 		} else if (removedNode.id === 'detailview') {
 			clearDetailEventListeners();

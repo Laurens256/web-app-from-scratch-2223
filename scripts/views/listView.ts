@@ -1,7 +1,7 @@
 import { getPokemonByRegion } from '../utils/dataFetch';
 import { FullPokemonDetails } from '../../assets/types';
 import { getTypeBadge } from '../utils/getTypeBadge';
-import { focusPokemon } from '../utils/manageListScroll';
+import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { HeaderView } from '../views/headerView';
@@ -85,7 +85,7 @@ const generatePokemonList = async (
 	for (const [i, pokemon] of pokemonArr.entries()) {
 		if (firstLoaded && !focusLocked && !selectedPokemonJson) {
 			focusLocked = true;
-			focusPokemon(pokemonList);
+			focusListItem(pokemonList);
 		}
 		if (loadDelay) {
 			await delay(50);
@@ -130,9 +130,9 @@ const generatePokemonList = async (
 			`button[data-id="${selectedPokemonId}"]`
 		) as HTMLButtonElement;
 		if (selectItem) {
-			focusPokemon(pokemonList, selectItem);
+			focusListItem(pokemonList, selectItem);
 		} else {
-			focusPokemon(pokemonList);
+			focusListItem(pokemonList);
 		}
 	}
 };

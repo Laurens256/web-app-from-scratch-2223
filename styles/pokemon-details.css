@@ -132,8 +132,6 @@ bovenste section
 	max-width: 100%;
 	height: 100%;
 	object-fit: contain;
-	/* image-rendering is de goat */
-	image-rendering: pixelated;
 }
 
 /* =====================

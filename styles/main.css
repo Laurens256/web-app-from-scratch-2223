@@ -1,4 +1,5 @@
 @import url(./header-footer.css);
+@import url(./pokemon-filters.css);
 @import url(./pokemon-list.css);
 @import url(./type-badges.css);
 @import url(./pokemon-details.css);
@@ -35,6 +36,11 @@ button {
 	font-family: inherit;
 }
 
+img {
+	/* image-rendering is de goat */
+	image-rendering: pixelated;
+}
+
 body {
 	font-family: 'Pokemon', sans-serif;
 	color: var(--text-black);
@@ -55,6 +61,7 @@ body {
 	--header: #c6b58c;
 	--text-white: #fff;
 	--text-black: #000;
+	--text-orange: #ff8c39;
 
 	--bg-main: #fff7ef;
 	--bg-secondary: #fcfcf9;
@@ -78,10 +85,15 @@ body {
 		0 0.2rem var(--text-shadow-black-extra-color),
 		0.2rem 0.2rem var(--text-shadow-black-extra-color);
 
+	--text-shadow-orange: 0.2rem 0 var(--text-shadow-orange-color),
+		0 0.2rem var(--text-shadow-orange-color),
+		0.2rem 0.2rem var(--text-shadow-orange-color);
+
 	--text-shadow-white-color: #636363;
 	--text-shadow-white-extra-color: #424242;
 	--text-shadow-black-color: #e7dec6;
 	--text-shadow-black-extra-color: #c6b58c;
+	--text-shadow-orange-color: #ce4239;
 
 	--right-arrow-selection: 10px 10px 0 0 #000, 20px 10px 0 0 #e7dec6, 10px 20px 0 0 #000,
 		20px 20px 0 0 #000, 30px 20px 0 0 #e7dec6, 10px 30px 0 0 #000, 20px 30px 0 0 #000,
@@ -136,5 +148,8 @@ body {
 		--text-shadow-black-extra: 0.5vw 0 var(--text-shadow-black-extra-color),
 			0 0.5vw var(--text-shadow-black-extra-color),
 			0.5vw 0.5vw var(--text-shadow-black-extra-color);
+
+		--text-shadow-orange: 0.5vw 0 var(--text-shadow-orange-color),
+			0 0.5vw var(--text-shadow-orange-color), 0.5vw 0.5vw var(--text-shadow-orange-color);
 	}
 }

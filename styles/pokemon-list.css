@@ -8,6 +8,7 @@
 	position: relative;
 	margin: 0 auto;
 	padding: 1.25em 3em;
+	/* calc is 100vh - header en footer - padding boven en onder */
 	height: calc(100vh - (var(--header-footer-height) * 2) - 2.5em);
 }
 

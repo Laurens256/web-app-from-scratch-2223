@@ -73,6 +73,9 @@ const generatePokemonList = async (
 		pokemonArr.sort((a, b) => a.weight - b.weight);
 	} else if (order === 'smallest') {
 		pokemonArr.sort((a, b) => a.height - b.height);
+	} else {
+		alert(`Sorting by "${order}" is not supported. Instead sorting by id.`);
+		window.history.replaceState({}, '', `${window.location.pathname}?order=numerical`);
 	}
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina

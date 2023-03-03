@@ -93,7 +93,6 @@ const focusListItem = (
 	listParam: HTMLOListElement | HTMLUListElement,
 	selectItem?: HTMLButtonElement
 ) => {
-	console.log(listParam.outerHTML);
 	const firstItem = listParam.querySelector('button') as HTMLButtonElement;
 	list = listParam;
 	listItems = Array.from(list.querySelectorAll('button'));

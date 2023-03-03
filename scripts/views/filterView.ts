@@ -27,7 +27,7 @@ const FilterView = async () => {
 
 const generateSortOrders = async () => {
 	const pokemonListHeader: HTMLLIElement = document.querySelector('.firstsortorder')!;
-	const sortOrdersHeader: HTMLLIElement = document.querySelector('.sortorders')!;
+	const sortOrdersHeader: HTMLLIElement = document.querySelector('.sortorders')!;	
 
 	sortOrders.forEach((order, i) => {
 		const li = document.createElement('li');

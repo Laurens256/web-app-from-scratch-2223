@@ -29,7 +29,7 @@ const ListView = async () => {
 // generate skeleton voor pokemon list
 const generateListSkeleton = async (n: number) => {
 	const pokemonList = document.createElement('ol');
-	pokemonList.classList.add('pokemonlist');
+	pokemonList.classList.add('pokemonlist', 'select-list');
 	pokemonList.id = 'listview';
 	const template = await loadTemplate('pokemonListItem');
 

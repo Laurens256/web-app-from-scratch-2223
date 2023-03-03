@@ -1,10 +1,16 @@
-@import url(./header-footer.css);
-@import url(./pokemon-filters.css);
-@import url(./pokemon-list.css);
-@import url(./type-badges.css);
-@import url(./pokemon-details.css);
-@import url(./skeleton.css);
-@import url(./screen-transition.css);
+/* pages */
+@import url(./pages/pokemon-filters.css);
+@import url(./pages/pokemon-list.css);
+@import url(./pages/pokemon-details.css);
+
+/* partials */
+@import url(./parts/header-footer.css);
+
+/* utils */
+@import url(./utils/select-item.css);
+@import url(./utils/skeleton.css);
+@import url(./utils/type-badges.css);
+@import url(./utils/screen-transition.css);
 
 @font-face {
 	font-family: 'Pokemon';

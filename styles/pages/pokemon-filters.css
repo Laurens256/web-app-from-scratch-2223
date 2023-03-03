@@ -12,7 +12,16 @@
 	gap: 1em;
 	height: 100%;
 	overflow-y: auto;
-	padding: 2em 2em 2em 0;
+	padding: 2em;
+	scroll-snap-type: y mandatory;
+}
+
+.filters ul li {
+	scroll-snap-align: end;
+	scroll-margin: 1em;
+	position: relative;
+	height: 2.6em;
+	flex: 0 0 auto;
 }
 
 .filters ul li h2 {
@@ -25,6 +34,7 @@
 	color: var(--text-black);
 	text-shadow: var(--text-shadow-black);
 	font-size: clamp(0px, 2.5em, 3.4vw);
+	height: 100%;
 }
 
 .filters img {

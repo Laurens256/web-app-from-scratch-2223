@@ -4,13 +4,11 @@ import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
-import { HeaderView } from '../views/headerView';
 
 let fullPokemonList: FullPokemonDetails[] = [];
 
 const ListView = async () => {
 	mainElement.innerHTML = '';
-	HeaderView('listview');
 
 	// als de volledige nog niet is opgehaald, haal hem dan op
 	if (fullPokemonList.length === 0) {

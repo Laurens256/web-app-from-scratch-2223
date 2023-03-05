@@ -1,8 +1,5 @@
-const cry = new Audio();
-
 const playCry = () => {
-	cry.src = `https://play.pokemonshowdown.com/audio/cries/${window.location.pathname.split('/').pop()}.ogg`;
-	cry.play();
+	new Audio(`https://play.pokemonshowdown.com/audio/cries/${window.location.pathname.split('/').pop()}.ogg`).play();
 };
 
 const handleKeyDown = (e: KeyboardEvent) => {

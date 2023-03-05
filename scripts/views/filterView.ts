@@ -1,5 +1,4 @@
 import { mainElement } from '../routing/router';
-import { HeaderView } from './headerView';
 import { loadTemplate } from './loadTemplate';
 import { focusListItem } from '../utils/manageListScroll';
 import { routes } from '../routing/routes';
@@ -15,7 +14,6 @@ const sortOrders = [
 
 const FilterView = async () => {
 	mainElement.innerHTML = '';
-	HeaderView('filterview');
 
 	const template: string = await loadTemplate('pokedexFilter');
 	mainElement.innerHTML = template;

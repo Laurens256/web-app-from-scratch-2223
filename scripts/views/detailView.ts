@@ -3,7 +3,6 @@ import { FullPokemonDetails, Pokemon, Url } from '../../assets/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
-import { HeaderView } from './headerView';
 import { handleKeyDown } from '../utils/handleDetailControls';
 
 //prettier-ignore
@@ -12,7 +11,6 @@ const defaultSprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/
 
 const DetailView = async () => {
 	mainElement.innerHTML = '';
-	HeaderView('detailview');
 
 	const fullPokemonDetails = loadPokemonData();
 	populatePokemonDetail(fullPokemonDetails);

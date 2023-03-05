@@ -10,7 +10,13 @@ interface Route {
 const routes: Route[] = [
 	{ path: '/', view: ListView },
 	{ path: '/pokemon/:name', view: DetailView },
-	{ path: '/placeholder', view: FilterView }
+	{ path: '/filters', view: FilterView }
 ];
 
-export { routes };
+enum routeNames {
+	listview,
+	detailview,
+	filterview
+}
+
+export { routes, routeNames };

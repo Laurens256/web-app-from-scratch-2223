@@ -1,7 +1,9 @@
-import { routes } from './routes';
+import { routes, routeNames } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
 import { fadeTransition } from '../utils/fadeTransition';
+import { HeaderView } from '../views/headerView';
+import { FooterView } from '../views/footerView';
 
 const mainElement = document.querySelector('main') as HTMLElement;
 
@@ -14,7 +16,6 @@ const router = () => {
 		if (urlPathSegments.length !== routeSegments.length) return false;
 
 		// loop om te kijken welk deel van de route een parameter is
-		// const params: string[] = [];
 		let param!: string;
 		for (let i = 0; i < routeSegments.length; i++) {
 			if (routeSegments[i].startsWith(':')) {
@@ -28,6 +29,12 @@ const router = () => {
 		// async werkt niet dus dan maar zo
 		fadeTransition().then(() => {
 			_route.view(param);
+
+			if (Object.values(routeNames).includes(_route.view.name)) {
+				HeaderView(_route.view.name.toLowerCase() as keyof typeof routeNames);
+				FooterView(_route.view.name.toLowerCase() as keyof typeof routeNames);
+			}
+			
 		});
 		return true;
 	});

@@ -2,6 +2,7 @@ import { mainElement } from '../routing/router';
 import { HeaderView } from './headerView';
 import { loadTemplate } from './loadTemplate';
 import { focusListItem } from '../utils/manageListScroll';
+import { routes } from '../routing/routes';
 
 const sortOrders = [
 	{ className: 'numerical', textContent: 'NUMERICAL MODE' },
@@ -47,7 +48,9 @@ const generateSortOrders = async () => {
 
 const chooseSortOrder = (e: Event) => {
 	if (!(e.currentTarget instanceof HTMLButtonElement)) return;
-	window.history.pushState({}, '', `/?order=${e.currentTarget.className}`);
+
+	const listViewRoute = routes.find(route => route.view.name === 'ListView')!.path
+	window.history.pushState({}, '', `${listViewRoute}?order=${e.currentTarget.className}`);
 };
 
 export { FilterView };

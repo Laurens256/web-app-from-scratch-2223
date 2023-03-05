@@ -1,5 +1,5 @@
 import { getPokemonByRegion } from '../utils/dataFetch';
-import { FullPokemonDetails } from '../../assets/types';
+import { FullPokemonDetails, PokemonTypes } from '../../assets/types';
 import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
@@ -73,6 +73,26 @@ const generatePokemonList = async (
 		pokemonArr.sort((a, b) => a.weight - b.weight);
 	} else if (order === 'smallest') {
 		pokemonArr.sort((a, b) => a.height - b.height);
+	} else if (order === 'type') {
+		pokemonArr.sort((a, b) => {
+			const aType1 = a.types[0].type.name;
+			const aType2 = a.types[1]?.type.name;
+			const bType1 = b.types[0].type.name;
+			const bType2 = b.types[1]?.type.name;
+			
+			const aType1Index = PokemonTypes.indexOf(aType1);
+			const aType2Index = PokemonTypes.indexOf(aType2);
+			const bType1Index = PokemonTypes.indexOf(bType1);
+			const bType2Index = PokemonTypes.indexOf(bType2);
+
+			if (aType1Index !== bType1Index) {
+				return aType1Index - bType1Index;
+			}
+			if (aType2Index !== bType2Index) {
+				return aType2Index - bType2Index;
+			}
+			return 0;
+		});
 	} else {
 		alert(`Sorting by "${order}" is not supported. Instead sorting by id.`);
 		window.history.replaceState({}, '', `${window.location.pathname}?order=numerical`);
@@ -102,7 +122,7 @@ const generatePokemonList = async (
 		listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 
 		button.addEventListener('click', () => {
-			window.history.pushState({pokemon: pokemon}, '', `/pokemon/${pokemon.name}`);
+			window.history.pushState({ pokemon: pokemon }, '', `/pokemon/${pokemon.name}`);
 		});
 		button.setAttribute('aria-label', `view details of ${pokemon.name}`);
 		button.setAttribute('data-id', pokemon.id.toString());

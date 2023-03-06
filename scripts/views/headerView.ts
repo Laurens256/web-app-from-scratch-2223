@@ -22,6 +22,10 @@ const headers: headerType = {
 	filterview: {
 		h1: 'POKéDEX',
 		h2: 'TABLE OF CONTENTS'
+	},
+	errorview: {
+		h1: '404',
+		h2: 'PAGE NOT FOUND'
 	}
 };
 

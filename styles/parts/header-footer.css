@@ -9,6 +9,11 @@ footer {
 	position: sticky;
 }
 
+header.hidden,
+footer.hidden {
+	display: none;
+}
+
 header ul,
 footer ul {
 	height: 100%;

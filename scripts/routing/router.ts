@@ -1,6 +1,7 @@
 import { routes } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
+import { clearSplashEventListeners } from '../views/splashView';
 import { fadeTransition } from '../utils/fadeTransition';
 import { HeaderView} from '../views/headerView';
 import { FooterView } from '../views/footerView';
@@ -35,7 +36,12 @@ const router = () => {
 		return true;
 	});
 	if (!route) {
-		mainElement.innerHTML = '<h1>404 Page Not Found</h1>';
+		const errorRoute = routes.find((_route) => _route.viewName === 'errorview');
+		if(errorRoute) {
+			HeaderView(errorRoute.viewName);
+			FooterView(errorRoute.viewName);
+			errorRoute.view();
+		}
 	}
 };
 
@@ -47,6 +53,8 @@ const callback = (mutationList: { removedNodes: NodeList }[]) => {
 			clearListEventListeners();
 		} else if (removedNode.id === 'detailview') {
 			clearDetailEventListeners();
+		} else if (removedNode.id === 'splashview') {
+			clearSplashEventListeners();
 		}
 	}
 };

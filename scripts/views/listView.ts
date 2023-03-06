@@ -1,5 +1,5 @@
 import { getPokemonByRegion } from '../utils/dataFetch';
-import { FullPokemonDetails, PokemonTypes } from '../../assets/types';
+import { FullPokemonDetails } from '../../assets/types';
 import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';

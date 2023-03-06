@@ -21,6 +21,10 @@ const footers: footerType = {
 	filterview: [
 		{ classes: ['control-icon', 'a-button'], text: 'ok' },
 		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'pick' },
+	],
+	errorview: [
+		{ classes: ['control-icon', 'a-button'], text: 'ok' },
+		{ classes: ['control-icon', 'd-pad', 'horizontal'], text: 'pick' },
 	]
 };
 

@@ -30,12 +30,10 @@ const router = () => {
 		fadeTransition().then(() => {
 			_route.view(param);
 
-			const routeName = _route.view.name.toLowerCase();
-			if (Object.values(routeNames).includes(routeName)) {
-				HeaderView(routeName as keyof typeof routeNames);
-				FooterView(routeName as keyof typeof routeNames);
-			}
-			
+			console.log(_route.view.name);
+			HeaderView(_route.view.name.toLowerCase() as keyof typeof routeNames);
+			FooterView(_route.view.name.toLowerCase() as keyof typeof routeNames);
+
 		});
 		return true;
 	});

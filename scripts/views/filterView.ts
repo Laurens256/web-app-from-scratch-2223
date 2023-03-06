@@ -1,7 +1,6 @@
 import { mainElement } from '../routing/router';
 import { loadTemplate } from './loadTemplate';
 import { focusListItem } from '../utils/manageListScroll';
-import { routes } from '../routing/routes';
 
 const sortOrders = [
 	{ className: 'numerical', textContent: 'NUMERICAL MODE' },
@@ -33,7 +32,9 @@ const generateSortOrders = async () => {
 		const button = document.createElement('button');
 		button.classList.add(order.className);
 		button.textContent = order.textContent;
-		button.addEventListener('click', chooseSortOrder);
+		button.addEventListener('click', () => {
+			window.history.pushState({}, '', `pokemon?order=${order.className}`)
+		});
 		li.appendChild(button);
 
 		if (i === 0) {
@@ -42,13 +43,6 @@ const generateSortOrders = async () => {
 			sortOrdersHeader.insertAdjacentElement('afterend', li);
 		}
 	});
-};
-
-const chooseSortOrder = (e: Event) => {
-	if (!(e.currentTarget instanceof HTMLButtonElement)) return;
-
-	const listViewRoute = routes.find(route => route.view.name === 'ListView')!.path
-	window.history.pushState({}, '', `${listViewRoute}?order=${e.currentTarget.className}`);
 };
 
 export { FilterView };

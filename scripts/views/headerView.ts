@@ -14,7 +14,7 @@ const headings: headerType = {
 	},
 	detailview: {
 		h1: 'POKéMON&nbsp;&nbsp;LIST',
-		h2: 'TEST'
+		h2: ''
 	},
 	filterview: {
 		h1: 'POKéDEX',

@@ -4,14 +4,17 @@ import { getTypeBadge } from '../utils/getTypeBadge';
 import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
+import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
+
+let pokemonListElement: HTMLOListElement;
 
 const ListView = async () => {
 	mainElement.innerHTML = '';
 	try {
 		const { n, pokemonArr } = await getPokemonByRegion();
-		const order: string = getSortOrder();
+		const { order, habitat } = getQueryParams();
 		sessionStorage.setItem('order', order);
-		await generatePokemonList(n, pokemonArr, order);
+		await generatePokemonList(n, pokemonArr, order, habitat);
 	} catch (error) {
 		// listError();
 	}
@@ -19,82 +22,53 @@ const ListView = async () => {
 
 // generate skeleton voor pokemon list
 const generateListSkeleton = async (n: number) => {
-	const pokemonList = document.createElement('ol');
-	pokemonList.classList.add('pokemonlist', 'select-list');
-	pokemonList.id = 'listview';
+	pokemonListElement = document.createElement('ol');
+	pokemonListElement.classList.add('pokemonlist', 'select-list');
+	pokemonListElement.id = 'listview';
 	const template = await loadTemplate('pokemonListItem');
 
 	// voegt alle lege list items toe aan pokemonList
-	pokemonList.innerHTML = Array.from({ length: n })
+	pokemonListElement.innerHTML = Array.from({ length: n })
 		.map(() => template)
 		.join('');
-	mainElement?.appendChild(pokemonList);
+	mainElement?.appendChild(pokemonListElement);
+};
+
+const removeExcessSkeleton = (n: number) => {
+	// verwijder alle overbodige list items. wordt gedaan wanneer er is gefilterd en er dus minder pokemon zijn
+	const listItems = Array.from(pokemonListElement.children);
+	listItems.splice(n, listItems.length - n).forEach(listItem => listItem.remove());
 };
 
 const generatePokemonList = async (
 	n: number,
 	data: FullPokemonDetails[] | Promise<FullPokemonDetails[]>,
-	order?: string
+	order: string,
+	habitat: string | null
 ) => {
 	// check of een pokemon al een keer geselecteerd is, zo ja, laad de pagina meteen. Zorgt ervoor dat die laad animatie niet weer zo lang duurt
 	const selectedPokemonId = sessionStorage.getItem('selectedPokemonId');
 	const loadDelay = data instanceof Promise && !(selectedPokemonId) ? true : false;
 
 	await generateListSkeleton(n);
-	const pokemonList = document.querySelector('ol.pokemonlist') as HTMLOListElement;
 
-	const pokemonArr = await data;
+	// await data en sorteer deze op de juiste volgorde
+	const rawPokemonArr = await data;
+	let filteredPokemonArr = rawPokemonArr;
+	if (habitat) {
+		filteredPokemonArr = filterPokemonArray(rawPokemonArr, habitat);
+		removeExcessSkeleton(filteredPokemonArr.length);
+	}
+	const pokemonArr = sortPokemonArray(filteredPokemonArr, order);
 
 	// shoutout ninadepina
-	const listItems = Array.from(pokemonList.children).map((listItem) => ({
+	const listItems = Array.from(pokemonListElement.children).map((listItem) => ({
 		listItem,
 		button: listItem.querySelector('button') as HTMLButtonElement,
 		idField: listItem.querySelector('section:first-of-type p') as HTMLParagraphElement,
 		nameField: listItem.querySelector('section:nth-of-type(2) h2') as HTMLHeadingElement,
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
 	}));
-
-
-	switch (order) {
-		case 'numerical':
-			pokemonArr.sort((a, b) => a.id - b.id);
-			break;
-
-		case 'alphabetical':
-			pokemonArr.sort((a, b) =>
-				a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
-			);
-			break;
-
-		case 'lightest':
-			pokemonArr.sort((a, b) => a.weight - b.weight);
-			break;
-
-		case 'smallest':
-			pokemonArr.sort((a, b) => a.height - b.height);
-			break;
-
-		case 'type':
-			pokemonArr.sort((a, b) => {
-				const aType1 = a.types[0].type.name;
-				const aType2 = a.types[1]?.type.name;
-				const bType1 = b.types[0].type.name;
-				const bType2 = b.types[1]?.type.name;
-
-				if (aType1 === bType1) {
-					return aType2?.localeCompare(bType2, undefined, {
-						sensitivity: 'base'
-					})!;
-				} else {
-					return aType1.localeCompare(bType1, undefined, { sensitivity: 'base' });
-				}
-			});
-			break;
-
-		default:
-			window.history.replaceState({}, '', `${window.location.pathname}?order=numerical`)
-			break;
-	}
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;
@@ -110,7 +84,7 @@ const generatePokemonList = async (
 
 		if (firstLoaded && !focusLocked && !selectedPokemonId) {
 			focusLocked = true;
-			focusListItem(pokemonList);
+			focusListItem(pokemonListElement);
 		}
 		if (loadDelay) {
 			await delay(50);
@@ -144,28 +118,34 @@ const generatePokemonList = async (
 	if (selectedPokemonId) {
 		sessionStorage.removeItem('selectedPokemonId');
 
-		const selectItem = pokemonList.querySelector(
+		const selectItem = pokemonListElement.querySelector(
 			`button[data-id="${selectedPokemonId}"]`
 		) as HTMLButtonElement;
 		if (selectItem) {
-			focusListItem(pokemonList, selectItem);
+			focusListItem(pokemonListElement, selectItem);
 		} else {
-			focusListItem(pokemonList);
+			focusListItem(pokemonListElement);
 		}
 	}
 };
 
-const getSortOrder = () => {
-	const order = new URLSearchParams(window.location.search).get('order');
+const defaultSort = 'numerical';
+const getQueryParams = () => {
+	const URLSearchParams = new window.URLSearchParams(window.location.search);
+	let order = URLSearchParams.get('order');
+	let habitat = URLSearchParams.get('habitat');
+	let queryParams = '';
+
 	if (!order) {
-		const orderStorage = sessionStorage.getItem('order');
-		if (orderStorage) {
-			history.replaceState({}, '', `${window.location.pathname}?order=${orderStorage}`);
-			return orderStorage;
+		order = sessionStorage.getItem('order');
+		queryParams = `?order=${order || defaultSort}`;
+
+		if (habitat) {
+			queryParams += `&habitat=${habitat}`;
 		}
-		history.replaceState({}, '', `${window.location.pathname}?order=numerical`);
+		window.history.replaceState({}, '', queryParams);
 	}
-	return order || 'numerical';
+	return { order: order || defaultSort, habitat: habitat };
 };
 
 const listError = (name: string, listItems: {

@@ -18,7 +18,7 @@ const buildSplash = () => {
 
 	splashImg.addEventListener('load', manageSplashBg);
 
-	splashImg.src = '/assets/splash.webp';
+	splashImg.src = 'assets/img/splash.webp';
 	splashImg.alt = 'pokemon fire red splash screen';
 
 	splashDiv.appendChild(splashImg);
@@ -37,13 +37,11 @@ const manageSplashBg = () => {
 };
 
 const clearSplashEventListeners = () => {
-	console.log('clearing splash event listeners');
 	window.removeEventListener('resize', manageSplashBg);
 	window.removeEventListener('keydown', moveScreen);
 };
 
 const moveScreen = (e: MouseEvent | KeyboardEvent) => {
-	console.log('aaa');
 	if (e instanceof KeyboardEvent) {
 		if (!(e.key == 'Enter' || e.key == ' ' || e.key == 'a')) {
 			return;

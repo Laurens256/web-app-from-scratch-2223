@@ -48,10 +48,9 @@ const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
 	).pokemon_entries.map((entry: { pokemon_species: Url }) => entry.pokemon_species.name);
 
 	if (pokemonArr instanceof Promise || pokemonArr.length) {
-		return { n: pokemonNameArr.length, pokemonArr: await pokemonArr };
+		pokemonArr = await pokemonArr;
+		return { n: pokemonNameArr.length, pokemonArr: pokemonArr };
 	}
-
-	pokemonNameArr[5] = 'gerbjhgjhd'
 
 	pokemonArr = getFullPokemonDetails(pokemonNameArr);
 

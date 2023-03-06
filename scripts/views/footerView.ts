@@ -8,17 +8,19 @@ type footerType = {
 
 const footers: footerType = {
 	listview: [
-		{ classes: ['control-icon', 'a-button'], text: 'OK' },
-		{ classes: ['control-icon', 'b-button'], text: 'PICK' },
-		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK' },
-		{ classes: ['control-icon', 'space-bar'], text: 'PICK' }
+		{ classes: ['control-icon', 'b-button'], text: 'cancel' },
+		{ classes: ['control-icon', 'a-button'], text: 'ok' },
+		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'pick' },
 	],
 	detailview: [
 		{ classes: ['control-icon', 'b-button'], text: 'cancel' },
 		{ classes: ['control-icon', 'a-button'], text: 'next data' },
 		{ classes: ['control-icon', 'space-bar'], text: 'cry' }
 	],
-	filterview: []
+	filterview: [
+		{ classes: ['control-icon', 'a-button'], text: 'ok' },
+		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'pick' },
+	],
 };
 
 const FooterView = (view: keyof typeof routeNames) => {

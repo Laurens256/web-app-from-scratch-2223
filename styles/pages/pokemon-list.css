@@ -46,7 +46,7 @@ id section
 	width: 2.5em;
 }
 
-.pokemonlist li:not(.loading) button section:first-of-type p::before {
+.pokemonlist li:not(.loading):not(.error) button section:first-of-type p::before {
 	content: 'No';
 	text-transform: none;
 }
@@ -59,7 +59,7 @@ name section
 }
 
 /* placeholder div zodat loading animation zelfde grootte houdt als geladen items */
-.pokemonlist li.skeleton button section:last-of-type div {
+.pokemonlist li:is(.skeleton, .error) button section:last-of-type div {
 	content: '';
 	width: 8em;
 	aspect-ratio: 8 / 3;

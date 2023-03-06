@@ -1,5 +1,5 @@
-.select-list:not(:has(button:focus)) li:not(.loading) button:hover::before,
-.select-list li:not(.loading) button:focus::before {
+.select-list:not(:has(button:focus)) li:not(.loading) button:not(:disabled):hover::before,
+.select-list li:not(.loading) button:not(:disabled):focus::before {
 	content: '';
 	position: absolute;
 	left: -2.5rem;
@@ -15,19 +15,14 @@
 }
 
 @media (max-width: 600px) {
-	.select-list button:hover,
-	.select-list li button:focus {
-		outline: solid 2px var(--text-black);
-	}
-
-	.select-list button:hover,
-	.select-list button:focus {
+	.select-list button:not(:disabled):hover,
+	.select-list li button:not(:disabled):focus {
 		outline: solid 2px var(--text-black);
 	}
 
 	/* pijltje aan de zijkant weg */
-	.pokemonlist:not(:has(button:focus)) li:not(.loading) button:hover::before,
-	.pokemonlist li:not(.loading) button:focus::before {
+	.pokemonlist:not(:has(button:focus)) li:not(.loading) button:not(:disabled):hover::before,
+	.pokemonlist li:not(.loading) button:not(:disabled):focus::before {
 		content: none;
 	}
 

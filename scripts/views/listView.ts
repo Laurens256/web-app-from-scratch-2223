@@ -7,12 +7,12 @@ import { mainElement } from '../routing/router';
 
 const ListView = async () => {
 	mainElement.innerHTML = '';
-		try {
-			const { n, pokemonArr } = await getPokemonByRegion();
-			await generatePokemonList(n, pokemonArr, getSortOrder());
-		} catch (error) {
-			listError();
-		}
+	try {
+		const { n, pokemonArr } = await getPokemonByRegion();
+		await generatePokemonList(n, pokemonArr, getSortOrder());
+	} catch (error) {
+		// listError();
+	}
 };
 
 // generate skeleton voor pokemon list
@@ -97,6 +97,14 @@ const generatePokemonList = async (
 	let focusLocked = false;
 	const selectedPokemonJson = sessionStorage.getItem('selectedPokemonId');
 	for (const [i, pokemon] of pokemonArr.entries()) {
+
+		const { listItem, button, idField, nameField, typeSection } = listItems[i];
+
+		if (pokemon.id === 0) {
+			listError(pokemon.name ,listItems[i]);
+			continue;
+		}
+
 		if (firstLoaded && !focusLocked && !selectedPokemonJson) {
 			focusLocked = true;
 			focusListItem(pokemonList);
@@ -104,8 +112,6 @@ const generatePokemonList = async (
 		if (loadDelay) {
 			await delay(50);
 		}
-
-		const { listItem, button, idField, nameField, typeSection } = listItems[i];
 
 		// verwijder loading en skeleton class en verwijder lege placeholder div
 		listItem.classList.remove('loading', 'skeleton');
@@ -155,8 +161,20 @@ const getSortOrder = () => {
 	return order || 'numerical';
 };
 
-const listError = () => {
-	
+const listError = (name: string ,listItems: {
+	listItem: Element;
+	button: HTMLButtonElement;
+	idField: HTMLParagraphElement;
+	nameField: HTMLHeadingElement;
+	typeSection: HTMLElement;
+}) => {
+	const { listItem, button, nameField, typeSection } = listItems;
+	listItem.className = 'error';
+	button.disabled = true;
+
+	nameField.textContent = name;
+	const typeDiv = getTypeBadge()
+	typeSection.insertAdjacentElement('afterbegin', typeDiv);
 };
 
 const delay = (n: number) => {

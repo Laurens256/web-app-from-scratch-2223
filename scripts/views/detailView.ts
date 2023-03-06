@@ -68,6 +68,7 @@ const populatePokemonDetail = async (
 	try {
 		({ id, name, sprites, height, weight, egg_groups, flavor_text_entries } =
 			await fullPokemonDetails);
+		if(id === 0) throw new Error();
 		errorState = false;
 	} catch (error) {
 		errorState = true;

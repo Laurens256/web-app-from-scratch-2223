@@ -1,4 +1,4 @@
-import { Url, FullPokemonDetails, Species, Pokemon } from '../../assets/types';
+import { Url, FullPokemonDetails, Species, Pokemon, errorDetails } from '../../assets/types';
 
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
 // const defaultRegion = 'national';
@@ -15,23 +15,28 @@ const getDataFromAPI = async (query: string) => {
 // function om pokemon species op te halen en type toe te voegen. pokemon species endpoint wordt gekozen omdat hierbij de naam altijd accuraat is, bij de pokemon endpoint is dit niet altijd het geval
 const getFullPokemonDetails = async (names: string[]) => {
 	const promises = names.map(async (name) => {
-		const { id, egg_groups, flavor_text_entries, habitat }: Species = await getDataFromAPI(`pokemon-species/${name}`);
-		const { types, sprites, weight, height }: Pokemon = await getDataFromAPI(`pokemon/${id}`);
+		try {
+			const { id, egg_groups, flavor_text_entries, habitat }: Species = await getDataFromAPI(`pokemon-species/${name}`);
+			const { types, sprites, weight, height }: Pokemon = await getDataFromAPI(`pokemon/${id}`);
 
-		const fullPokemonDetails: FullPokemonDetails = {
-			egg_groups: egg_groups,
-			flavor_text_entries: flavor_text_entries,
-			habitat: habitat,
-			id: id,
-			name: name,
-			types: types,
-			sprites: sprites,
-			weight: weight,
-			height: height
-		};
+			const fullPokemonDetails: FullPokemonDetails = {
+				egg_groups: egg_groups,
+				flavor_text_entries: flavor_text_entries,
+				habitat: habitat,
+				id: id,
+				name: name,
+				types: types,
+				sprites: sprites,
+				weight: weight,
+				height: height
+			};
 
-		return fullPokemonDetails;
-	});
+
+			return fullPokemonDetails;
+		} catch {
+			return { ...errorDetails, name };
+		}
+	})
 	return Promise.all(promises);
 };
 
@@ -46,7 +51,7 @@ const getPokemonByRegion = async (regionStr: string = defaultRegion) => {
 		return { n: pokemonNameArr.length, pokemonArr: await pokemonArr };
 	}
 
-	// pokemonNameArr[5] = 'gerbjhgjhd'
+	pokemonNameArr[5] = 'gerbjhgjhd'
 
 	pokemonArr = getFullPokemonDetails(pokemonNameArr);
 

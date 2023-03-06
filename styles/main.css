@@ -14,7 +14,7 @@
 
 @font-face {
 	font-family: 'Pokemon';
-	src: url('../assets/fonts/Pokemon-Fire-Red.woff2');
+	src: url('../assets/fonts/pokemon-fire-red.woff2');
 }
 
 *,
@@ -40,6 +40,10 @@ button {
 	border: none;
 	cursor: pointer;
 	font-family: inherit;
+}
+
+button:disabled {
+	cursor: not-allowed;
 }
 
 img {

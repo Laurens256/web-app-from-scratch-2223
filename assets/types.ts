@@ -74,13 +74,50 @@ export interface Species {
 
 // prettier-ignore
 export const PokemonTypes = [
-	'normal','fire','water','grass','electric','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'
+	'normal', 'fire', 'water', 'grass', 'electric', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'
 ];
 
 //prettier-ignore
 export const usedFields = [
 	'egg_groups', 'flavor_text_entries', 'habitat', 'id', 'name', 'types', 'sprites', 'weight', 'height'
 ];
+
+export const errorDetails = {
+	egg_groups: [{
+		name: '',
+		url: ''
+	}],
+	flavor_text_entries: [{
+		flavor_text: '',
+		language: {
+			name: '',
+			url: ''
+		},
+		version: {
+			name: '',
+			url: ''
+		}
+	}],
+	habitat: {
+		name: '',
+		url: ''
+	},
+	id: 0,
+	name: '',
+	types: [{
+		slot: 0,
+		type: {
+			name: '',
+			url: ''
+		}
+	}],
+	sprites: {
+		front_default: '',
+		front_shiny: ''
+	},
+	weight: 0,
+	height: 0
+}
 export interface FullPokemonDetails {
 	egg_groups: Url[];
 	flavor_text_entries: {

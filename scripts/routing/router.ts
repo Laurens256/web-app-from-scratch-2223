@@ -2,8 +2,8 @@ import { routes } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
 import { fadeTransition } from '../utils/fadeTransition';
-import { HeaderView , headersType} from '../views/headerView';
-import { FooterView, footersType } from '../views/footerView';
+import { HeaderView} from '../views/headerView';
+import { FooterView } from '../views/footerView';
 
 const mainElement = document.querySelector('main') as HTMLElement;
 
@@ -28,10 +28,9 @@ const router = () => {
 		}
 		// async werkt niet dus dan maar zo
 		fadeTransition().then(() => {
+			HeaderView(_route.viewName);
+			FooterView(_route.viewName);
 			_route.view(param);
-
-			HeaderView(_route.view.name.toLowerCase() as headersType);
-			FooterView(_route.view.name.toLowerCase() as footersType);
 		});
 		return true;
 	});

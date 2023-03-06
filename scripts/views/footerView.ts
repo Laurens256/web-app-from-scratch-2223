@@ -1,8 +1,12 @@
+import { viewNames } from '../routing/routes';
+
+type footerType = {
+	[K in viewNames]: { classes: string[]; text: string; }[];
+};
+
 const footerList: HTMLUListElement = document.querySelector('footer ul')!;
 
-type footersType = keyof typeof footers;
-
-const footers = {
+const footers: footerType = {
 	listview: [
 		{ classes: ['control-icon', 'b-button'], text: 'cancel' },
 		{ classes: ['control-icon', 'a-button'], text: 'ok' },
@@ -19,7 +23,7 @@ const footers = {
 	],
 };
 
-const FooterView = (view: footersType) => {
+const FooterView = (view: viewNames) => {
 	if (footerList && footers[view]) {
 		footerList.innerHTML = '';
 		footers[view].forEach((control) => {
@@ -32,4 +36,4 @@ const FooterView = (view: footersType) => {
 	}
 };
 
-export { FooterView, footersType };
+export { FooterView };

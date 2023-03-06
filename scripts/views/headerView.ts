@@ -1,12 +1,14 @@
 import { viewNames } from '../routing/routes';
 
-const h1Element: HTMLHeadingElement = document.querySelector('header h1')!;
-const h2Element: HTMLHeadingElement = document.querySelector('header h2')!;
+const headerElement = document.querySelector<HTMLElement>('header');
+const h1Element = headerElement?.querySelector<HTMLHeadingElement>('h1');
+const h2Element = headerElement?.querySelector<HTMLHeadingElement>('h2');
 
 
 type headerType = {
-	[K in viewNames]: { h1: string; h2: string; };
+	[K in viewNames]?: { h1: string; h2: string; };
 };
+
 
 const headers: headerType = {
 	listview: {
@@ -24,12 +26,13 @@ const headers: headerType = {
 };
 
 const HeaderView = (view: viewNames) => {
-	if (h1Element && h2Element && headers[view]) {
-		h1Element.innerHTML = headers[view].h1;
-		h2Element.innerHTML = headers[view].h2;
+	if (!headers[view]) {
+		headerElement?.classList.add('hidden');
+	} else if (h1Element && h2Element) {
+		headerElement?.classList.remove('hidden');
+		h1Element.innerHTML = headers[view]!.h1;
+		h2Element.innerHTML = headers[view]!.h2;
 	}
 };
-
-console.log(HeaderView.name);
 
 export { HeaderView };

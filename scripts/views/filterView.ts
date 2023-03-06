@@ -1,6 +1,7 @@
 import { mainElement } from '../routing/router';
 import { loadTemplate } from './loadTemplate';
 import { focusListItem } from '../utils/manageListScroll';
+import { routes } from '../routing/routes';
 
 const sortOrders = [
 	{ className: 'numerical', textContent: 'NUMERICAL MODE' },
@@ -33,7 +34,8 @@ const generateSortOrders = async () => {
 		button.classList.add(order.className);
 		button.textContent = order.textContent;
 		button.addEventListener('click', () => {
-			window.history.pushState({}, '', `pokemon?order=${order.className}`)
+			const listViewRoute = routes.find((route) => route.viewName === 'listview');
+			window.history.pushState({}, '', `${listViewRoute?.path}?order=${order.className}`)
 		});
 		li.appendChild(button);
 

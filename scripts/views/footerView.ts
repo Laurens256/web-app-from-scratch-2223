@@ -1,10 +1,11 @@
 import { viewNames } from '../routing/routes';
 
 type footerType = {
-	[K in viewNames]: { classes: string[]; text: string; }[];
+	[K in viewNames]?: { classes: string[]; text: string; }[];
 };
 
-const footerList: HTMLUListElement = document.querySelector('footer ul')!;
+const footerElement = document.querySelector<HTMLElement>('footer');
+const footerList: HTMLUListElement = footerElement?.querySelector('ul')!;
 
 const footers: footerType = {
 	listview: [
@@ -20,19 +21,23 @@ const footers: footerType = {
 	filterview: [
 		{ classes: ['control-icon', 'a-button'], text: 'ok' },
 		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'pick' },
-	],
+	]
 };
 
 const FooterView = (view: viewNames) => {
-	if (footerList && footers[view]) {
-		footerList.innerHTML = '';
-		footers[view].forEach((control) => {
+	footerList.innerHTML = '';
+	if (!footers[view]) {
+		footerElement?.classList.add('hidden');
+	} else {
+		footerElement?.classList.remove('hidden');
+		footers[view]!.forEach((control) => {
 			const li = document.createElement('li');
 
 			li.classList.add(...control.classes);
 			li.textContent = control.text;
 			footerList.insertAdjacentElement('afterbegin', li);
 		});
+
 	}
 };
 

@@ -42,7 +42,7 @@ footer {
 }
 footer ul {
 	justify-content: flex-end;
-	gap: 3em;
+	gap: 2em;
 }
 
 @media screen and (max-width: 600px) {
@@ -54,13 +54,14 @@ footer ul {
 footer ul li {
 	position: relative;
 	text-transform: uppercase;
+	padding-left: 1em;
 }
 
 footer ul li.control-icon::before {
 	content: '';
 	position: absolute;
 	top: -30%;
-	left: -40px;
+	left: -.25em;
 	width: 10px;
 	height: 10px;
 	transform: scale(0.4);
@@ -88,21 +89,20 @@ footer ul li.d-pad.vertical {
 
 footer ul li.space-bar {
 	margin-right: auto;
-	margin-left: 48px;
 }
 
 footer ul li.space-bar::before {
-	left: -48px;
+	left: -.5em;
 	box-shadow: var(--space-bar-icon);
 }
 
 footer ul li.start-button {
 	margin-right: auto;
-	margin-left: 100px;
+	margin-left: 1.7em;
 }
 
 footer ul li.start-button::before {
-	left: -100px;
+	left: -2.15em;	
 	box-shadow: var(--start-button-icon);
 }
 

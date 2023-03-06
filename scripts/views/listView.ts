@@ -9,7 +9,9 @@ const ListView = async () => {
 	mainElement.innerHTML = '';
 	try {
 		const { n, pokemonArr } = await getPokemonByRegion();
-		await generatePokemonList(n, pokemonArr, getSortOrder());
+		const order: string = getSortOrder();
+		sessionStorage.setItem('order', order);
+		await generatePokemonList(n, pokemonArr, order);
 	} catch (error) {
 		// listError();
 	}
@@ -34,7 +36,9 @@ const generatePokemonList = async (
 	data: FullPokemonDetails[] | Promise<FullPokemonDetails[]>,
 	order?: string
 ) => {
-	const loadDelay = data instanceof Promise ? true : false;
+	// check of een pokemon al een keer geselecteerd is, zo ja, laad de pagina meteen. Zorgt ervoor dat die laad animatie niet weer zo lang duurt
+	const selectedPokemonId = sessionStorage.getItem('selectedPokemonId');
+	const loadDelay = data instanceof Promise && !(selectedPokemonId) ? true : false;
 
 	await generateListSkeleton(n);
 	const pokemonList = document.querySelector('ol.pokemonlist') as HTMLOListElement;
@@ -95,17 +99,16 @@ const generatePokemonList = async (
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;
 	let focusLocked = false;
-	const selectedPokemonJson = sessionStorage.getItem('selectedPokemonId');
 	for (const [i, pokemon] of pokemonArr.entries()) {
 
 		const { listItem, button, idField, nameField, typeSection } = listItems[i];
 
 		if (pokemon.id === 0) {
-			listError(pokemon.name ,listItems[i]);
+			listError(pokemon.name, listItems[i]);
 			continue;
 		}
 
-		if (firstLoaded && !focusLocked && !selectedPokemonJson) {
+		if (firstLoaded && !focusLocked && !selectedPokemonId) {
 			focusLocked = true;
 			focusListItem(pokemonList);
 		}
@@ -138,8 +141,7 @@ const generatePokemonList = async (
 		firstLoaded = true;
 	}
 
-	if (selectedPokemonJson) {
-		const selectedPokemonId = JSON.parse(selectedPokemonJson).id;
+	if (selectedPokemonId) {
 		sessionStorage.removeItem('selectedPokemonId');
 
 		const selectItem = pokemonList.querySelector(
@@ -156,12 +158,17 @@ const generatePokemonList = async (
 const getSortOrder = () => {
 	const order = new URLSearchParams(window.location.search).get('order');
 	if (!order) {
+		const orderStorage = sessionStorage.getItem('order');
+		if (orderStorage) {
+			history.replaceState({}, '', `${window.location.pathname}?order=${orderStorage}`);
+			return orderStorage;
+		}
 		history.replaceState({}, '', `${window.location.pathname}?order=numerical`);
 	}
 	return order || 'numerical';
 };
 
-const listError = (name: string ,listItems: {
+const listError = (name: string, listItems: {
 	listItem: Element;
 	button: HTMLButtonElement;
 	idField: HTMLParagraphElement;

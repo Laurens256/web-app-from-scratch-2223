@@ -1,9 +1,10 @@
 import { mainElement } from '../routing/router';
-import { FullPokemonDetails, Pokemon, Url } from '../../assets/types';
+import { FullPokemonDetails, Url } from '../../assets/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
 import { handleKeyDown } from '../utils/handleDetailControls';
+import { routes } from '../routing/routes';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -34,7 +35,6 @@ const loadPokemonData = async () => {
 	return fullPokemonDetails;
 };
 
-let errorState = false;
 const populatePokemonDetail = async (
 	fullPokemonDetails: FullPokemonDetails | Promise<FullPokemonDetails>
 ) => {
@@ -62,26 +62,29 @@ const populatePokemonDetail = async (
 		pokemonFlavorText
 	} = getHtmlElements();
 
-	backButton.addEventListener('click', backButtonLogic);
+	backButton.addEventListener('click', () => {
+		const listViewRoute = routes.find((route) => route.viewName === 'listview');
+		const sortOrder = sessionStorage.getItem('order') || 'numerical';
+
+		window.history.replaceState({}, '', `${listViewRoute?.path}?order=${sortOrder}`)
+	});
 
 	// await de promise zodat de data kan worden ingeladen. Als de promise rejected wordt, error state en return
 	try {
 		({ id, name, sprites, height, weight, egg_groups, flavor_text_entries } =
 			await fullPokemonDetails);
-		if(id === 0) throw new Error();
-		errorState = false;
+		if (id === 0) throw new Error();
 	} catch (error) {
-		errorState = true;
 		detailError();
 		return;
 	}
 
-	sessionStorage.setItem('selectedPokemonId', JSON.stringify({ id: id }));
+	sessionStorage.setItem('selectedPokemonId', id.toString());
 
 	pokemonId.textContent = `No
 		${id.toLocaleString('nl-NL', {
-			minimumIntegerDigits: 3
-		})}`;
+		minimumIntegerDigits: 3
+	})}`;
 	pokemonName.textContent = name;
 
 	pokemonHeight.textContent = decimeterToFoot(height);
@@ -92,7 +95,7 @@ const populatePokemonDetail = async (
 		pokemonImage.alt = name;
 		imageSection.appendChild(pokemonImage);
 		imageSection.classList.remove('imgloading');
-		}, { once: true }
+	}, { once: true }
 	);
 
 	//prettier-ignore
@@ -102,7 +105,13 @@ const populatePokemonDetail = async (
 		pokemonImage.alt = `${ball} ball`;
 		imageSection.appendChild(pokemonImage);
 		imageSection.classList.remove('imgloading');
-		}, { once: true }
+
+
+		pokemonImage.addEventListener('error', () => {
+			pokemonImage.src = '';
+			pokemonImage.alt = '';
+		}, { once: true });
+	}, { once: true }
 	);
 
 	// lol
@@ -128,11 +137,10 @@ const populatePokemonDetail = async (
 		flavorTexts[Math.floor(Math.random() * flavorTexts.length)];
 
 	// vervang een of ander raar karakter wat in veel flavor texts staat met een spatie
-	pokemonFlavorText.textContent = flavorTexts[6].replace(//g, ' ');
-	// pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
+	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
 
 	window.addEventListener('keydown', handleKeyDown);
-	window.dispatchEvent(new KeyboardEvent('keydown', {'key': ' '}));
+	window.dispatchEvent(new KeyboardEvent('keydown', { 'key': ' ' }));
 
 	pokemonDetail.classList.remove('loading');
 };
@@ -155,7 +163,8 @@ const getHtmlElements = () => {
 	) as HTMLParagraphElement;
 
 	//prettier-ignore
-	return {topSection,backButton,pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
+	return {
+		topSection, backButton, pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
 	};
 };
 
@@ -170,15 +179,6 @@ const detailError = () => {
 	pokemonDetail.classList.add('error');
 
 	topSection.innerHTML = `<h2>Oops, something went wrong</h2><p>Try again later or try a different Pokémon</p>`;
-};
-
-// hier misschien nog iets met session storage doen zodat je bij de goede lijst terug komt
-const backButtonLogic = () => {
-	if (errorState === false) {
-		window.history.back();
-	} else {
-		window.history.replaceState(null, '', '/');
-	}
 };
 
 export { DetailView, clearDetailEventListeners };

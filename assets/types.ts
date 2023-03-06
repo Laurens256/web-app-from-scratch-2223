@@ -3,20 +3,6 @@ export type Url = {
 	url: string;
 };
 
-export type Region = {
-	descriptions: {
-		description: string;
-		language: Url;
-	}[];
-	pokemon_entries: {
-		entry_number: number;
-		pokemon_species: Url;
-	}[];
-	id: number;
-	name: string;
-	region: Url;
-};
-
 export interface Pokemon {
 	abilities: { ability: Url; is_hidden: boolean; slot: number }[];
 	base_experience: number;
@@ -48,12 +34,6 @@ export interface Pokemon {
 	}[];
 	weight: number;
 }
-
-export const PokemonTypes = [
-	'normal','fire','water','grass','electric','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'
-];
-
-export const AllRegions = ['kanto', 'johto', 'hoenn', 'sinnoh', 'hisui', 'unova', 'kalos', 'alola', 'galar', 'paldea'];
 
 export interface Species {
 	base_happiness: number;
@@ -90,9 +70,28 @@ export interface Species {
 		is_default: boolean;
 		pokemon: Url;
 	}[];
-};
+}
 
-export interface FullPokemonDetails extends Species {
+// prettier-ignore
+export const PokemonTypes = [
+	'normal','fire','water','grass','electric','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'
+];
+
+//prettier-ignore
+export const usedFields = [
+	'egg_groups', 'flavor_text_entries', 'habitat', 'id', 'name', 'types', 'sprites', 'weight', 'height'
+];
+export interface FullPokemonDetails {
+	egg_groups: Url[];
+	flavor_text_entries: {
+		flavor_text: string;
+		language: Url;
+		version: Url;
+	}[];
+	habitat: Url;
+	id: number;
+	name: string;
+
 	types: {
 		slot: number;
 		type: Url;
@@ -103,5 +102,4 @@ export interface FullPokemonDetails extends Species {
 	};
 	weight: number;
 	height: number;
-
-};
+}

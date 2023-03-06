@@ -8,7 +8,7 @@ interface Route {
 }
 
 const routes: Route[] = [
-	{ path: '/', view: ListView },
+	{ path: '/pokemon', view: ListView },
 	{ path: '/pokemon/:name', view: DetailView },
 	{ path: '/filters', view: FilterView }
 ];

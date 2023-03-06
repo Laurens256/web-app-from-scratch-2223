@@ -11,8 +11,8 @@ const router = () => {
 	const path = window.location.pathname;
 	const route = routes.find((_route) => {
 		// kijk of de huidige path evenveel delen heeft als de route
-		const urlPathSegments = path.split('/').slice(1);
-		const routeSegments = _route.path.split('/').slice(1);
+		const urlPathSegments = path.split('/').slice(1).filter((segment) => segment);
+		const routeSegments = _route.path.split('/').slice(1).filter((segment) => segment);
 		if (urlPathSegments.length !== routeSegments.length) return false;
 
 		// loop om te kijken welk deel van de route een parameter is
@@ -30,9 +30,10 @@ const router = () => {
 		fadeTransition().then(() => {
 			_route.view(param);
 
-			if (Object.values(routeNames).includes(_route.view.name)) {
-				HeaderView(_route.view.name.toLowerCase() as keyof typeof routeNames);
-				FooterView(_route.view.name.toLowerCase() as keyof typeof routeNames);
+			const routeName = _route.view.name.toLowerCase();
+			if (Object.values(routeNames).includes(routeName)) {
+				HeaderView(routeName as keyof typeof routeNames);
+				FooterView(routeName as keyof typeof routeNames);
 			}
 			
 		});

@@ -5,23 +5,14 @@ import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 
-let fullPokemonList: FullPokemonDetails[] = [];
-
 const ListView = async () => {
 	mainElement.innerHTML = '';
-
-	// als de volledige nog niet is opgehaald, haal hem dan op
-	if (fullPokemonList.length === 0) {
-		let n: number, pokemonArr: Promise<FullPokemonDetails[]>;
 		try {
-			({ n, pokemonArr } = await getPokemonByRegion());
+			const { n, pokemonArr } = await getPokemonByRegion();
 			await generatePokemonList(n, pokemonArr, getSortOrder());
 		} catch (error) {
 			listError();
 		}
-	} else {
-		await generatePokemonList(fullPokemonList.length, fullPokemonList, getSortOrder());
-	}
 };
 
 // generate skeleton voor pokemon list
@@ -49,7 +40,6 @@ const generatePokemonList = async (
 	const pokemonList = document.querySelector('ol.pokemonlist') as HTMLOListElement;
 
 	const pokemonArr = await data;
-	fullPokemonList = pokemonArr;
 
 	// shoutout ninadepina
 	const listItems = Array.from(pokemonList.children).map((listItem) => ({
@@ -60,40 +50,46 @@ const generatePokemonList = async (
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
 	}));
 
-	// sorteer de pokemonArr op basis van query param
-	if (order === 'numerical') {
-		pokemonArr.sort((a, b) => a.id - b.id);
-	} else if (order === 'alphabetical') {
-		pokemonArr.sort((a, b) =>
-			a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
-		);
-	} else if (order === 'lightest') {
-		pokemonArr.sort((a, b) => a.weight - b.weight);
-	} else if (order === 'smallest') {
-		pokemonArr.sort((a, b) => a.height - b.height);
-	} else if (order === 'type') {
-		pokemonArr.sort((a, b) => {
-			const aType1 = a.types[0].type.name;
-			const aType2 = a.types[1]?.type.name;
-			const bType1 = b.types[0].type.name;
-			const bType2 = b.types[1]?.type.name;
-			
-			const aType1Index = PokemonTypes.indexOf(aType1);
-			const aType2Index = PokemonTypes.indexOf(aType2);
-			const bType1Index = PokemonTypes.indexOf(bType1);
-			const bType2Index = PokemonTypes.indexOf(bType2);
 
-			if (aType1Index !== bType1Index) {
-				return aType1Index - bType1Index;
-			}
-			if (aType2Index !== bType2Index) {
-				return aType2Index - bType2Index;
-			}
-			return 0;
-		});
-	} else {
-		alert(`Sorting by "${order}" is not supported. Instead sorting by id.`);
-		window.history.replaceState({}, '', `${window.location.pathname}?order=numerical`);
+	switch (order) {
+		case 'numerical':
+			pokemonArr.sort((a, b) => a.id - b.id);
+			break;
+
+		case 'alphabetical':
+			pokemonArr.sort((a, b) =>
+				a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+			);
+			break;
+
+		case 'lightest':
+			pokemonArr.sort((a, b) => a.weight - b.weight);
+			break;
+
+		case 'smallest':
+			pokemonArr.sort((a, b) => a.height - b.height);
+			break;
+
+		case 'type':
+			pokemonArr.sort((a, b) => {
+				const aType1 = a.types[0].type.name;
+				const aType2 = a.types[1]?.type.name;
+				const bType1 = b.types[0].type.name;
+				const bType2 = b.types[1]?.type.name;
+
+				if (aType1 === bType1) {
+					return aType2?.localeCompare(bType2, undefined, {
+						sensitivity: 'base'
+					})!;
+				} else {
+					return aType1.localeCompare(bType1, undefined, { sensitivity: 'base' });
+				}
+			});
+			break;
+
+		default:
+			window.history.replaceState({}, '', `${window.location.pathname}?order=numerical`)
+			break;
 	}
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
@@ -108,12 +104,8 @@ const generatePokemonList = async (
 		if (loadDelay) {
 			await delay(50);
 		}
-		// haal alle elementen uit listItems array
-		const listItem = listItems[i].listItem;
-		const button = listItems[i].button;
-		const idField = listItems[i].idField;
-		const nameField = listItems[i].nameField;
-		const typeSection = listItems[i].typeSection;
+
+		const { listItem, button, idField, nameField, typeSection } = listItems[i];
 
 		// verwijder loading en skeleton class en verwijder lege placeholder div
 		listItem.classList.remove('loading', 'skeleton');
@@ -164,7 +156,7 @@ const getSortOrder = () => {
 };
 
 const listError = () => {
-	console.log('errr');
+	
 };
 
 const delay = (n: number) => {

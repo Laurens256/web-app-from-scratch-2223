@@ -23,6 +23,9 @@ const buildSplash = () => {
 
 	splashDiv.appendChild(splashImg);
 	mainElement.appendChild(splashDiv);
+
+	window.addEventListener('resize', manageSplashBg);
+	window.addEventListener('keydown', moveScreen);
 };
 
 const manageSplashBg = () => {
@@ -34,20 +37,20 @@ const manageSplashBg = () => {
 };
 
 const clearSplashEventListeners = () => {
+	console.log('clearing splash event listeners');
 	window.removeEventListener('resize', manageSplashBg);
+	window.removeEventListener('keydown', moveScreen);
 };
 
 const moveScreen = (e: MouseEvent | KeyboardEvent) => {
-	if(e instanceof KeyboardEvent) {
-		if(!(e.key == 'Enter' || e.key == ' ' || e.key == 'a')) {
+	console.log('aaa');
+	if (e instanceof KeyboardEvent) {
+		if (!(e.key == 'Enter' || e.key == ' ' || e.key == 'a')) {
 			return;
 		}
 	}
 	const filterRoute = routes.find(route => route.viewName === 'filterview');
 	window.history.pushState({}, '', filterRoute?.path || '/filters');
 };
-
-window.addEventListener('resize', manageSplashBg);
-window.addEventListener('keydown', moveScreen);
 
 export { SplashView, clearSplashEventListeners };

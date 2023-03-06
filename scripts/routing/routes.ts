@@ -13,10 +13,4 @@ const routes: Route[] = [
 	{ path: '/filters', view: FilterView }
 ];
 
-enum routeNames {
-	listview,
-	detailview,
-	filterview
-}
-
-export { routes, routeNames };
+export { routes };

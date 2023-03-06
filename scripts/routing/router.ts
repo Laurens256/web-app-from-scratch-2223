@@ -1,9 +1,9 @@
-import { routes, routeNames } from './routes';
+import { routes } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
 import { fadeTransition } from '../utils/fadeTransition';
-import { HeaderView } from '../views/headerView';
-import { FooterView } from '../views/footerView';
+import { HeaderView , headersType} from '../views/headerView';
+import { FooterView, footersType } from '../views/footerView';
 
 const mainElement = document.querySelector('main') as HTMLElement;
 
@@ -30,10 +30,8 @@ const router = () => {
 		fadeTransition().then(() => {
 			_route.view(param);
 
-			console.log(_route.view.name);
-			HeaderView(_route.view.name.toLowerCase() as keyof typeof routeNames);
-			FooterView(_route.view.name.toLowerCase() as keyof typeof routeNames);
-
+			HeaderView(_route.view.name.toLowerCase() as headersType);
+			FooterView(_route.view.name.toLowerCase() as footersType);
 		});
 		return true;
 	});

@@ -9,22 +9,22 @@ const footerList: HTMLUListElement = footerElement?.querySelector('ul')!;
 
 const footers: footerType = {
 	listview: [
-		{ classes: ['control-icon', 'b-button'], text: 'cancel' },
-		{ classes: ['control-icon', 'a-button'], text: 'ok' },
-		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'pick' },
+		{ classes: ['control-icon', 'b-button'], text: 'CANCEL' },
+		{ classes: ['control-icon', 'a-button'], text: 'OK' },
+		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK' },
 	],
 	detailview: [
-		{ classes: ['control-icon', 'b-button'], text: 'cancel' },
-		{ classes: ['control-icon', 'a-button'], text: 'next data' },
-		{ classes: ['control-icon', 'space-bar'], text: 'cry' }
+		{ classes: ['control-icon', 'b-button'], text: 'CANCEL' },
+		{ classes: ['control-icon', 'a-button'], text: 'NEXT POKéMON' },
+		{ classes: ['control-icon', 'space-bar'], text: 'CRY' }
 	],
 	filterview: [
-		{ classes: ['control-icon', 'a-button'], text: 'ok' },
-		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'pick' },
+		{ classes: ['control-icon', 'a-button'], text: 'OK' },
+		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK' },
 	],
 	errorview: [
-		{ classes: ['control-icon', 'a-button'], text: 'ok' },
-		{ classes: ['control-icon', 'd-pad', 'horizontal'], text: 'pick' },
+		{ classes: ['control-icon', 'a-button'], text: 'OK' },
+		{ classes: ['control-icon', 'd-pad', 'horizontal'], text: 'PICK' },
 	]
 };
 

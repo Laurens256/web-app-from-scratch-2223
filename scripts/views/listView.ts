@@ -7,6 +7,7 @@ import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
 
 let pokemonListElement: HTMLOListElement;
+let displayedPokemon: FullPokemonDetails[] = [];
 
 const ListView = async () => {
 	mainElement.innerHTML = '';
@@ -60,6 +61,7 @@ const generatePokemonList = async (
 		removeExcessSkeleton(filteredPokemonArr.length);
 	}
 	const pokemonArr = sortPokemonArray(filteredPokemonArr, order);
+	displayedPokemon = pokemonArr;
 
 	// shoutout ninadepina
 	const listItems = Array.from(pokemonListElement.children).map((listItem) => ({
@@ -170,4 +172,13 @@ const delay = (n: number) => {
 	return new Promise((resolve) => setTimeout(resolve, n));
 };
 
-export { ListView };
+// functie om de volgende pokemon te krijgen, wordt aangeroepen vanuit de detailview
+const getNextPokemon = (currentPokemon: string | undefined) => {
+	const currentPokemonIndex = displayedPokemon.findIndex(
+		(pokemon) => pokemon.name === currentPokemon
+	);
+	const nextPokemon = displayedPokemon[currentPokemonIndex + 1];
+	return nextPokemon;
+};
+
+export { ListView, getNextPokemon };

@@ -3,8 +3,9 @@ import { FullPokemonDetails, Url } from '../../assets/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
-import { handleKeyDown } from '../utils/handleDetailControls';
+import { handleKeyDown } from '../utils/controls/handleDetailControls';
 import { routes } from '../routing/routes';
+import { getNextPokemon } from './listView';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -78,6 +79,9 @@ const populatePokemonDetail = async (
 		detailError();
 		return;
 	}
+
+	// check of volgende pokemon kan worden geladen, zo niet, disable de control
+	checkNextPokemon(name);
 
 	sessionStorage.setItem('selectedPokemonId', id.toString());
 
@@ -173,6 +177,27 @@ const clearDetailEventListeners = () => {
 	window.removeEventListener('keydown', handleKeyDown);
 };
 
+let nextExists = true
+const checkNextPokemon = (currentPokemon: string) => {
+	const nextPokemon = getNextPokemon(currentPokemon);
+	if (!nextPokemon) {
+		const nextButton = document.querySelector('li.control-icon.a-button') as HTMLLIElement;
+		nextButton.remove();
+		nextExists = false;
+	} else {
+		nextExists = true;
+	}
+};
+
+// function om naar de volgende pokemon uit de lijst te gaan
+const goToNextPokemon = () => {
+	const currentPokemon = window.location.pathname.split('/').pop();
+	const nextPokemon = getNextPokemon(currentPokemon);
+	if(nextPokemon) {
+		window.history.pushState({ pokemon: nextPokemon }, '', `/pokemon/${nextPokemon.name}`);
+	}
+};
+
 const detailError = () => {
 	const { topSection, pokemonDetail, imageSection } = getHtmlElements();
 	pokemonDetail.classList.remove('loading');
@@ -182,4 +207,4 @@ const detailError = () => {
 	topSection.innerHTML = `<h2>Oops, something went wrong</h2><p>Try again later or try a different Pokémon</p>`;
 };
 
-export { DetailView, clearDetailEventListeners };
+export { DetailView, clearDetailEventListeners, goToNextPokemon, nextExists };

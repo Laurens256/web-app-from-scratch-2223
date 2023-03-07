@@ -201,10 +201,10 @@ error message
 /* =================
 iets groter dan mobile stuff
 ================= */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
 	.wrapper {
 		grid-template-columns: none;
-		grid-template-rows: 2em 1fr;
+		grid-template-rows: 3em 1fr;
 		height: 95%;
 	}
 

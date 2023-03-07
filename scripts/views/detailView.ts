@@ -6,6 +6,7 @@ import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
 import { handleKeyDown } from '../utils/controls/handleDetailControls';
 import { routes } from '../routing/routes';
 import { getNextPokemon } from './listView';
+import { playCry } from '../utils/controls/handleDetailControls';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -150,7 +151,7 @@ const populatePokemonDetail = async (
 	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
 
 	window.addEventListener('keydown', handleKeyDown);
-	window.dispatchEvent(new KeyboardEvent('keydown', { 'key': ' ' }));
+	playCry(false);
 
 	pokemonDetail.classList.remove('loading');
 	document.title = `POKéDEX | ${name.toUpperCase()}`;

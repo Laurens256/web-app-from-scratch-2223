@@ -1,8 +1,6 @@
 import { goToAdjacentPokemon, nextExists, previousExists } from '../../views/detailView';
+import { playCry } from '../soundEffects';
 
-const playCry = () => {
-	new Audio(`https://play.pokemonshowdown.com/audio/cries/${window.location.pathname.split('/').pop()}.ogg`).play();
-};
 
 const handleKeyDown = (e: KeyboardEvent) => {
 	if (e.key === ' ') {
@@ -24,4 +22,4 @@ const handleKeyDown = (e: KeyboardEvent) => {
 	}
 };
 
-export { handleKeyDown };
+export { handleKeyDown, playCry };

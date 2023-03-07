@@ -24,6 +24,7 @@ const sortOrders = [
 	{ className: 'smallest', textContent: 'SMALLEST' }
 ];
 
+let list: HTMLUListElement;
 const FilterView = async () => {
 	mainElement.innerHTML = '';
 	document.title = 'POKéDEX | Filters';
@@ -31,10 +32,11 @@ const FilterView = async () => {
 	const template: string = await loadTemplate('pokedexFilter');
 	mainElement.innerHTML = template;
 
-	const list = mainElement.querySelector('ul') as HTMLUListElement;
+	list = mainElement.querySelector('ul') as HTMLUListElement;
 
 	generateFilters();
 	generateSortOrders();
+	generateCloseButton();
 	focusListItem(list);
 };
 
@@ -46,6 +48,7 @@ const generateFilters = () => {
 		const button = document.createElement('button');
 		button.classList.add(filter.className);
 		button.textContent = filter.textContent + ' POKéMON';
+		button.setAttribute('aria-label', `filter by ${filter.textContent}`)
 		button.addEventListener('click', () => {
 			const listViewRoute = routes.find((route) => route.viewName === 'listview');
 			window.history.pushState({}, '', `${listViewRoute?.path}?habitat=${filter.className}`)
@@ -64,6 +67,7 @@ const generateSortOrders = () => {
 		const button = document.createElement('button');
 		button.classList.add(order.className);
 		button.textContent = `${order.textContent} MODE`;
+		button.setAttribute('aria-label', `sort by ${order.textContent}`)
 		button.addEventListener('click', () => {
 			const listViewRoute = routes.find((route) => route.viewName === 'listview');
 			window.history.pushState({}, '', `${listViewRoute?.path}?order=${order.className}`)
@@ -76,6 +80,20 @@ const generateSortOrders = () => {
 			sortOrdersHeader.insertAdjacentElement('afterend', li);
 		}
 	});
+};
+
+const generateCloseButton = () => {
+	const li = document.createElement('li');
+	const button = document.createElement('button');
+	button.textContent = 'CLOSE POKéDEX';
+	button.setAttribute('aria-label', 'close pokedex');
+
+	button.addEventListener('click', () => {
+		window.history.pushState({}, '', '/')
+	});
+
+	li.appendChild(button);
+	list.appendChild(li);
 };
 
 export { FilterView, filters };

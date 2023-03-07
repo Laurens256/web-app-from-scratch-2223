@@ -34,6 +34,10 @@ header ul {
 	gap: 2em;
 }
 
+header ul li:empty {
+	display: none;
+}
+
 header ul li h1,
 header ul li h2,
 footer ul li,

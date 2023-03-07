@@ -42,15 +42,16 @@ const FilterView = async () => {
 	generateSortOrders();
 	generateCloseButton();
 	focusListItem(list);
+	preloadImages();
 };
 
 const generateFilters = () => {
 	const filterHeader: HTMLLIElement = document.querySelector('.filters-header')!;
-	
+
 	filters.forEach((filter) => {
 		const li = document.createElement('li');
 		const button = document.createElement('button');
-		button.classList.add(filter.className);
+		button.classList.add(filter.className, 'has-icon');
 		button.textContent = filter.textContent + ' POKéMON';
 		button.setAttribute('aria-label', `filter by ${filter.textContent}`)
 		button.addEventListener('click', () => {
@@ -64,12 +65,12 @@ const generateFilters = () => {
 
 const generateSortOrders = () => {
 	const pokemonListHeader: HTMLLIElement = document.querySelector('.first-sortorder-header')!;
-	const sortOrdersHeader: HTMLLIElement = document.querySelector('.sortorder-header')!;	
+	const sortOrdersHeader: HTMLLIElement = document.querySelector('.sortorder-header')!;
 
 	sortOrders.forEach((order, i) => {
 		const li = document.createElement('li');
 		const button = document.createElement('button');
-		button.classList.add(order.className);
+		button.classList.add(order.className, 'has-icon');
 		button.textContent = `${order.textContent} MODE`;
 		button.setAttribute('aria-label', `sort by ${order.textContent}`)
 		button.addEventListener('click', () => {
@@ -90,7 +91,7 @@ const generateCloseButton = () => {
 	const li = document.createElement('li');
 	const button = document.createElement('button');
 	button.textContent = 'CLOSE POKéDEX';
-	button.classList.add('close');
+	button.classList.add('close', 'has-icon');
 	button.setAttribute('aria-label', 'close pokedex');
 
 	button.addEventListener('click', () => {
@@ -101,9 +102,21 @@ const generateCloseButton = () => {
 	list.appendChild(li);
 };
 
+// preload images zodat ze niet pas geladen worden als je erop klikt, blokkeert als het goed is niet de ui
+let preloaded = false;
+const preloadImages = () => {
+	if (preloaded) return;
+	preloaded = true;
+	const items = list.querySelectorAll('.has-icon');
+	const head = document.querySelector('head')!;
+	items.forEach((item) => {
+		head.insertAdjacentHTML('beforeend', `<link rel="preload" href="/img/pokedex-icons/${item.classList[0]}.png" as="image">`);
+	});
+};
+
 const changeSprite = (e: FocusEvent) => {
 	const activeElement = e.target;
-	if(activeElement instanceof HTMLButtonElement) {
+	if (activeElement instanceof HTMLButtonElement) {
 		sideSprite.src = `/img/pokedex-icons/${activeElement.classList[0]}.png`;
 	}
 };

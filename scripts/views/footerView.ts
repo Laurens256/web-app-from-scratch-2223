@@ -11,20 +11,20 @@ const footers: footerType = {
 	listview: [
 		{ classes: ['control-icon', 'b-button'], text: 'CANCEL', key: 'b' },
 		{ classes: ['control-icon', 'a-button'], text: 'OK', key: 'a' },
-		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK', key: 'ArrowUp' },
+		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK', key: 'ArrowDown' },
 	],
 	detailview: [
 		{ classes: ['control-icon', 'b-button'], text: 'CANCEL', key: 'b' },
-		{ classes: ['control-icon', 'd-pad', 'right', 'left'], text: 'SWITCH POKéMON', key: 'ArrowLeft' },
+		{ classes: ['control-icon', 'd-pad', 'right', 'left'], text: 'SWITCH POKéMON', key: 'ArrowRight' },
 		{ classes: ['control-icon', 'space-bar'], text: 'CRY', key: ' ' },
 	],
 	filterview: [
 		{ classes: ['control-icon', 'a-button'], text: 'OK', key: 'a' },
-		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK', key: 'ArrowUp' },
+		{ classes: ['control-icon', 'd-pad', 'vertical'], text: 'PICK', key: 'ArrowDown' },
 	],
 	errorview: [
 		{ classes: ['control-icon', 'a-button'], text: 'OK', key: 'a' },
-		{ classes: ['control-icon', 'd-pad', 'horizontal'], text: 'PICK', key: 'ArrowLeft' },
+		{ classes: ['control-icon', 'd-pad', 'horizontal'], text: 'PICK', key: 'ArrowRight' },
 	]
 };
 
@@ -54,10 +54,11 @@ const setControlListeners = (li: HTMLLIElement, control: { key: string; }) => {
 		e.preventDefault();
 
 		let key = control.key;
-		if (control.key === 'ArrowUp' && e.button === 2) {
-			key = 'ArrowDown';
-		} else if (control.key === 'ArrowLeft' && e.button === 2) {
-			key = 'ArrowRight';
+		console.log(e.button);
+		if (key === 'ArrowDown' && e.button === 0) {
+			key = 'ArrowUp';
+		} else if (key === 'ArrowRight' && e.button === 0) {
+			key = 'ArrowLeft';
 		}
 
 

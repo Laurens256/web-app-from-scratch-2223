@@ -218,10 +218,6 @@ iets groter dan mobile stuff
 mobile stuff
 ================= */
 @media screen and (max-width: 600px) {
-	.pokemondetailbg {
-		height: calc(100vh - var(--header-footer-height));
-	}
-
 	.pokemondetail > section:first-of-type {
 		grid-template-columns: 1fr;
 		grid-template-rows: 60% 1fr;

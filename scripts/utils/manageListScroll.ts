@@ -114,6 +114,7 @@ const focusListItem = (
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
 		selectItem ? selectItem.focus() : firstItem.focus();
+		lastFocusedItem = document.activeElement as HTMLButtonElement;
 		list.addEventListener('scroll', checkScroll);
 		list.dispatchEvent(new Event('scroll'));
 	}

@@ -42,7 +42,7 @@ header ul li h1,
 header ul li h2,
 footer ul li,
 header ul li {
-	font-size: clamp(0px, 2rem, 6.2vw);
+	font-size: clamp(1rem, 2rem, 6vw);
 }
 
 footer {
@@ -52,12 +52,6 @@ footer {
 footer ul {
 	justify-content: flex-end;
 	gap: 2em;
-}
-
-@media screen and (max-width: 600px) {
-	footer {
-		display: none;
-	}
 }
 
 footer ul li {
@@ -121,6 +115,29 @@ footer ul li.start-button {
 footer ul li.start-button::before {
 	left: -2.15em;	
 	box-shadow: var(--start-button-icon);
+}
+
+@media screen and (max-width: 600px) {
+	footer ul {
+		gap: 1em;
+		justify-content: space-between;
+	}
+
+	footer ul li.control-icon::before {
+		content: none;
+	}
+
+	footer ul li {
+		padding: 0;
+	}
+	
+	footer ul li.space-bar {
+		margin: 0;
+	}
+	
+	footer ul li.start-button {
+		margin: 0;
+	}
 }
 
 footer ul li {

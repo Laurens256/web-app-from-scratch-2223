@@ -112,9 +112,9 @@ const preloadImages = (current: HTMLButtonElement) => {
 	const next = items[index + 1] as HTMLButtonElement;
 
 	if (next) {
-		const link = head.querySelector(`link.${next.classList[0]}`);
+		const link = head.querySelector(`link[href*="${next.classList[0]}"]`);
 		if (!link) {
-			head.insertAdjacentHTML('beforeend', `<link rel="preload" class="${next.classList[0]}" type="image/png" href="/img/pokedex-icons/${next.classList[0]}.png" as="image">`);
+			head.insertAdjacentHTML('beforeend', `<link rel="preload" type="image/png" href="/img/pokedex-icons/${next.classList[0]}.png" as="image">`);
 		}
 	}
 };

@@ -65,7 +65,7 @@ footer ul li.control-icon::before {
 	content: '';
 	position: absolute;
 	top: -30%;
-	left: -.25em;
+	left: -0.25em;
 	width: 10px;
 	height: 10px;
 	transform: scale(0.4);
@@ -103,7 +103,7 @@ footer ul li.space-bar {
 }
 
 footer ul li.space-bar::before {
-	left: -.5em;
+	left: -0.5em;
 	box-shadow: var(--space-bar-icon);
 }
 
@@ -113,30 +113,40 @@ footer ul li.start-button {
 }
 
 footer ul li.start-button::before {
-	left: -2.15em;	
+	left: -2.15em;
 	box-shadow: var(--start-button-icon);
 }
 
 @media screen and (max-width: 600px) {
 	footer ul {
 		gap: 1em;
-		justify-content: space-between;
-	}
-
-	footer ul li.control-icon::before {
-		content: none;
+		justify-content: end;
 	}
 
 	footer ul li {
-		padding: 0;
+		font-size: 1.5rem;
 	}
-	
+
+	footer ul li.control-icon::before {
+		transform: scale(0.3);
+		top: -40%;
+		left: -.3em;
+	}
+
 	footer ul li.space-bar {
 		margin: 0;
 	}
-	
+
+	footer ul li.space-bar::before {
+		left: -0.55em;
+	}
+
 	footer ul li.start-button {
 		margin: 0;
+	}
+
+	footer ul li.start-button::before {
+		left: -2.15em;
 	}
 }
 
@@ -182,22 +192,61 @@ footer ul li {
 		30px 80px 0 0 #606060, 40px 80px 0 0 #606060, 50px 80px 0 0 #606060,
 		60px 80px 0 0 #606060;
 	--d-pad-icon: 30px 10px 0 0 #f8f8f8, 40px 10px 0 0 #f8f8f8, 50px 10px 0 0 #f8f8f8,
-		60px 10px 0 0 #606060, 30px 20px 0 0 #f8f8f8, 40px 20px 0 0 var(--d-pad-highlight-vertical, #f8f8f8),
-		50px 20px 0 0 #f8f8f8, 60px 20px 0 0 #606060, 10px 30px 0 0 #f8f8f8,
-		20px 30px 0 0 #f8f8f8, 30px 30px 0 0 #f8f8f8, 40px 30px 0 0 #f8f8f8,
-		50px 30px 0 0 #f8f8f8, 60px 30px 0 0 #f8f8f8, 70px 30px 0 0 #f8f8f8,
-		80px 30px 0 0 #606060, 10px 40px 0 0 #f8f8f8, 20px 40px 0 0 var(--d-pad-highlight-left, #f8f8f8),
+		60px 10px 0 0 #606060, 30px 20px 0 0 #f8f8f8,
+		40px 20px 0 0 var(--d-pad-highlight-vertical, #f8f8f8), 50px 20px 0 0 #f8f8f8,
+		60px 20px 0 0 #606060, 10px 30px 0 0 #f8f8f8, 20px 30px 0 0 #f8f8f8,
+		30px 30px 0 0 #f8f8f8, 40px 30px 0 0 #f8f8f8, 50px 30px 0 0 #f8f8f8,
+		60px 30px 0 0 #f8f8f8, 70px 30px 0 0 #f8f8f8, 80px 30px 0 0 #606060,
+		10px 40px 0 0 #f8f8f8, 20px 40px 0 0 var(--d-pad-highlight-left, #f8f8f8),
 		30px 40px 0 0 #f8f8f8, 40px 40px 0 0 #f8f8f8, 50px 40px 0 0 #f8f8f8,
-		60px 40px 0 0 var(--d-pad-highlight-right, #f8f8f8), 70px 40px 0 0 #f8f8f8, 80px 40px 0 0 #606060,
-		10px 50px 0 0 #f8f8f8, 20px 50px 0 0 #f8f8f8, 30px 50px 0 0 #f8f8f8,
-		40px 50px 0 0 #f8f8f8, 50px 50px 0 0 #f8f8f8, 60px 50px 0 0 #f8f8f8,
-		70px 50px 0 0 #f8f8f8, 80px 50px 0 0 #606060, 10px 60px 0 0 #606060,
-		20px 60px 0 0 #606060, 30px 60px 0 0 #f8f8f8, 40px 60px 0 0 var(--d-pad-highlight-vertical, #f8f8f8),
-		50px 60px 0 0 #f8f8f8, 60px 60px 0 0 #606060, 70px 60px 0 0 #606060,
-		80px 60px 0 0 #606060, 30px 70px 0 0 #f8f8f8, 40px 70px 0 0 #f8f8f8,
-		50px 70px 0 0 #f8f8f8, 60px 70px 0 0 #606060, 30px 80px 0 0 #606060,
-		40px 80px 0 0 #606060, 50px 80px 0 0 #606060, 60px 80px 0 0 #606060;
-	--space-bar-icon: 20px 10px 0 0 rgba(248,248,248,1), 30px 10px 0 0 rgba(248,248,248,1), 40px 10px 0 0 rgba(248,248,248,1), 50px 10px 0 0 rgba(248,248,248,1), 60px 10px 0 0 rgba(248,248,248,1), 70px 10px 0 0 rgba(248,248,248,1), 80px 10px 0 0 rgba(248,248,248,1), 90px 10px 0 0 rgba(96,96,96,1), 10px 20px 0 0 rgba(248,248,248,1), 20px 20px 0 0 rgba(248,248,248,1), 30px 20px 0 0 rgba(248,248,248,1), 40px 20px 0 0 rgba(248,248,248,1), 50px 20px 0 0 rgba(248,248,248,1), 60px 20px 0 0 rgba(248,248,248,1), 70px 20px 0 0 rgba(248,248,248,1), 80px 20px 0 0 rgba(248,248,248,1), 90px 20px 0 0 rgba(248,248,248,1), 100px 20px 0 0 rgba(96,96,96,1), 10px 30px 0 0 rgba(248,248,248,1), 20px 30px 0 0 rgba(248,248,248,1), 30px 30px 0 0 rgba(248,248,248,1), 40px 30px 0 0 rgba(248,248,248,1), 50px 30px 0 0 rgba(248,248,248,1), 60px 30px 0 0 rgba(248,248,248,1), 70px 30px 0 0 rgba(248,248,248,1), 80px 30px 0 0 rgba(248,248,248,1), 90px 30px 0 0 rgba(248,248,248,1), 100px 30px 0 0 rgba(96,96,96,1), 10px 40px 0 0 rgba(248,248,248,1), 20px 40px 0 0 rgba(248,248,248,1), 30px 40px 0 0 rgba(248,248,248,1), 40px 40px 0 0 rgba(248,248,248,1), 50px 40px 0 0 rgba(248,248,248,1), 60px 40px 0 0 rgba(248,248,248,1), 70px 40px 0 0 rgba(248,248,248,1), 80px 40px 0 0 rgba(248,248,248,1), 90px 40px 0 0 rgba(248,248,248,1), 100px 40px 0 0 rgba(96,96,96,1), 10px 50px 0 0 rgba(248,248,248,1), 20px 50px 0 0 rgba(248,248,248,1), 30px 50px 0 0 rgba(96,96,96,1), 40px 50px 0 0 rgba(248,248,248,1), 50px 50px 0 0 rgba(248,248,248,1), 60px 50px 0 0 rgba(248,248,248,1), 70px 50px 0 0 rgba(96,96,96,1), 80px 50px 0 0 rgba(248,248,248,1), 90px 50px 0 0 rgba(248,248,248,1), 100px 50px 0 0 rgba(96,96,96,1), 10px 60px 0 0 rgba(248,248,248,1), 20px 60px 0 0 rgba(248,248,248,1), 30px 60px 0 0 rgba(96,96,96,1), 40px 60px 0 0 rgba(96,96,96,1), 50px 60px 0 0 rgba(96,96,96,1), 60px 60px 0 0 rgba(96,96,96,1), 70px 60px 0 0 rgba(96,96,96,1), 80px 60px 0 0 rgba(248,248,248,1), 90px 60px 0 0 rgba(248,248,248,1), 100px 60px 0 0 rgba(96,96,96,1), 10px 70px 0 0 rgba(96,96,96,1), 20px 70px 0 0 rgba(248,248,248,1), 30px 70px 0 0 rgba(248,248,248,1), 40px 70px 0 0 rgba(248,248,248,1), 50px 70px 0 0 rgba(248,248,248,1), 60px 70px 0 0 rgba(248,248,248,1), 70px 70px 0 0 rgba(248,248,248,1), 80px 70px 0 0 rgba(248,248,248,1), 90px 70px 0 0 rgba(96,96,96,1), 20px 80px 0 0 rgba(96,96,96,1), 30px 80px 0 0 rgba(96,96,96,1), 40px 80px 0 0 rgba(96,96,96,1), 50px 80px 0 0 rgba(96,96,96,1), 60px 80px 0 0 rgba(96,96,96,1), 70px 80px 0 0 rgba(96,96,96,1), 80px 80px 0 0 rgba(96,96,96,1);
+		60px 40px 0 0 var(--d-pad-highlight-right, #f8f8f8), 70px 40px 0 0 #f8f8f8,
+		80px 40px 0 0 #606060, 10px 50px 0 0 #f8f8f8, 20px 50px 0 0 #f8f8f8,
+		30px 50px 0 0 #f8f8f8, 40px 50px 0 0 #f8f8f8, 50px 50px 0 0 #f8f8f8,
+		60px 50px 0 0 #f8f8f8, 70px 50px 0 0 #f8f8f8, 80px 50px 0 0 #606060,
+		10px 60px 0 0 #606060, 20px 60px 0 0 #606060, 30px 60px 0 0 #f8f8f8,
+		40px 60px 0 0 var(--d-pad-highlight-vertical, #f8f8f8), 50px 60px 0 0 #f8f8f8,
+		60px 60px 0 0 #606060, 70px 60px 0 0 #606060, 80px 60px 0 0 #606060,
+		30px 70px 0 0 #f8f8f8, 40px 70px 0 0 #f8f8f8, 50px 70px 0 0 #f8f8f8,
+		60px 70px 0 0 #606060, 30px 80px 0 0 #606060, 40px 80px 0 0 #606060,
+		50px 80px 0 0 #606060, 60px 80px 0 0 #606060;
+	--space-bar-icon: 20px 10px 0 0 rgba(248, 248, 248, 1),
+		30px 10px 0 0 rgba(248, 248, 248, 1), 40px 10px 0 0 rgba(248, 248, 248, 1),
+		50px 10px 0 0 rgba(248, 248, 248, 1), 60px 10px 0 0 rgba(248, 248, 248, 1),
+		70px 10px 0 0 rgba(248, 248, 248, 1), 80px 10px 0 0 rgba(248, 248, 248, 1),
+		90px 10px 0 0 rgba(96, 96, 96, 1), 10px 20px 0 0 rgba(248, 248, 248, 1),
+		20px 20px 0 0 rgba(248, 248, 248, 1), 30px 20px 0 0 rgba(248, 248, 248, 1),
+		40px 20px 0 0 rgba(248, 248, 248, 1), 50px 20px 0 0 rgba(248, 248, 248, 1),
+		60px 20px 0 0 rgba(248, 248, 248, 1), 70px 20px 0 0 rgba(248, 248, 248, 1),
+		80px 20px 0 0 rgba(248, 248, 248, 1), 90px 20px 0 0 rgba(248, 248, 248, 1),
+		100px 20px 0 0 rgba(96, 96, 96, 1), 10px 30px 0 0 rgba(248, 248, 248, 1),
+		20px 30px 0 0 rgba(248, 248, 248, 1), 30px 30px 0 0 rgba(248, 248, 248, 1),
+		40px 30px 0 0 rgba(248, 248, 248, 1), 50px 30px 0 0 rgba(248, 248, 248, 1),
+		60px 30px 0 0 rgba(248, 248, 248, 1), 70px 30px 0 0 rgba(248, 248, 248, 1),
+		80px 30px 0 0 rgba(248, 248, 248, 1), 90px 30px 0 0 rgba(248, 248, 248, 1),
+		100px 30px 0 0 rgba(96, 96, 96, 1), 10px 40px 0 0 rgba(248, 248, 248, 1),
+		20px 40px 0 0 rgba(248, 248, 248, 1), 30px 40px 0 0 rgba(248, 248, 248, 1),
+		40px 40px 0 0 rgba(248, 248, 248, 1), 50px 40px 0 0 rgba(248, 248, 248, 1),
+		60px 40px 0 0 rgba(248, 248, 248, 1), 70px 40px 0 0 rgba(248, 248, 248, 1),
+		80px 40px 0 0 rgba(248, 248, 248, 1), 90px 40px 0 0 rgba(248, 248, 248, 1),
+		100px 40px 0 0 rgba(96, 96, 96, 1), 10px 50px 0 0 rgba(248, 248, 248, 1),
+		20px 50px 0 0 rgba(248, 248, 248, 1), 30px 50px 0 0 rgba(96, 96, 96, 1),
+		40px 50px 0 0 rgba(248, 248, 248, 1), 50px 50px 0 0 rgba(248, 248, 248, 1),
+		60px 50px 0 0 rgba(248, 248, 248, 1), 70px 50px 0 0 rgba(96, 96, 96, 1),
+		80px 50px 0 0 rgba(248, 248, 248, 1), 90px 50px 0 0 rgba(248, 248, 248, 1),
+		100px 50px 0 0 rgba(96, 96, 96, 1), 10px 60px 0 0 rgba(248, 248, 248, 1),
+		20px 60px 0 0 rgba(248, 248, 248, 1), 30px 60px 0 0 rgba(96, 96, 96, 1),
+		40px 60px 0 0 rgba(96, 96, 96, 1), 50px 60px 0 0 rgba(96, 96, 96, 1),
+		60px 60px 0 0 rgba(96, 96, 96, 1), 70px 60px 0 0 rgba(96, 96, 96, 1),
+		80px 60px 0 0 rgba(248, 248, 248, 1), 90px 60px 0 0 rgba(248, 248, 248, 1),
+		100px 60px 0 0 rgba(96, 96, 96, 1), 10px 70px 0 0 rgba(96, 96, 96, 1),
+		20px 70px 0 0 rgba(248, 248, 248, 1), 30px 70px 0 0 rgba(248, 248, 248, 1),
+		40px 70px 0 0 rgba(248, 248, 248, 1), 50px 70px 0 0 rgba(248, 248, 248, 1),
+		60px 70px 0 0 rgba(248, 248, 248, 1), 70px 70px 0 0 rgba(248, 248, 248, 1),
+		80px 70px 0 0 rgba(248, 248, 248, 1), 90px 70px 0 0 rgba(96, 96, 96, 1),
+		20px 80px 0 0 rgba(96, 96, 96, 1), 30px 80px 0 0 rgba(96, 96, 96, 1),
+		40px 80px 0 0 rgba(96, 96, 96, 1), 50px 80px 0 0 rgba(96, 96, 96, 1),
+		60px 80px 0 0 rgba(96, 96, 96, 1), 70px 80px 0 0 rgba(96, 96, 96, 1),
+		80px 80px 0 0 rgba(96, 96, 96, 1);
 	--start-button-icon: 20px 10px 0 0 #f8f8f8, 30px 10px 0 0 #f8f8f8, 40px 10px 0 0 #f8f8f8,
 		50px 10px 0 0 #f8f8f8, 60px 10px 0 0 #f8f8f8, 70px 10px 0 0 #f8f8f8,
 		80px 10px 0 0 #f8f8f8, 90px 10px 0 0 #f8f8f8, 100px 10px 0 0 #f8f8f8,

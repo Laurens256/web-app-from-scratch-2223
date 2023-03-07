@@ -50,6 +50,7 @@
 	.filters {
 		grid-template-columns: 100%;
 		height: initial;
+		margin-bottom: calc(var(--header-footer-height) + 3em);
 	}
 
 	.filters ul {

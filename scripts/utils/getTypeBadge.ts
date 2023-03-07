@@ -1,4 +1,4 @@
-import { PokemonTypes } from '../../assets/types';
+import { PokemonTypes } from '../../public/types';
 
 const getTypeBadge = (type: string = 'unknown') => {
 	const typeDiv = document.createElement('div');

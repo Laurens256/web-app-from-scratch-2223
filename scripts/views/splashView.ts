@@ -20,7 +20,7 @@ const buildSplash = () => {
 
 	splashImg.addEventListener('load', manageSplashBg);
 
-	splashImg.src = 'https://raw.githubusercontent.com/Laurens256/web-app-from-scratch-2223/main/assets/img/splash.webp';
+	splashImg.src = '/img/splash.webp';
 	splashImg.alt = 'pokemon fire red splash screen';
 
 	splashDiv.appendChild(splashImg);

@@ -25,6 +25,7 @@ const sortOrders = [
 ];
 
 let list: HTMLUListElement;
+let sideSprite: HTMLImageElement;
 const FilterView = async () => {
 	mainElement.innerHTML = '';
 	document.title = 'POKéDEX | Filters';
@@ -33,6 +34,9 @@ const FilterView = async () => {
 	mainElement.innerHTML = template;
 
 	list = mainElement.querySelector('ul') as HTMLUListElement;
+	sideSprite = document.createElement('img');
+	list.insertAdjacentElement('afterend', sideSprite);
+	list.addEventListener('focusin', changeSprite);
 
 	generateFilters();
 	generateSortOrders();
@@ -86,6 +90,7 @@ const generateCloseButton = () => {
 	const li = document.createElement('li');
 	const button = document.createElement('button');
 	button.textContent = 'CLOSE POKéDEX';
+	button.classList.add('close');
 	button.setAttribute('aria-label', 'close pokedex');
 
 	button.addEventListener('click', () => {
@@ -94,6 +99,13 @@ const generateCloseButton = () => {
 
 	li.appendChild(button);
 	list.appendChild(li);
+};
+
+const changeSprite = (e: FocusEvent) => {
+	const activeElement = e.target;
+	if(activeElement instanceof HTMLButtonElement) {
+		sideSprite.src = `/img/pokedex-icons/${activeElement.classList[0]}.png`;
+	}
 };
 
 export { FilterView, filters };

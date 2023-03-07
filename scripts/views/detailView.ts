@@ -1,5 +1,5 @@
 import { mainElement } from '../routing/router';
-import { FullPokemonDetails, Url } from '../../assets/types';
+import { FullPokemonDetails, Url } from '../../public/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';

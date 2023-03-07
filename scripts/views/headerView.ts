@@ -25,28 +25,6 @@ const headers: headerType = {
 	}
 };
 
-// const HeaderView = (view: viewNames) => {
-// 	if (!headerElement || !headerH1Li || !headerH2Li) return;
-// 	headerH1Li.innerHTML = '';
-// 	headerH2Li.innerHTML = '';
-// 	if (!headers[view]) {
-// 		headerElement?.classList.add('hidden');
-// 	} else {
-// 		headerElement?.classList.remove('hidden');
-
-// 		const h1Element = document.createElement('h1');
-// 		h1Element.innerHTML = headers[view]!.h1;
-// 		headerH1Li!.appendChild(h1Element);
-
-// 		if (headers[view]!.h2 !== '') {
-// 			console.log(headers[view]!.h2);
-// 			const h2Element = document.createElement('h2');
-// 			h2Element.innerHTML = headers[view]!.h2;
-// 			headerH2Li!.appendChild(h2Element);
-// 		}
-// 	}
-// };
-
 const HeaderView = (view: viewNames) => {
 	if (!headerElement || !headerUl) return;
 	headerUl.innerHTML = '';

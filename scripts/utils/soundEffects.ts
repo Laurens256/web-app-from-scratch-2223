@@ -1,5 +1,5 @@
 const playBeepSound = () => {
-	const focusAudio = new Audio('/assets/audio/select_effect.wav');
+	const focusAudio = new Audio('/audio/select_effect.wav');
 	focusAudio.play();
 };
 
@@ -11,7 +11,7 @@ const playCry = (fallback = true) => {
 		audio.onerror = () => {
 			if (fallbackUsed) return;
 			fallbackUsed = true;
-			const fallbackAudio = new Audio('/assets/audio/whoops.wav');
+			const fallbackAudio = new Audio('/audio/whoops.wav');
 			fallbackAudio.play();
 		};
 	}

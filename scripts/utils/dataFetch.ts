@@ -1,4 +1,4 @@
-import { Url, FullPokemonDetails, Species, Pokemon, errorDetails } from '../../assets/types';
+import { Url, FullPokemonDetails, Species, Pokemon, errorDetails } from '../../public/types';
 
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
 // const defaultRegion = 'national';

@@ -1,4 +1,4 @@
-import { FullPokemonDetails, PokemonTypes } from '../../assets/types';
+import { FullPokemonDetails, PokemonTypes } from '../../public/types';
 import { filters } from '../views/filterView';
 
 const sortPokemonArray = (pokemonArr: FullPokemonDetails[], order: string) => {

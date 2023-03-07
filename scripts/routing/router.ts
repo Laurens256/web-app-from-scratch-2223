@@ -3,6 +3,7 @@ import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
 import { clearSplashEventListeners } from '../views/splashView';
 import { clearErrorEventListeners } from '../views/errorView';
+import { clearListViewEventListeners } from '../views/listView';
 import { fadeTransition } from '../utils/fadeTransition';
 import { HeaderView} from '../views/headerView';
 import { FooterView } from '../views/footerView';
@@ -51,6 +52,9 @@ const callback = (mutationList: { removedNodes: NodeList, addedNodes: NodeList }
 	const removedNode = mutationList[0].removedNodes[0] as HTMLElement;
 	if (removedNode) {
 		if (removedNode.id === 'listview' || removedNode.id === 'filtersview') {
+			clearListEventListeners();
+			clearListViewEventListeners();
+		} else if (removedNode.id === 'filtersview') {
 			clearListEventListeners();
 		} else if (removedNode.id === 'detailview') {
 			clearDetailEventListeners();

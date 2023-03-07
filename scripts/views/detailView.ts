@@ -66,8 +66,14 @@ const populatePokemonDetail = async (
 	backButton.addEventListener('click', () => {
 		const listViewRoute = routes.find((route) => route.viewName === 'listview');
 		const sortOrder = sessionStorage.getItem('order') || 'numerical';
+		const habitat = sessionStorage.getItem('habitat') || '';
+		const params = new URLSearchParams({ order: sortOrder });
 
-		window.history.replaceState({}, '', `${listViewRoute?.path}?order=${sortOrder}`)
+		if (habitat !== '') {
+			params.append('habitat', habitat);
+		}
+
+		window.history.replaceState({}, '', `${listViewRoute?.path}?${params.toString()}`)
 	});
 
 	// await de promise zodat de data kan worden ingeladen. Als de promise rejected wordt, error state en return
@@ -188,9 +194,9 @@ const checkNextPokemon = (currentPokemon: string) => {
 
 	if (!previousExists && !nextExists) {
 		nextButton.remove();
-	} else if(!previousExists) {
+	} else if (!previousExists) {
 		nextButton.classList.remove('left');
-	} else if(!nextExists) {
+	} else if (!nextExists) {
 		nextButton.classList.remove('right');
 	} else {
 		nextButton.classList.add('left');

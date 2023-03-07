@@ -5,6 +5,7 @@ import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
+import { routes } from '../routing/routes';
 
 let pokemonListElement: HTMLOListElement;
 let displayedPokemon: FullPokemonDetails[] = [];
@@ -15,6 +16,7 @@ const ListView = async () => {
 		const { n, pokemonArr } = await getPokemonByRegion();
 		const { order, habitat } = getQueryParams();
 		sessionStorage.setItem('order', order);
+		sessionStorage.setItem('habitat', habitat || '');
 		await generatePokemonList(n, pokemonArr, order, habitat);
 	} catch (error) {
 		// listError();
@@ -73,6 +75,7 @@ const generatePokemonList = async (
 	}));
 
 	document.title = 'POKéDEX';
+	window.addEventListener('keydown', backToFilters);
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;
@@ -182,4 +185,19 @@ const getNextPokemon = (currentPokemon: string | undefined) => {
 	return {previousPokemon, nextPokemon};
 };
 
-export { ListView, getNextPokemon };
+// illegaal maar boeie
+const backToFilters = (e: KeyboardEvent) => {
+	if(e.key !== 'b' && e.key !== 'Escape') return;
+	e.preventDefault();
+	const filterRoute = routes.find(route => route.viewName === 'filterview');
+
+	if(filterRoute) {
+		window.history.replaceState({}, '', filterRoute.path);
+	}
+};
+
+const clearListViewEventListeners = () => {
+	window.removeEventListener('keydown', backToFilters);
+};
+
+export { ListView, getNextPokemon, clearListViewEventListeners };

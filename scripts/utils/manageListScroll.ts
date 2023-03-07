@@ -117,6 +117,16 @@ const focusListItem = (
 		lastFocusedItem = document.activeElement as HTMLButtonElement;
 		list.addEventListener('scroll', checkScroll);
 		list.dispatchEvent(new Event('scroll'));
+	} else {
+		selectItem ? selectItem.scrollIntoView({
+			behavior: 'auto',
+			block: 'center',
+			inline: 'center'
+		}) : firstItem.scrollIntoView({
+			behavior: 'auto',
+			block: 'center',
+			inline: 'center'
+		});
 	}
 };
 

@@ -178,7 +178,8 @@ const getNextPokemon = (currentPokemon: string | undefined) => {
 		(pokemon) => pokemon.name === currentPokemon
 	);
 	const nextPokemon = displayedPokemon[currentPokemonIndex + 1];
-	return nextPokemon;
+	const previousPokemon = displayedPokemon[currentPokemonIndex - 1];
+	return {previousPokemon, nextPokemon};
 };
 
 export { ListView, getNextPokemon };

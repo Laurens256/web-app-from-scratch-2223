@@ -15,7 +15,7 @@ const footers: footerType = {
 	],
 	detailview: [
 		{ classes: ['control-icon', 'b-button'], text: 'CANCEL' },
-		{ classes: ['control-icon', 'a-button'], text: 'NEXT POKéMON' },
+		{ classes: ['control-icon', 'd-pad', 'right', 'left'], text: 'SWITCH POKéMON' },
 		{ classes: ['control-icon', 'space-bar'], text: 'CRY' }
 	],
 	filterview: [

@@ -84,7 +84,14 @@ footer ul li.d-pad::before {
 }
 
 footer ul li.d-pad.horizontal {
-	--d-pad-highlight-horizontal: #e70808;
+	--d-pad-highlight-left: #e70808;
+	--d-pad-highlight-right: #e70808;
+}
+footer ul li.d-pad.left {
+	--d-pad-highlight-left: #e70808;
+}
+footer ul li.d-pad.right {
+	--d-pad-highlight-right: #e70808;
 }
 
 footer ul li.d-pad.vertical {
@@ -156,9 +163,9 @@ footer ul li {
 		50px 20px 0 0 #f8f8f8, 60px 20px 0 0 #606060, 10px 30px 0 0 #f8f8f8,
 		20px 30px 0 0 #f8f8f8, 30px 30px 0 0 #f8f8f8, 40px 30px 0 0 #f8f8f8,
 		50px 30px 0 0 #f8f8f8, 60px 30px 0 0 #f8f8f8, 70px 30px 0 0 #f8f8f8,
-		80px 30px 0 0 #606060, 10px 40px 0 0 #f8f8f8, 20px 40px 0 0 var(--d-pad-highlight-horizontal, #f8f8f8),
+		80px 30px 0 0 #606060, 10px 40px 0 0 #f8f8f8, 20px 40px 0 0 var(--d-pad-highlight-left, #f8f8f8),
 		30px 40px 0 0 #f8f8f8, 40px 40px 0 0 #f8f8f8, 50px 40px 0 0 #f8f8f8,
-		60px 40px 0 0 var(--d-pad-highlight-horizontal, #f8f8f8), 70px 40px 0 0 #f8f8f8, 80px 40px 0 0 #606060,
+		60px 40px 0 0 var(--d-pad-highlight-right, #f8f8f8), 70px 40px 0 0 #f8f8f8, 80px 40px 0 0 #606060,
 		10px 50px 0 0 #f8f8f8, 20px 50px 0 0 #f8f8f8, 30px 50px 0 0 #f8f8f8,
 		40px 50px 0 0 #f8f8f8, 50px 50px 0 0 #f8f8f8, 60px 50px 0 0 #f8f8f8,
 		70px 50px 0 0 #f8f8f8, 80px 50px 0 0 #606060, 10px 60px 0 0 #606060,

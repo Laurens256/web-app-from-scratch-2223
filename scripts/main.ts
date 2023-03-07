@@ -9,14 +9,14 @@ const init = async () => {
 type HistoryState = (data: string, title: string, url?: string | null) => void;
 
 window.history.pushState = new Proxy(window.history.pushState, {
-	apply: (target: HistoryState, thisArg: string, argArray: string[]) => {
+	apply: (target: HistoryState, thisArg: string, argArray: [data: string, title: string, url?: string | null | undefined]) => {
 		target.apply(thisArg, argArray);
 		router();
 	}
 });
 
 window.history.replaceState = new Proxy(window.history.replaceState, {
-	apply: (target: HistoryState, thisArg: string, argArray: string[]) => {
+	apply: (target: HistoryState, thisArg: string, argArray: [data: string, title: string, url?: string | null | undefined]) => {
 		target.apply(thisArg, argArray);
 		router();
 	}

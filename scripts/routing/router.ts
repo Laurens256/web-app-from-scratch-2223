@@ -47,7 +47,7 @@ const router = () => {
 };
 
 // haalt oude eventlisteners weg als view wordt verwijderd
-const callback = (mutationList: { removedNodes: NodeList }[]) => {
+const callback = (mutationList: { removedNodes: NodeList, addedNodes: NodeList }[]) => {
 	const removedNode = mutationList[0].removedNodes[0] as HTMLElement;
 	if (removedNode) {
 		if (removedNode.id === 'listview' || removedNode.id === 'filtersview') {

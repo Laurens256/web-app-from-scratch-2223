@@ -69,6 +69,11 @@ const checkKey = (e: KeyboardEvent) => {
 	} else if (e.key === 'ArrowDown') {
 		e.preventDefault();
 		moveArrow(1);
+	} else if (e.key === 'a') {
+		const activeElement = document.activeElement;
+		if (activeElement instanceof HTMLElement) {
+			activeElement.click();
+		}
 	}
 };
 

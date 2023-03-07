@@ -178,23 +178,34 @@ const clearDetailEventListeners = () => {
 };
 
 let nextExists = true
+let previousExists = true
 const checkNextPokemon = (currentPokemon: string) => {
-	const nextPokemon = getNextPokemon(currentPokemon);
-	if (!nextPokemon) {
-		const nextButton = document.querySelector('li.control-icon.a-button') as HTMLLIElement;
+	const { previousPokemon, nextPokemon } = getNextPokemon(currentPokemon);
+	const nextButton = document.querySelector('li.control-icon.d-pad') as HTMLLIElement;
+
+	previousPokemon ? previousExists = true : previousExists = false
+	nextPokemon ? nextExists = true : nextExists = false
+
+	if (!previousExists && !nextExists) {
 		nextButton.remove();
-		nextExists = false;
+	} else if(!previousExists) {
+		nextButton.classList.remove('left');
+	} else if(!nextExists) {
+		nextButton.classList.remove('right');
 	} else {
-		nextExists = true;
+		nextButton.classList.add('left');
+		nextButton.classList.add('right');
 	}
 };
 
 // function om naar de volgende pokemon uit de lijst te gaan
-const goToNextPokemon = () => {
+const goToAdjacentPokemon = (direction: 1 | -1) => {
 	const currentPokemon = window.location.pathname.split('/').pop();
-	const nextPokemon = getNextPokemon(currentPokemon);
-	if(nextPokemon) {
+	const { previousPokemon, nextPokemon } = getNextPokemon(currentPokemon);
+	if (nextPokemon && direction === 1) {
 		window.history.pushState({ pokemon: nextPokemon }, '', `/pokemon/${nextPokemon.name}`);
+	} else if (previousPokemon) {
+		window.history.pushState({ pokemon: previousPokemon }, '', `/pokemon/${previousPokemon.name}`);
 	}
 };
 
@@ -207,4 +218,4 @@ const detailError = () => {
 	topSection.innerHTML = `<h2>Oops, something went wrong</h2><p>Try again later or try a different Pokémon</p>`;
 };
 
-export { DetailView, clearDetailEventListeners, goToNextPokemon, nextExists };
+export { DetailView, clearDetailEventListeners, goToAdjacentPokemon, nextExists, previousExists };

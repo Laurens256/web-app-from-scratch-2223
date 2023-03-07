@@ -3,6 +3,7 @@
 @import url(./pages/pokemon-list.css);
 @import url(./pages/pokemon-details.css);
 @import url(./pages/splash-screen.css);
+@import url(./pages/error.css);
 
 /* partials */
 @import url(./parts/header-footer.css);

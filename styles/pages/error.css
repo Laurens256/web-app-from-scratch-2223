@@ -1,0 +1,45 @@
+.error {
+	font-weight: bold;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.error h2 {
+	font-size: 3em;
+	text-shadow: var(--text-shadow-black);
+}
+
+.error p {
+	font-size: 1.4em;
+	margin: .5em 0 1em 0;
+	text-shadow: var(--text-shadow-black);
+}
+
+.error .buttonsdiv {
+	display: flex;
+	justify-content: center;
+	gap: .2em;
+}
+
+.error .buttonsdiv button {
+	font-size: 1.4em;
+	padding: .5em 1em;
+	width: 8em;
+	border-radius: 5px;
+	background-color: #fff;
+	color: #000;
+	border: solid 2px #000;
+	text-shadow: var(--text-shadow-black);
+	transition: all .15s ease-in-out;
+}
+
+.error .buttonsdiv button:hover,
+.error .buttonsdiv button:focus {
+	border-color: var(--text-orange);
+	outline: none;
+}

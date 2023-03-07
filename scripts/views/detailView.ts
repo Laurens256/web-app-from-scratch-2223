@@ -143,6 +143,7 @@ const populatePokemonDetail = async (
 	window.dispatchEvent(new KeyboardEvent('keydown', { 'key': ' ' }));
 
 	pokemonDetail.classList.remove('loading');
+	document.title = `POKéDEX | ${name.toUpperCase()}`;
 };
 
 const getHtmlElements = () => {

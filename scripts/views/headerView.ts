@@ -30,6 +30,7 @@ const headers: headerType = {
 };
 
 const HeaderView = (view: viewNames) => {
+	if(!headerElement) return;
 	if (!headers[view]) {
 		headerElement?.classList.add('hidden');
 	} else if (h1Element && h2Element) {

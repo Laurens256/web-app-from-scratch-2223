@@ -70,6 +70,8 @@ const generatePokemonList = async (
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
 	}));
 
+	document.title = 'POKéDEX';
+
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;
 	let focusLocked = false;

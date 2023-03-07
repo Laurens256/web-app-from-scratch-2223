@@ -2,6 +2,7 @@ import { routes } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
 import { clearSplashEventListeners } from '../views/splashView';
+import { clearErrorEventListeners } from '../views/errorView';
 import { fadeTransition } from '../utils/fadeTransition';
 import { HeaderView} from '../views/headerView';
 import { FooterView } from '../views/footerView';
@@ -55,6 +56,8 @@ const callback = (mutationList: { removedNodes: NodeList }[]) => {
 			clearDetailEventListeners();
 		} else if (removedNode.id === 'splashview') {
 			clearSplashEventListeners();
+		} else if (removedNode.id === 'errorview') {
+			clearErrorEventListeners();
 		}
 	}
 };

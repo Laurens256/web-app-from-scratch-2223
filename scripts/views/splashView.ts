@@ -9,6 +9,8 @@ const SplashView = () => {
 let splashImg: HTMLImageElement;
 let splashDiv: HTMLDivElement;
 const buildSplash = () => {
+	document.title = 'POKéDEX';
+
 	splashDiv = document.createElement('div');
 	splashDiv.classList.add('splashscreen');
 	splashDiv.id = 'splashview';
@@ -18,7 +20,7 @@ const buildSplash = () => {
 
 	splashImg.addEventListener('load', manageSplashBg);
 
-	splashImg.src = 'assets/img/splash.webp';
+	splashImg.src = 'https://raw.githubusercontent.com/Laurens256/web-app-from-scratch-2223/main/assets/img/splash.webp';
 	splashImg.alt = 'pokemon fire red splash screen';
 
 	splashDiv.appendChild(splashImg);

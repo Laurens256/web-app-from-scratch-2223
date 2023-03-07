@@ -29,6 +29,7 @@ const footers: footerType = {
 };
 
 const FooterView = (view: viewNames) => {
+	if(!footerElement) return;
 	footerList.innerHTML = '';
 	if (!footers[view]) {
 		footerElement?.classList.add('hidden');

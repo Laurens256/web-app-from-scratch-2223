@@ -26,6 +26,7 @@ const sortOrders = [
 
 const FilterView = async () => {
 	mainElement.innerHTML = '';
+	document.title = 'POKéDEX | Filters';
 
 	const template: string = await loadTemplate('pokedexFilter');
 	mainElement.innerHTML = template;

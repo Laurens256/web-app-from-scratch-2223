@@ -42,7 +42,6 @@ const FilterView = async () => {
 	generateSortOrders();
 	generateCloseButton();
 	focusListItem(list);
-	preloadImages();
 };
 
 const generateFilters = () => {
@@ -102,22 +101,29 @@ const generateCloseButton = () => {
 	list.appendChild(li);
 };
 
-// preload images zodat ze niet pas geladen worden als je erop klikt, blokkeert als het goed is niet de ui
-let preloaded = false;
-const preloadImages = () => {
-	if (preloaded) return;
-	preloaded = true;
+const head = document.querySelector('head')!;
+// preload images terwijl je door de lijst scrolled
+const preloadImages = (current: HTMLButtonElement) => {
+	// niet preloaden voor mobile omdat img daar niet zichtbaar is
+	if(window.matchMedia('(max-width: 600px)').matches) return;
+
 	const items = list.querySelectorAll('.has-icon');
-	const head = document.querySelector('head')!;
-	items.forEach((item) => {
-		head.insertAdjacentHTML('beforeend', `<link rel="prefetch" href="/img/pokedex-icons/${item.classList[0]}.png" as="image">`);
-	});
+	const index = Array.from(items).indexOf(current);
+	const next = items[index + 1] as HTMLButtonElement;
+
+	if (next) {
+		const link = head.querySelector(`link.${next.classList[0]}`);
+		if (!link) {
+			head.insertAdjacentHTML('beforeend', `<link rel="preload" class="${next.classList[0]}" type="image/png" href="/img/pokedex-icons/${next.classList[0]}.png" as="image">`);
+		}
+	}
 };
 
 const changeSprite = (e: FocusEvent) => {
 	const activeElement = e.target;
 	if (activeElement instanceof HTMLButtonElement) {
 		sideSprite.src = `/img/pokedex-icons/${activeElement.classList[0]}.png`;
+		preloadImages(activeElement);
 	}
 };
 

@@ -40,7 +40,7 @@ const manageSplashBg = () => {
 
 const clearSplashEventListeners = () => {
 	window.removeEventListener('resize', manageSplashBg);
-	window.removeEventListener('keydown', moveScreen);
+	document.removeEventListener('keydown', moveScreen);
 };
 
 const moveScreen = (e: MouseEvent | KeyboardEvent) => {

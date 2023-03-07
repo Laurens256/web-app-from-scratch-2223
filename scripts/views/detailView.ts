@@ -181,7 +181,7 @@ const getHtmlElements = () => {
 };
 
 const clearDetailEventListeners = () => {
-	window.removeEventListener('keydown', handleKeyDown);
+	document.removeEventListener('keydown', handleKeyDown);
 };
 
 let nextExists = true

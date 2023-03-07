@@ -197,7 +197,7 @@ const backToFilters = (e: KeyboardEvent) => {
 };
 
 const clearListViewEventListeners = () => {
-	window.removeEventListener('keydown', backToFilters);
+	document.removeEventListener('keydown', backToFilters);
 };
 
 export { ListView, getNextPokemon, clearListViewEventListeners };

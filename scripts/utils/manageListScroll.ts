@@ -33,13 +33,14 @@ const followScroll = () => {
 };
 
 let isRunning = false;
+let lastFocusedItem!: HTMLButtonElement;
 // verplaats het pijltje omhoog of omlaag
 const moveArrow = (direction: number) => {
 	if (isRunning) return;
 	isRunning = true;
 	const focusedItem = document.activeElement as HTMLButtonElement;
 
-	if((focusedItem === listItems[0] && direction === -1) || (focusedItem === listItems[listItems.length - 1] && direction === 1)) {
+	if ((focusedItem === listItems[0] && direction === -1) || (focusedItem === listItems[listItems.length - 1] && direction === 1)) {
 		isRunning = false;
 		return;
 	}
@@ -49,8 +50,13 @@ const moveArrow = (direction: number) => {
 		const nextItem = listItems[focusedItemIndex + direction];
 		if (nextItem) {
 			nextItem.focus();
+			lastFocusedItem = nextItem;
 		}
+	} else if (lastFocusedItem) {
+		// focus laatst onthouden item
+		lastFocusedItem.focus();
 	} else {
+		// focus op het midden van de lijst als er geen item geselecteerd is
 		const visibleItems = getVisibleItems();
 		visibleItems[Math.floor(visibleItems.length / 2)].focus();
 	}

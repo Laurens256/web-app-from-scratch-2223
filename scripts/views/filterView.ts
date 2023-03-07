@@ -110,7 +110,7 @@ const preloadImages = () => {
 	const items = list.querySelectorAll('.has-icon');
 	const head = document.querySelector('head')!;
 	items.forEach((item) => {
-		head.insertAdjacentHTML('beforeend', `<link rel="preload" href="/img/pokedex-icons/${item.classList[0]}.png" as="image">`);
+		head.insertAdjacentHTML('beforeend', `<link rel="prefetch" href="/img/pokedex-icons/${item.classList[0]}.png" as="image">`);
 	});
 };
 

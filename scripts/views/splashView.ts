@@ -27,7 +27,7 @@ const buildSplash = () => {
 	mainElement.appendChild(splashDiv);
 
 	window.addEventListener('resize', manageSplashBg);
-	window.addEventListener('keydown', moveScreen);
+	document.addEventListener('keydown', moveScreen);
 };
 
 const manageSplashBg = () => {

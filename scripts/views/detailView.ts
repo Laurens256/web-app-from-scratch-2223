@@ -150,7 +150,7 @@ const populatePokemonDetail = async (
 	// vervang een of ander raar karakter wat in veel flavor texts staat met een spatie
 	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
 
-	window.addEventListener('keydown', handleKeyDown);
+	document.addEventListener('keydown', handleKeyDown);
 	playCry(false);
 
 	pokemonDetail.classList.remove('loading');

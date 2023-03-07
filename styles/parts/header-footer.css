@@ -59,6 +59,8 @@ footer ul {
 footer ul li {
 	position: relative;
 	padding-left: 1em;
+	cursor: pointer;
+	user-select: none;
 }
 
 footer ul li.control-icon::before {

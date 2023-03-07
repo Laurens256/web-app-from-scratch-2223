@@ -75,7 +75,7 @@ const generatePokemonList = async (
 	}));
 
 	document.title = 'POKéDEX';
-	window.addEventListener('keydown', backToFilters);
+	document.addEventListener('keydown', backToFilters);
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;

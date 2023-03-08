@@ -36,6 +36,7 @@ const FilterView = async () => {
 
 	list = mainElement.querySelector('ul') as HTMLUListElement;
 	sideSprite = document.createElement('img');
+	sideSprite.alt = '';
 	list.insertAdjacentElement('afterend', sideSprite);
 	list.addEventListener('focusin', changeSprite);
 	playBgMusic(true, true);

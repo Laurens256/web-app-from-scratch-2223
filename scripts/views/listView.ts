@@ -6,6 +6,7 @@ import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
 import { routes } from '../routing/routes';
+import { playBgMusic } from '../utils/soundEffects';
 
 let pokemonListElement: HTMLOListElement;
 let displayedPokemon: FullPokemonDetails[] = [];
@@ -76,6 +77,7 @@ const generatePokemonList = async (
 
 	document.title = 'POKéDEX';
 	document.addEventListener('keydown', backToFilters);
+	playBgMusic(true, true);
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;

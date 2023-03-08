@@ -7,6 +7,7 @@ import { handleKeyDown } from '../utils/controls/handleDetailControls';
 import { routes } from '../routing/routes';
 import { getNextPokemon } from './listView';
 import { playCry } from '../utils/controls/handleDetailControls';
+import { playBgMusic } from '../utils/soundEffects';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -49,6 +50,8 @@ const populatePokemonDetail = async (
 		weight: number,
 		egg_groups: Url[],
 		flavor_text_entries: { flavor_text: string; language: { name: string } }[];
+
+	playBgMusic(true, true);
 
 	// haal html elementen op
 	const {

@@ -1,5 +1,6 @@
 import { mainElement } from '../routing/router';
 import { routes } from '../routing/routes';
+import { playBgMusic } from '../utils/soundEffects';
 
 const SplashView = () => {
 	mainElement.innerHTML = '';
@@ -26,6 +27,7 @@ const buildSplash = () => {
 	splashDiv.appendChild(splashImg);
 	mainElement.appendChild(splashDiv);
 
+	playBgMusic(false, false, 'title-screen');
 	window.addEventListener('resize', manageSplashBg);
 	document.addEventListener('keydown', moveScreen);
 };
@@ -45,8 +47,12 @@ const clearSplashEventListeners = () => {
 
 const moveScreen = (e: MouseEvent | KeyboardEvent) => {
 	if (e instanceof KeyboardEvent) {
-		if (!(e.key == 'Enter' || e.key == ' ' || e.key == 'a')) {
+		if (!(e.key == 'Enter' || e.key == ' ' || e.key == 'a' || 'Escape')) {
 			return;
+		}
+
+		if(e.key === 'Escape') {
+			playBgMusic(false, true, 'driftveil');
 		}
 	}
 	const filterRoute = routes.find(route => route.viewName === 'filterview');

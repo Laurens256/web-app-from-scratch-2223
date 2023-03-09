@@ -28,6 +28,7 @@ const footers: footerType = {
 	]
 };
 
+// maak controls voor de footer aan op basis van de huidige view
 const FooterView = (view: viewNames) => {
 	if (!footerElement) return;
 	footerList.innerHTML = '';
@@ -48,6 +49,7 @@ const FooterView = (view: viewNames) => {
 	}
 };
 
+// zorgt ervoor dat je op de controls kan klikken
 const setControlListeners = (li: HTMLLIElement, control: { key: string; }) => {
 	li.addEventListener('contextmenu', e => e.preventDefault());
 	li.addEventListener('touchend', (e) => {
@@ -58,6 +60,7 @@ const setControlListeners = (li: HTMLLIElement, control: { key: string; }) => {
 	});
 };
 
+// voert control uit waar op geklikt is
 const useFooterControls = (e: MouseEvent | TouchEvent, control: { key: string }) => {
 	e.preventDefault();
 

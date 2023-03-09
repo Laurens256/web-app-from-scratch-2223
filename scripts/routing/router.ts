@@ -1,9 +1,4 @@
-import { routes, viewNames } from './routes';
-import { clearListEventListeners } from '../utils/manageListScroll';
-import { clearDetailEventListeners } from '../views/detailView';
-import { clearSplashEventListeners } from '../views/splashView';
-import { clearErrorEventListeners } from '../views/errorView';
-import { clearListViewEventListeners } from '../views/listView';
+import { routes } from './routes';
 import { fadeTransition } from '../utils/fadeTransition';
 import { HeaderView } from '../views/headerView';
 import { FooterView } from '../views/footerView';
@@ -24,7 +19,6 @@ const router = () => {
 		for (let i = 0; i < routeSegments.length; i++) {
 			if (routeSegments[i].startsWith(':')) {
 				param = urlPathSegments[i];
-				// params.push(urlPathSegments[i]);
 			} else if (routeSegments[i] !== urlPathSegments[i]) {
 				// als de route niet overeenkomt met de url en geen param is gevonden, bestaat de route niet
 				return false;

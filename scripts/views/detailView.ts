@@ -2,10 +2,10 @@ import { mainElement } from '../routing/router';
 import { FullPokemonDetails, Url } from '../../public/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
-import { hectogramToPound, decimeterToFoot } from '../utils/smallHelpers';
+import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
 import { handleKeyDown } from '../utils/controls/handleDetailControls';
 import { routes } from '../routing/routes';
-import { getNextPokemon } from './listView';
+import { getAdjacentPokemon } from './listView';
 import { playCry } from '../utils/controls/handleDetailControls';
 import { playBgMusic } from '../utils/soundEffects';
 
@@ -91,7 +91,7 @@ const populatePokemonDetail = async (
 	}
 
 	// check of volgende pokemon kan worden geladen, zo niet, disable de control
-	checkNextPokemon(name);
+	checkAdjacentPokemon(name);
 
 	sessionStorage.setItem('selectedPokemonId', id.toString());
 
@@ -189,8 +189,9 @@ const clearDetailEventListeners = () => {
 
 let nextExists = true
 let previousExists = true
-const checkNextPokemon = (currentPokemon: string) => {
-	const { previousPokemon, nextPokemon } = getNextPokemon(currentPokemon);
+// check of er een volgende of vorige pokemon is vanaf de huidige pokemon
+const checkAdjacentPokemon = (currentPokemon: string) => {
+	const { previousPokemon, nextPokemon } = getAdjacentPokemon(currentPokemon);
 	const nextButton = document.querySelector('li.control-icon.d-pad') as HTMLLIElement;
 
 	previousPokemon ? previousExists = true : previousExists = false
@@ -211,7 +212,7 @@ const checkNextPokemon = (currentPokemon: string) => {
 // function om naar de volgende pokemon uit de lijst te gaan
 const goToAdjacentPokemon = (direction: 1 | -1) => {
 	const currentPokemon = window.location.pathname.split('/').pop();
-	const { previousPokemon, nextPokemon } = getNextPokemon(currentPokemon);
+	const { previousPokemon, nextPokemon } = getAdjacentPokemon(currentPokemon);
 	if (nextPokemon && direction === 1) {
 		window.history.pushState({ pokemon: nextPokemon }, '', `/pokemon/${nextPokemon.name}`);
 	} else if (previousPokemon) {

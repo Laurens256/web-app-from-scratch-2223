@@ -50,6 +50,7 @@ const FilterView = async () => {
 	focusListItem(list);
 };
 
+// maak filter knoppen dynamisch aan de hand van de filters array
 const generateFilters = () => {
 	const filterHeader: HTMLLIElement = document.querySelector('.filters-header')!;
 
@@ -68,6 +69,7 @@ const generateFilters = () => {
 	});
 };
 
+// maak sorteer knoppen dynamisch aan de hand van de sortOrders array
 const generateSortOrders = () => {
 	const pokemonListHeader: HTMLLIElement = document.querySelector('.first-sortorder-header')!;
 	const sortOrdersHeader: HTMLLIElement = document.querySelector('.sortorder-header')!;
@@ -92,6 +94,7 @@ const generateSortOrders = () => {
 	});
 };
 
+// maak close button + logica
 const generateCloseButton = () => {
 	const li = document.createElement('li');
 	const button = document.createElement('button');
@@ -125,6 +128,7 @@ const preloadImages = (current: HTMLButtonElement) => {
 	}
 };
 
+// sprite rechts van de filters veranderen
 const changeSprite = (e: FocusEvent) => {
 	const activeElement = e.target;
 	if (activeElement instanceof HTMLButtonElement) {

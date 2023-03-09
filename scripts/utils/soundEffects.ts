@@ -1,8 +1,10 @@
+// beep
 const playBeepSound = () => {
 	const focusAudio = new Audio('/audio/select_effect.wav');
 	focusAudio.play();
 };
 
+// speel pokemon cry sfx of error sfx
 const playCry = (fallback = true) => {
 	let fallbackUsed = false;
 	const audio = new Audio();

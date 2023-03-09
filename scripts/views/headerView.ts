@@ -25,6 +25,7 @@ const headers: headerType = {
 	}
 };
 
+// maak headings aan op basis van de huidige view
 const HeaderView = (view: viewNames) => {
 	if (!headerElement || !headerUl) return;
 	headerUl.innerHTML = '';

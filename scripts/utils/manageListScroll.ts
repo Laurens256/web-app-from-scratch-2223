@@ -83,6 +83,7 @@ const checkKey = (e: KeyboardEvent) => {
 	}
 };
 
+// check of lijst omhoog of omlaag gescrolled kan worden
 const checkScroll = () => {
 	const visibleItems = getVisibleItems();
 
@@ -99,7 +100,7 @@ const checkScroll = () => {
 	}
 };
 
-// function om list item 1 te focussen
+// function om list item te focussen gebaseerd op param
 const focusListItem = (
 	listParam: HTMLOListElement | HTMLUListElement,
 	selectItem?: HTMLButtonElement

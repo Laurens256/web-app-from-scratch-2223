@@ -2,6 +2,7 @@ import { mainElement } from '../routing/router';
 import { routes } from '../routing/routes';
 import { playBgMusic } from '../utils/soundEffects';
 
+// splash screen view
 const SplashView = () => {
 	mainElement.innerHTML = '';
 	buildSplash();
@@ -35,6 +36,7 @@ const buildSplash = () => {
 	document.addEventListener('keydown', moveScreen);
 };
 
+// zorgt ervoor dat de gradient achtergrond altijd goed aansluit
 const manageSplashBg = () => {
 	if (splashImg.clientWidth >= window.innerWidth) {
 		splashDiv.classList.add('fullwidth');

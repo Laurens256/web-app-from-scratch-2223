@@ -1,3 +1,4 @@
+// levert templates aan voor alle views
 export const loadTemplate = async (templateName: keyof typeof templates) => {
 	const template = templates[templateName];
 	return template;

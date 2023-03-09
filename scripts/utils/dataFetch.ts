@@ -1,7 +1,6 @@
 import { Url, FullPokemonDetails, Species, Pokemon, errorDetails } from '../../public/types';
 
 const baseApiUrl = 'https://pokeapi.co/api/v2/';
-// const defaultRegion = 'national';
 const defaultRegion = 'kanto';
 let pokemonArr: FullPokemonDetails[] | Promise<FullPokemonDetails[]> = [];
 

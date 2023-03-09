@@ -7,7 +7,7 @@ import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
 import { routes } from '../routing/routes';
 import { playBgMusic } from '../utils/soundEffects';
-import { delay } from '../utils/smallHelpers';
+import { delay } from '../utils/convertUnits';
 
 let pokemonListElement: HTMLOListElement;
 let displayedPokemon: FullPokemonDetails[] = [];
@@ -140,6 +140,7 @@ const generatePokemonList = async (
 };
 
 const defaultSort = 'numerical';
+// haalt de query params uit de url of haal ze uit sessionstorage
 const getQueryParams = () => {
 	const URLSearchParams = new window.URLSearchParams(window.location.search);
 	let order = URLSearchParams.get('order');
@@ -175,7 +176,7 @@ const listError = (name: string, listItems: {
 };
 
 // functie om de volgende pokemon te krijgen, wordt aangeroepen vanuit de detailview
-const getNextPokemon = (currentPokemon: string | undefined) => {
+const getAdjacentPokemon = (currentPokemon: string | undefined) => {
 	const currentPokemonIndex = displayedPokemon.findIndex(
 		(pokemon) => pokemon.name === currentPokemon
 	);
@@ -199,4 +200,4 @@ const clearListViewEventListeners = () => {
 	document.removeEventListener('keydown', backToFilters);
 };
 
-export { ListView, getNextPokemon, clearListViewEventListeners };
+export { ListView, getAdjacentPokemon, clearListViewEventListeners };

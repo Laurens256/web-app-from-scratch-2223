@@ -7,8 +7,13 @@
 
 PokéDex from Scratch is een Pokémon Fire Red geïnspireerde web-app die je helpt je Pokédex te vullen. Dit project is gemaakt voor het vak Web App From Scratch van CMD Amsterdam. De web-app kan bekeken worden via [deze link](https://pokedex-from-scratch.vercel.app/). <!-- als ik niet gecopyright striked wordt door nintendo lol -->
 
-<p>
-	<table><thead><tr><td>Features</td><td>Installation</td><td>License</td><td>Bronnen</td></tr></thead></table>
+<p align="center">
+	<table><thead><tr>
+		<td><a href="#features">Features</a></td>
+		<td><a href="#installation">Installation</a></td>
+		<td><a href="#license">License</a></td>
+		<td><a href="#bronnen">Bronnen</a></td>
+	</tr></thead></table>
 	<img src="./public/img/splash.webp" alt="pokemon fire red splash screen">
 </p>
 

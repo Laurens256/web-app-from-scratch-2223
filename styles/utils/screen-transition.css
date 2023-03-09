@@ -12,5 +12,5 @@ div.fadetransition {
 	left: 0;
 	background: white;
 	transition: all var(--fade-length) ease-in-out;
-	z-index: 5;
+	z-index: 3;
 }

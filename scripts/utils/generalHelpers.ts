@@ -7,7 +7,7 @@ const decimeterToFoot = (decimeter: number) => {
 	return `${feetInches[0]}‘${feetInches[1]}`;
 };
 
-const delay = (n = 50) => {
+const delay = (n: number) => {
 	return new Promise((resolve) => setTimeout(resolve, n));
 };
 

@@ -2,7 +2,7 @@ import { mainElement } from '../routing/router';
 import { FullPokemonDetails, Url } from '../../public/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
-import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
+import { hectogramToPound, decimeterToFoot } from '../utils/generalHelpers';
 import { detailViewKeyDown } from '../utils/controls/detailViewControls';
 import { routes } from '../routing/routes';
 import { getAdjacentPokemon } from './listView';

@@ -5,7 +5,7 @@ import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
-import { delay } from '../utils/convertUnits';
+import { delay } from '../utils/generalHelpers';
 import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
 import { listViewKeyDown } from '../utils/controls/listViewControls';
 

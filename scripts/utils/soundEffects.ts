@@ -50,7 +50,6 @@ const bgAudio = new Audio();
 bgAudio.volume = 0.3;
 
 const playBgMusic = (name: trackNames | undefined) => {
-	console.log(name);
 	if (
 		!name &&
 		!bgAudio.paused &&

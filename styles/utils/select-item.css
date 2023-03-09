@@ -1,4 +1,4 @@
-.select-list:not(:has(button:focus)) li:not(.loading) button:not(:disabled):hover::before,
+.select-list li:not(.loading) button:not(:disabled):hover::before,
 .select-list li:not(.loading) button:not(:disabled):focus::before {
 	content: '';
 	position: absolute;
@@ -21,7 +21,7 @@
 	}
 
 	/* pijltje aan de zijkant weg */
-	.pokemonlist:not(:has(button:focus)) li:not(.loading) button:not(:disabled):hover::before,
+	.pokemonlist li:not(.loading) button:not(:disabled):hover::before,
 	.pokemonlist li:not(.loading) button:not(:disabled):focus::before {
 		content: none;
 	}

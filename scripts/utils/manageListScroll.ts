@@ -1,6 +1,7 @@
 import { setEventListeners, eventListenerObj } from './manageEventListeners';
 import { playBeepSound } from './soundEffects';
 import { genericListKeyDown } from './controls/genericListControls';
+import { delay } from './generalHelpers';
 
 let list: HTMLOListElement | HTMLUListElement;
 let topBoundary = 0;
@@ -37,12 +38,15 @@ const followScroll = () => {
 let isRunning = false;
 let lastFocusedItem!: HTMLButtonElement;
 // verplaats het pijltje omhoog of omlaag
-const moveArrow = (direction: number) => {
+const moveArrow = async (direction: number) => {
 	if (isRunning) return;
 	isRunning = true;
 	const focusedItem = document.activeElement as HTMLButtonElement;
 
-	if ((focusedItem === listItems[0] && direction === -1) || (focusedItem === listItems[listItems.length - 1] && direction === 1)) {
+	if (
+		(focusedItem === listItems[0] && direction === -1) ||
+		(focusedItem === listItems[listItems.length - 1] && direction === 1)
+	) {
 		isRunning = false;
 		return;
 	}
@@ -64,9 +68,9 @@ const moveArrow = (direction: number) => {
 	}
 	playBeepSound();
 	followScroll();
-	setTimeout(() => {
-		isRunning = false;
-	}, 90);
+	
+	await delay(90);
+	isRunning = false;
 };
 
 // check of lijst omhoog of omlaag gescrolled kan worden
@@ -97,9 +101,11 @@ const focusListItem = (
 	calcBoundingRect();
 	list.addEventListener('focusin', followScroll);
 
-	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: genericListKeyDown}];
+	const listeners: eventListenerObj[] = [
+		{ target: document, event: 'keydown', callback: genericListKeyDown }
+	];
 	setEventListeners(listeners);
-	
+
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
 		selectItem ? selectItem.focus() : firstItem.focus();
@@ -107,15 +113,17 @@ const focusListItem = (
 		list.addEventListener('scroll', checkScroll);
 		list.dispatchEvent(new Event('scroll'));
 	} else {
-		selectItem ? selectItem.scrollIntoView({
-			behavior: 'auto',
-			block: 'center',
-			inline: 'center'
-		}) : firstItem.scrollIntoView({
-			behavior: 'auto',
-			block: 'center',
-			inline: 'center'
-		});
+		selectItem
+			? selectItem.scrollIntoView({
+					behavior: 'auto',
+					block: 'center',
+					inline: 'center'
+			  })
+			: firstItem.scrollIntoView({
+					behavior: 'auto',
+					block: 'center',
+					inline: 'center'
+			  });
 	}
 };
 

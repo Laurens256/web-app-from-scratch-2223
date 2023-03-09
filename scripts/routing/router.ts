@@ -10,39 +10,40 @@ const router = async () => {
 	const path = window.location.pathname;
 
 	const test = await findRoute();
-	console.log(test);
 
-	const route = routes.find((_route) => {
-		// kijk of de huidige path evenveel delen heeft als de route
-		const urlPathSegments = path.split('/').slice(1).filter((segment) => segment);
-		const routeSegments = _route.path.split('/').slice(1).filter((segment) => segment);
-		if (urlPathSegments.length !== routeSegments.length) return false;
+	const { route, param } = await findRoute();
 
-		// loop om te kijken welk deel van de route een parameter is
-		let param!: string;
-		for (let i = 0; i < routeSegments.length; i++) {
-			if (routeSegments[i].startsWith(':')) {
-				param = urlPathSegments[i];
-			} else if (routeSegments[i] !== urlPathSegments[i]) {
-				// als de route niet overeenkomt met de url en geen param is gevonden, bestaat de route niet
-				return false;
-			}
-		}
-		mainElement.className = _route.viewName;
+	// const route = routes.find((_route) => {
+	// 	// kijk of de huidige path evenveel delen heeft als de route
+	// 	const urlPathSegments = path.split('/').slice(1).filter((segment) => segment);
+	// 	const routeSegments = _route.path.split('/').slice(1).filter((segment) => segment);
+	// 	if (urlPathSegments.length !== routeSegments.length) return false;
 
-		// haal oude event listeners weg
-		if (currentView && currentView.clearEventListeners) {
-			currentView.clearEventListeners.forEach((clearEventListener) => clearEventListener());
-		}
+	// 	// loop om te kijken welk deel van de route een parameter is
+	// 	let param!: string;
+	// 	for (let i = 0; i < routeSegments.length; i++) {
+	// 		if (routeSegments[i].startsWith(':')) {
+	// 			param = urlPathSegments[i];
+	// 		} else if (routeSegments[i] !== urlPathSegments[i]) {
+	// 			// als de route niet overeenkomt met de url en geen param is gevonden, bestaat de route niet
+	// 			return false;
+	// 		}
+	// 	}
+	// 	mainElement.className = _route.viewName;
 
-		currentView = _route;
-		fadeTransition().then(() => {
-			HeaderView(_route.viewName);
-			FooterView(_route.viewName);
-			_route.view(param);
-		});
-		return true;
-	});
+	// 	// haal oude event listeners weg
+	// 	if (currentView && currentView.clearEventListeners) {
+	// 		currentView.clearEventListeners.forEach((clearEventListener) => clearEventListener());
+	// 	}
+
+	// 	currentView = _route;
+	// 	fadeTransition().then(() => {
+	// 		HeaderView(_route.viewName);
+	// 		FooterView(_route.viewName);
+	// 		_route.view(param);
+	// 	});
+	// 	return true;
+	// });
 	if (!route) {
 		const errorRoute = routes.find((_route) => _route.viewName === 'errorview');
 		if (errorRoute) {
@@ -62,23 +63,23 @@ const findRoute = async () => {
 	const path = window.location.pathname;
 	const urlPathSegments = path.split('/').slice(1).filter((segment) => segment);
 
+	routeLoop:
 	for (const [i, route] of routes.entries()) {
 		const routeSegments = route.path.split('/').slice(1).filter((segment) => segment);
-		console.log(urlPathSegments, routeSegments);
 		if (urlPathSegments.length !== routeSegments.length) continue;
 
 		// loop om te kijken welk deel van de route een parameter is
-		let param!: string;
+		let param: string = '';
 		for (let i = 0; i < routeSegments.length; i++) {
 			if (routeSegments[i].startsWith(':')) {
 				param = urlPathSegments[i];
 			} else if (routeSegments[i] !== urlPathSegments[i]) {
 				// als de route niet overeenkomt met de url en geen param is gevonden, bestaat de route niet
-				continue;
+				continue routeLoop;
 			}
 		}
 
-		return route;
+		return { route, param };
 	}
 }
 

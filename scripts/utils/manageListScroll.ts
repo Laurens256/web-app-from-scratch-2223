@@ -1,5 +1,6 @@
 import { setEventListeners, eventListenerObj } from './manageEventListeners';
 import { playBeepSound } from './soundEffects';
+import { genericListKeyDown } from './controls/genericListControls';
 
 let list: HTMLOListElement | HTMLUListElement;
 let topBoundary = 0;
@@ -68,22 +69,6 @@ const moveArrow = (direction: number) => {
 	}, 90);
 };
 
-// function om keyboard input te checken en te verwerken, uitiendelijk eigen util van maken
-const checkKey = (e: KeyboardEvent) => {
-	if (e.key === 'ArrowUp') {
-		e.preventDefault();
-		moveArrow(-1);
-	} else if (e.key === 'ArrowDown') {
-		e.preventDefault();
-		moveArrow(1);
-	} else if (e.key === 'a') {
-		const activeElement = document.activeElement;
-		if (activeElement instanceof HTMLElement) {
-			activeElement.click();
-		}
-	}
-};
-
 // check of lijst omhoog of omlaag gescrolled kan worden
 const checkScroll = () => {
 	const visibleItems = getVisibleItems();
@@ -112,7 +97,7 @@ const focusListItem = (
 	calcBoundingRect();
 	list.addEventListener('focusin', followScroll);
 
-	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: checkKey}];
+	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: genericListKeyDown}];
 	setEventListeners(listeners);
 	
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
@@ -141,4 +126,4 @@ const calcBoundingRect = () => {
 	bottomBoundary = list.getBoundingClientRect().bottom;
 };
 
-export { focusListItem };
+export { focusListItem, moveArrow };

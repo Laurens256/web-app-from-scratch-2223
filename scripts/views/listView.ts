@@ -5,10 +5,10 @@ import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
-import { routes } from '../routing/routes';
 import { playBgMusic } from '../utils/soundEffects';
 import { delay } from '../utils/convertUnits';
 import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
+import { listViewKeyDown } from '../utils/controls/listViewControls';
 
 let pokemonListElement: HTMLOListElement;
 let displayedPokemon: FullPokemonDetails[] = [];
@@ -79,7 +79,7 @@ const generatePokemonList = async (
 
 	document.title = 'POKéDEX';
 
-	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: backToFilters}];
+	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: listViewKeyDown}];
 	setEventListeners(listeners);
 
 	playBgMusic(true, true);
@@ -189,15 +189,5 @@ const getAdjacentPokemon = (currentPokemon: string | undefined) => {
 	return {previousPokemon, nextPokemon};
 };
 
-// illegaal maar boeie
-const backToFilters = (e: KeyboardEvent) => {
-	if(e.key !== 'b' && e.key !== 'Escape') return;
-	e.preventDefault();
-	const filterRoute = routes.find(route => route.viewName === 'filterview');
-
-	if(filterRoute) {
-		window.history.replaceState({}, '', filterRoute.path);
-	}
-};
 
 export { ListView, getAdjacentPokemon };

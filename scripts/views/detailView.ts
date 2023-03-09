@@ -3,10 +3,10 @@ import { FullPokemonDetails, Url } from '../../public/types';
 import { getFullPokemonDetails } from '../utils/dataFetch';
 import { loadTemplate } from './loadTemplate';
 import { hectogramToPound, decimeterToFoot } from '../utils/convertUnits';
-import { handleKeyDown } from '../utils/controls/handleDetailControls';
+import { detailViewKeyDown } from '../utils/controls/detailViewControls';
 import { routes } from '../routing/routes';
 import { getAdjacentPokemon } from './listView';
-import { playCry } from '../utils/controls/handleDetailControls';
+import { playCry } from '../utils/soundEffects';
 import { playBgMusic } from '../utils/soundEffects';
 import { eventListenerObj, setEventListeners } from '../utils/manageEventListeners';
 
@@ -154,7 +154,7 @@ const populatePokemonDetail = async (
 	// vervang een of ander raar karakter wat in veel flavor texts staat met een spatie
 	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
 
-	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: handleKeyDown}];
+	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: detailViewKeyDown}];
 	setEventListeners(listeners);
 	
 	playCry(false);

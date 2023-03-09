@@ -2,7 +2,7 @@ import { goToAdjacentPokemon, nextExists, previousExists } from '../../views/det
 import { playCry } from '../soundEffects';
 
 
-const handleKeyDown = (e: KeyboardEvent) => {
+const detailViewKeyDown = (e: KeyboardEvent) => {
 	if (e.key === ' ') {
 		e.preventDefault();
 		playCry();
@@ -22,4 +22,4 @@ const handleKeyDown = (e: KeyboardEvent) => {
 	}
 };
 
-export { handleKeyDown, playCry };
+export { detailViewKeyDown };

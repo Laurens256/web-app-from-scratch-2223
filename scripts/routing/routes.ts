@@ -14,11 +14,20 @@ interface Route {
 }
 
 const routes: Route[] = [
+	{ path: '', view: ErrorView, viewName: 'errorview', clearEventListeners: [clearErrorEventListeners] },
 	{ path: '/', view: SplashView, viewName: 'splashview', clearEventListeners: [clearSplashEventListeners] },
 	{ path: '/pokemon', view: ListView, viewName: 'listview', clearEventListeners: [clearListEventListeners, clearListViewEventListeners] },
 	{ path: '/pokemon/:name', view: DetailView, viewName: 'detailview', clearEventListeners: [clearDetailEventListeners] },
 	{ path: '/filters', view: FilterView, viewName: 'filterview', clearEventListeners: [clearListEventListeners] },
-	{ path: '', view: ErrorView, viewName: 'errorview', clearEventListeners: [clearErrorEventListeners] },
 ];
+
+// sort routes array to make sure error route is last
+routes.sort((a, b) => {
+	if (a.viewName === 'errorview') return 1;
+	if (b.viewName === 'errorview') return -1;
+	return 0;
+});
+
+
 
 export { routes, viewNames };

@@ -55,7 +55,7 @@ list scroll pijl animatie
 	box-shadow: var(--up-arrow-scroll);
 	animation: 0.4s infinite step-start bounce;
 	transform: var(--initial-transform);
-	z-index: 4;
+	z-index: 12;
 }
 
 .select-list::after {

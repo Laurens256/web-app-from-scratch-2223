@@ -7,4 +7,8 @@ const decimeterToFoot = (decimeter: number) => {
 	return `${feetInches[0]}‘${feetInches[1]}`;
 };
 
-export { hectogramToPound, decimeterToFoot };
+const delay = (n = 50) => {
+	return new Promise((resolve) => setTimeout(resolve, n));
+};
+
+export { hectogramToPound, decimeterToFoot, delay };

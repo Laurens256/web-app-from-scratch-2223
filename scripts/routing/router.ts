@@ -1,14 +1,15 @@
-import { routes } from './routes';
+import { routes, viewNames } from './routes';
 import { clearListEventListeners } from '../utils/manageListScroll';
 import { clearDetailEventListeners } from '../views/detailView';
 import { clearSplashEventListeners } from '../views/splashView';
 import { clearErrorEventListeners } from '../views/errorView';
 import { clearListViewEventListeners } from '../views/listView';
 import { fadeTransition } from '../utils/fadeTransition';
-import { HeaderView} from '../views/headerView';
+import { HeaderView } from '../views/headerView';
 import { FooterView } from '../views/footerView';
 
 const mainElement = document.querySelector('main') as HTMLElement;
+let currentView: typeof routes[number];
 
 const router = () => {
 	const path = window.location.pathname;
@@ -29,7 +30,14 @@ const router = () => {
 				return false;
 			}
 		}
-		// async werkt niet dus dan maar zo
+		mainElement.className = _route.viewName;
+
+		// haal oude event listeners weg
+		if (currentView && currentView.clearEventListeners) {
+			currentView.clearEventListeners.forEach((clearEventListener) => clearEventListener());
+		}
+
+		currentView = _route;
 		fadeTransition().then(() => {
 			HeaderView(_route.viewName);
 			FooterView(_route.viewName);
@@ -39,34 +47,17 @@ const router = () => {
 	});
 	if (!route) {
 		const errorRoute = routes.find((_route) => _route.viewName === 'errorview');
-		if(errorRoute) {
+		if (errorRoute) {
+			// haal oude event listeners weg
+			if (currentView && currentView.clearEventListeners) {
+				currentView.clearEventListeners.forEach((clearEventListener) => clearEventListener());
+			}
+			currentView = errorRoute;
 			HeaderView(errorRoute.viewName);
 			FooterView(errorRoute.viewName);
 			errorRoute.view();
 		}
 	}
 };
-
-// haalt oude eventlisteners weg als view wordt verwijderd
-const callback = (mutationList: { removedNodes: NodeList, addedNodes: NodeList }[]) => {
-	const removedNode = mutationList[0].removedNodes[0] as HTMLElement;
-	if (removedNode) {
-		if (removedNode.id === 'listview' || removedNode.id === 'filtersview') {
-			clearListEventListeners();
-			clearListViewEventListeners();
-		} else if (removedNode.id === 'filtersview') {
-			clearListEventListeners();
-		} else if (removedNode.id === 'detailview') {
-			clearDetailEventListeners();
-		} else if (removedNode.id === 'splashview') {
-			clearSplashEventListeners();
-		} else if (removedNode.id === 'errorview') {
-			clearErrorEventListeners();
-		}
-	}
-};
-
-const observer = new MutationObserver(callback);
-observer.observe(mainElement, { childList: true });
 
 export { router, mainElement };

@@ -36,7 +36,6 @@ let currentTrack: typeof bgTracks[number] | undefined;
 const bgAudio = new Audio();
 bgAudio.volume = 0.3;
 const playBgMusic = (random: boolean, keepPlaying = false, name?: string) => {
-	console.log(name, currentTrack);
 	// check if the current track is a random track or driftveil and if it is, don't play a new random track
 	if (keepPlaying && currentTrack && (randomTracks.includes(currentTrack) || currentTrack.name == 'driftveil')) return;
 
@@ -58,7 +57,6 @@ const playBgMusic = (random: boolean, keepPlaying = false, name?: string) => {
 		bgAudio.addEventListener('ended', playBgMusic.bind(null, random, true, name));
 	}
 
-	console.log(track);
 	currentTrack = track;
 	bgAudio.src = track.src;
 	bgAudio.play();

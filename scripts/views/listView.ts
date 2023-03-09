@@ -7,6 +7,7 @@ import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
 import { routes } from '../routing/routes';
 import { playBgMusic } from '../utils/soundEffects';
+import { delay } from '../utils/smallHelpers';
 
 let pokemonListElement: HTMLOListElement;
 let displayedPokemon: FullPokemonDetails[] = [];
@@ -171,10 +172,6 @@ const listError = (name: string, listItems: {
 	nameField.textContent = name;
 	const typeDiv = getTypeBadge()
 	typeSection.insertAdjacentElement('afterbegin', typeDiv);
-};
-
-const delay = (n: number) => {
-	return new Promise((resolve) => setTimeout(resolve, n));
 };
 
 // functie om de volgende pokemon te krijgen, wordt aangeroepen vanuit de detailview

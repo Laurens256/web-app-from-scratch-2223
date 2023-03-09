@@ -39,7 +39,7 @@ const bgAudio = new Audio();
 bgAudio.volume = 0.3;
 const playBgMusic = (random: boolean, keepPlaying = false, name?: string) => {
 	// check if the current track is a random track or driftveil and if it is, don't play a new random track
-	if (keepPlaying && currentTrack && (randomTracks.includes(currentTrack) || currentTrack.name == 'driftveil')) return;
+	if (keepPlaying && !bgAudio.paused && currentTrack && (randomTracks.includes(currentTrack) || currentTrack.name == 'driftveil')) return;
 
 	bgAudio.removeEventListener('ended', playBgMusic.bind(null, random, true, name));
 
@@ -48,7 +48,8 @@ const playBgMusic = (random: boolean, keepPlaying = false, name?: string) => {
 		if (randomTracks.length === playedRandomTracks.length) {
 			playedRandomTracks = [];
 		}
-		track = randomTracks[Math.floor(Math.random() * randomTracks.length)];
+		const viableTracks = randomTracks.filter((track) => !playedRandomTracks.includes(track));
+		track = viableTracks[Math.floor(Math.random() * viableTracks.length)];
 		playedRandomTracks.push(track);
 	} else {
 		track = bgTracks.find((track) => track.name === name);
@@ -56,7 +57,7 @@ const playBgMusic = (random: boolean, keepPlaying = false, name?: string) => {
 	if (!track) return;
 
 	if(keepPlaying) {
-		bgAudio.addEventListener('ended', playBgMusic.bind(null, random, true, name));
+		bgAudio.addEventListener('ended', playBgMusic.bind(null, random, keepPlaying, name));
 	}
 
 	currentTrack = track;

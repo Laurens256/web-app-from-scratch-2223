@@ -7,7 +7,6 @@ import { detailViewKeyDown } from '../utils/controls/detailViewControls';
 import { routes } from '../routing/routes';
 import { getAdjacentPokemon } from './listView';
 import { playCry } from '../utils/soundEffects';
-import { playBgMusic } from '../utils/soundEffects';
 import { eventListenerObj, setEventListeners } from '../utils/manageEventListeners';
 
 //prettier-ignore
@@ -51,8 +50,6 @@ const populatePokemonDetail = async (
 		weight: number,
 		egg_groups: Url[],
 		flavor_text_entries: { flavor_text: string; language: { name: string } }[];
-
-	playBgMusic(true, true);
 
 	// haal html elementen op
 	const {

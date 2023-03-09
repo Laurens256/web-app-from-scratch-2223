@@ -1,5 +1,5 @@
 import { routes } from '../../routing/routes';
-import { playBgMusic } from '../soundEffects';
+// import { playBgMusic } from '../soundEffects';
 
 const manageWindowResize = () => {
 	const splashDiv = document.querySelector('.splashscreen');
@@ -19,9 +19,9 @@ const handleScreenMove = (e: MouseEvent | KeyboardEvent) => {
 			return;
 		}
 
-		if (e.key === 'Escape') {
-			playBgMusic(false, true, 'driftveil');
-		}
+		// if (e.key === 'Escape') {
+		// 	playBgMusic('driftveil');
+		// }
 	}
 	const filterRoute = routes.find((route) => route.viewName === 'filterview');
 	window.history.pushState({}, '', filterRoute?.path || '/filters');

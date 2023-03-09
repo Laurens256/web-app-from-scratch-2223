@@ -2,7 +2,6 @@ import { mainElement } from '../routing/router';
 import { loadTemplate } from './loadTemplate';
 import { focusListItem } from '../utils/manageListScroll';
 import { routes } from '../routing/routes';
-import { playBgMusic } from '../utils/soundEffects';
 
 const filters = [
 	{ className: 'grassland', textContent: 'Grassland' },
@@ -39,7 +38,6 @@ const FilterView = async () => {
 	sideSprite.alt = '';
 	list.insertAdjacentElement('afterend', sideSprite);
 	list.addEventListener('focusin', changeSprite);
-	playBgMusic(true, true);
 
 	sessionStorage.removeItem('habitat');
 	sessionStorage.removeItem('order');

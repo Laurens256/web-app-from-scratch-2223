@@ -5,7 +5,6 @@ import { focusListItem } from '../utils/manageListScroll';
 import { loadTemplate } from './loadTemplate';
 import { mainElement } from '../routing/router';
 import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
-import { playBgMusic } from '../utils/soundEffects';
 import { delay } from '../utils/convertUnits';
 import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
 import { listViewKeyDown } from '../utils/controls/listViewControls';
@@ -81,8 +80,6 @@ const generatePokemonList = async (
 
 	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: listViewKeyDown}];
 	setEventListeners(listeners);
-
-	playBgMusic(true, true);
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
 	let firstLoaded = false;

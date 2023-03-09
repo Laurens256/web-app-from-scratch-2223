@@ -1,5 +1,4 @@
 import { mainElement } from '../routing/router';
-import { playBgMusic } from '../utils/soundEffects';
 import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
 import { manageWindowResize, handleScreenMove } from '../utils/controls/splashViewControls';
 
@@ -31,8 +30,6 @@ const buildSplash = () => {
 	splashDiv.appendChild(bgText);
 	splashDiv.appendChild(splashImg);
 	mainElement.appendChild(splashDiv);
-
-	playBgMusic(false, false, 'title-screen');
 
 	const listeners: eventListenerObj[] = [
 		{ target: window, event: 'resize', callback: manageWindowResize },

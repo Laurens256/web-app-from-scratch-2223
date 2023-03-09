@@ -1,3 +1,12 @@
+type trackNames =
+	| 'title-screen'
+	| 'driftveil'
+	| 'viridian'
+	| 'celadon'
+	| 'pewter'
+	| 'oak-lab'
+	| 'pallet';
+
 // beep
 const playBeepSound = () => {
 	const focusAudio = new Audio('/audio/select_effect.wav');
@@ -8,7 +17,9 @@ const playBeepSound = () => {
 const playCry = (fallback = true) => {
 	let fallbackUsed = false;
 	const audio = new Audio();
-	audio.src = `https://play.pokemonshowdown.com/audio/cries/${window.location.pathname.split('/').pop()}.mp3`;
+	audio.src = `https://play.pokemonshowdown.com/audio/cries/${window.location.pathname
+		.split('/')
+		.pop()}.mp3`;
 	if (fallback) {
 		audio.onerror = () => {
 			if (fallbackUsed) return;
@@ -20,14 +31,14 @@ const playCry = (fallback = true) => {
 	audio.play();
 };
 
-const bgTracks = [
+const bgTracks: { name: trackNames; src: string; canBeRandom: boolean }[] = [
 	{ name: 'title-screen', src: '/audio/title_screen.mp3', canBeRandom: false },
 	{ name: 'driftveil', src: '/audio/bg_driftveil.mp3', canBeRandom: false },
 	{ name: 'viridian', src: '/audio/bg_viridian.mp3', canBeRandom: true },
 	{ name: 'celadon', src: '/audio/bg_celadon.mp3', canBeRandom: true },
 	{ name: 'pewter', src: '/audio/bg_pewter.mp3', canBeRandom: true },
 	{ name: 'oak-lab', src: '/audio/bg_oak_lab.mp3', canBeRandom: true },
-	{ name: 'pallet', src: '/audio/bg_pallet.mp3', canBeRandom: true },
+	{ name: 'pallet', src: '/audio/bg_pallet.mp3', canBeRandom: true }
 ];
 
 const randomTracks = bgTracks.filter((track) => track.canBeRandom);
@@ -37,34 +48,43 @@ let currentTrack: typeof bgTracks[number] | undefined;
 // function om de achtergrondmuziek te spelen
 const bgAudio = new Audio();
 bgAudio.volume = 0.3;
-const playBgMusic = (random: boolean, keepPlaying = false, name?: string) => {
-	// check if the current track is a random track or driftveil and if it is, don't play a new random track
-	if (keepPlaying && !bgAudio.paused && currentTrack && (randomTracks.includes(currentTrack) || currentTrack.name == 'driftveil')) return;
 
-	bgAudio.removeEventListener('ended', playBgMusic.bind(null, random, true, name));
+const playBgMusic = (name: trackNames | undefined) => {
+	console.log(name);
+	if (
+		!name &&
+		!bgAudio.paused &&
+		currentTrack &&
+		(randomTracks.includes(currentTrack) || currentTrack.name == 'driftveil')
+	)
+		return;
 
 	let track: typeof bgTracks[number] | undefined;
-	if (random) {
+
+	if (name) {
+		track = bgTracks.find((track) => track.name === name) as typeof bgTracks[number];
+	} else {
+		// als alle random tracks zijn afgespeeld, reset de array
 		if (randomTracks.length === playedRandomTracks.length) {
 			playedRandomTracks = [];
 		}
-		const viableTracks = randomTracks.filter((track) => !playedRandomTracks.includes(track));
+
+		// filter de random tracks die al zijn afgespeeld
+		const viableTracks = randomTracks.filter(
+			(track) => !playedRandomTracks.includes(track)
+		);
+
+		// kies een random track
 		track = viableTracks[Math.floor(Math.random() * viableTracks.length)];
 		playedRandomTracks.push(track);
-	} else {
-		track = bgTracks.find((track) => track.name === name);
-	}
-	if (!track) return;
-
-	if(keepPlaying) {
-		bgAudio.addEventListener('ended', playBgMusic.bind(null, random, keepPlaying, name));
 	}
 
-	currentTrack = track;
-	bgAudio.src = track.src;
-	bgAudio.play();
+	if (track) {
+		currentTrack = track;
+		bgAudio.addEventListener('ended', playBgMusic.bind(null, name), { once: true });
+		bgAudio.src = track.src;
+		bgAudio.play();
+	}
 };
 
-playBgMusic(true, true);
-
-export { playBeepSound, playCry, playBgMusic };
+export { trackNames, playBeepSound, playCry, playBgMusic };

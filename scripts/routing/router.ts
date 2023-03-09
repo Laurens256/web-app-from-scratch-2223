@@ -3,6 +3,7 @@ import { fadeTransition } from '../utils/fadeTransition';
 import { HeaderView } from '../views/headerView';
 import { FooterView } from '../views/footerView';
 import { clearEventListeners } from '../utils/manageEventListeners';
+import { playBgMusic } from '../utils/soundEffects';
 
 const mainElement = document.querySelector('main') as HTMLElement;
 
@@ -17,6 +18,8 @@ const router = async () => {
 	HeaderView(route.viewName);
 	FooterView(route.viewName);
 	route.view(param);
+
+	playBgMusic(route.soundtrack);
 };
 
 // function om de juiste route te vinden bij de url

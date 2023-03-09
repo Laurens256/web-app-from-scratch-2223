@@ -13,8 +13,10 @@ Pokédex from Scratch is een Pokémon Fire Red geïnspireerde web-app die je hel
 </tr></thead></table>
 
 <p align="center">
-	<img src="./public/img/splash.webp" alt="pokemon fire red splash screen">
+	<img src="https://raw.githubusercontent.com/wiki/Laurens256/web-app-from-scratch-2223/img/cover.jpg" alt="pokemon fire red splash screen">
 </p>
+
+<br>
 
 ## Features
 - [x] Single page web app (vanilla)
@@ -25,8 +27,6 @@ Pokédex from Scratch is een Pokémon Fire Red geïnspireerde web-app die je hel
 - [x] Bedienbaar met toetsenbord
 - [x] Geheel responsive
 - [x] Coole muziek😎 (don't copyright strike pls)
-
-Pokédex from scratch is een single page web application gebouwd met vanilla HTML, CSS en TypeScript. De web-app maakt gebruik van de [PokéAPI](https://pokeapi.co/) om dynamisch Pokémon data op te halen. De web-app is geheel te besturen met het toetsenbord, dit wordt zelf aangeraden voor de complete GameBoy Advance ervaring :).
 
 ## Installation
 1. Clone de repository via de terminal

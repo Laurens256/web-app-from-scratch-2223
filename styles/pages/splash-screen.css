@@ -15,4 +15,16 @@
 	max-width: 100%;
 	height: 100%;
 	object-fit: contain;
+	z-index: 2;
+}
+
+.splashscreen h1 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: clamp(1rem, 3rem, 10vw);
+	text-align: center;
+	color: #fff;
+	text-shadow: var(--text-shadow-white);
 }

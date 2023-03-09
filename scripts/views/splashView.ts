@@ -1,6 +1,7 @@
 import { mainElement } from '../routing/router';
 import { routes } from '../routing/routes';
 import { playBgMusic } from '../utils/soundEffects';
+import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
 
 // splash screen view
 const SplashView = () => {
@@ -32,8 +33,12 @@ const buildSplash = () => {
 	mainElement.appendChild(splashDiv);
 
 	playBgMusic(false, false, 'title-screen');
-	window.addEventListener('resize', manageSplashBg);
-	document.addEventListener('keydown', moveScreen);
+
+	const listeners: eventListenerObj[] = [
+		{ target: window, event: 'resize', callback: manageSplashBg },
+		{ target: document, event: 'keydown', callback: moveScreen }
+	];
+	setEventListeners(listeners);
 };
 
 // zorgt ervoor dat de gradient achtergrond altijd goed aansluit
@@ -45,23 +50,18 @@ const manageSplashBg = () => {
 	}
 };
 
-const clearSplashEventListeners = () => {
-	window.removeEventListener('resize', manageSplashBg);
-	document.removeEventListener('keydown', moveScreen);
-};
-
 const moveScreen = (e: MouseEvent | KeyboardEvent) => {
 	if (e instanceof KeyboardEvent) {
 		if (!(e.key == 'Enter' || e.key == ' ' || e.key == 'a' || 'Escape')) {
 			return;
 		}
 
-		if(e.key === 'Escape') {
+		if (e.key === 'Escape') {
 			playBgMusic(false, true, 'driftveil');
 		}
 	}
-	const filterRoute = routes.find(route => route.viewName === 'filterview');
+	const filterRoute = routes.find((route) => route.viewName === 'filterview');
 	window.history.pushState({}, '', filterRoute?.path || '/filters');
 };
 
-export { SplashView, clearSplashEventListeners };
+export { SplashView };

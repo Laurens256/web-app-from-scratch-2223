@@ -1,3 +1,4 @@
+import { setEventListeners, eventListenerObj } from './manageEventListeners';
 import { playBeepSound } from './soundEffects';
 
 let list: HTMLOListElement | HTMLUListElement;
@@ -110,8 +111,10 @@ const focusListItem = (
 	listItems = Array.from(list.querySelectorAll('button'));
 	calcBoundingRect();
 	list.addEventListener('focusin', followScroll);
-	document.addEventListener('keydown', checkKey);
 
+	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: checkKey}];
+	setEventListeners(listeners);
+	
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
 		selectItem ? selectItem.focus() : firstItem.focus();
@@ -138,9 +141,4 @@ const calcBoundingRect = () => {
 	bottomBoundary = list.getBoundingClientRect().bottom;
 };
 
-const clearListEventListeners = () => {
-	window.removeEventListener('resize', calcBoundingRect);
-	document.removeEventListener('keydown', checkKey);
-};
-
-export { focusListItem, clearListEventListeners };
+export { focusListItem };

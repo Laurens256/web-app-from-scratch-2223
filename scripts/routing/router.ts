@@ -1,22 +1,18 @@
-import { routes } from './routes';
+import { routes, errorRoute } from './routes';
 import { fadeTransition } from '../utils/fadeTransition';
 import { HeaderView } from '../views/headerView';
 import { FooterView } from '../views/footerView';
+import { clearEventListeners } from '../utils/manageEventListeners';
 
 const mainElement = document.querySelector('main') as HTMLElement;
-let currentView: typeof routes[number];
 
 const router = async () => {
 	// Find and return the route and parameter
 	const { route, param } = await findRoute();
 
-	if (currentView && currentView.clearEventListeners) {
-		currentView.clearEventListeners.forEach((clearEventListener) => clearEventListener());
-	}
-
+	// haal global event listeners weg
+	clearEventListeners();
 	await fadeTransition();
-
-	currentView = route;
 
 	HeaderView(route.viewName);
 	FooterView(route.viewName);
@@ -47,7 +43,6 @@ const findRoute = async () => {
 
 		return { route: route, param: param };
 	}
-	const errorRoute = routes[routes.length - 1];
 	return { route: errorRoute, param: undefined };
 }
 

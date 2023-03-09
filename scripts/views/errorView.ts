@@ -1,5 +1,7 @@
 import { mainElement } from '../routing/router';
+import { playBeepSound } from '../utils/soundEffects';
 import { loadTemplate } from './loadTemplate';
+import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
 
 let backButton: HTMLButtonElement;
 let backToHomeButton: HTMLButtonElement;
@@ -29,7 +31,9 @@ const ErrorView = async () => {
 	buttonsDiv.appendChild(backButton);
 	buttonsDiv.appendChild(backToHomeButton);
 	backButton.focus();
-	document.addEventListener('keydown', manageErrorControls);
+
+	const listeners: eventListenerObj[] = [{ target: document, event: 'keydown', callback: manageErrorControls }];
+	setEventListeners(listeners);
 };
 
 
@@ -42,14 +46,11 @@ const manageErrorControls = (e: KeyboardEvent) => {
 	// focus 1 van de twee buttons
 	if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
 		focusedElement === backButton ? backToHomeButton.focus() : backButton.focus();
-	// klik op de button die nu focused is
+		playBeepSound();
+		// klik op de button die nu focused is
 	} else if (e.key === 'a' && focusedElement === backButton || focusedElement === backToHomeButton) {
 		focusedElement.click();
 	}
 };
 
-const clearErrorEventListeners = () => {
-	document.removeEventListener('keydown', manageErrorControls);
-};
-
-export { ErrorView, clearErrorEventListeners };
+export { ErrorView };

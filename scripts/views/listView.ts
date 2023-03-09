@@ -8,6 +8,7 @@ import { sortPokemonArray, filterPokemonArray } from '../utils/filterUtils';
 import { routes } from '../routing/routes';
 import { playBgMusic } from '../utils/soundEffects';
 import { delay } from '../utils/convertUnits';
+import { setEventListeners, eventListenerObj } from '../utils/manageEventListeners';
 
 let pokemonListElement: HTMLOListElement;
 let displayedPokemon: FullPokemonDetails[] = [];
@@ -77,7 +78,10 @@ const generatePokemonList = async (
 	}));
 
 	document.title = 'POKéDEX';
-	document.addEventListener('keydown', backToFilters);
+
+	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: backToFilters}];
+	setEventListeners(listeners);
+
 	playBgMusic(true, true);
 
 	// zorgt ervoor dat de eerste pokemon in de lijst gefocused wordt, of degene van de vorige pagina
@@ -196,8 +200,4 @@ const backToFilters = (e: KeyboardEvent) => {
 	}
 };
 
-const clearListViewEventListeners = () => {
-	document.removeEventListener('keydown', backToFilters);
-};
-
-export { ListView, getAdjacentPokemon, clearListViewEventListeners };
+export { ListView, getAdjacentPokemon };

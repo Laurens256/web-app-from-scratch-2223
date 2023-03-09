@@ -8,6 +8,7 @@ import { routes } from '../routing/routes';
 import { getAdjacentPokemon } from './listView';
 import { playCry } from '../utils/controls/handleDetailControls';
 import { playBgMusic } from '../utils/soundEffects';
+import { eventListenerObj, setEventListeners } from '../utils/manageEventListeners';
 
 //prettier-ignore
 const balls = ['master', 'ultra', 'great', 'poke', 'safari', 'net', 'dive', 'nest', 'repeat', 'timer', 'luxury', 'premier', 'level', 'lure', 'moon', 'friend', 'love', 'heavy', 'fast', 'heal', 'quick', 'dusk', 'sport', 'park', 'dream', 'beast'];
@@ -153,7 +154,9 @@ const populatePokemonDetail = async (
 	// vervang een of ander raar karakter wat in veel flavor texts staat met een spatie
 	pokemonFlavorText.textContent = randomFlavorText.replace(//g, ' ');
 
-	document.addEventListener('keydown', handleKeyDown);
+	const listeners: eventListenerObj[] = [{target: document, event: 'keydown', callback: handleKeyDown}];
+	setEventListeners(listeners);
+	
 	playCry(false);
 
 	pokemonDetail.classList.remove('loading');
@@ -181,10 +184,6 @@ const getHtmlElements = () => {
 	return {
 		topSection, backButton, pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
 	};
-};
-
-const clearDetailEventListeners = () => {
-	document.removeEventListener('keydown', handleKeyDown);
 };
 
 let nextExists = true
@@ -229,4 +228,4 @@ const detailError = () => {
 	topSection.innerHTML = `<h2>Oops, something went wrong</h2><p>Try again later or try a different Pokémon</p>`;
 };
 
-export { DetailView, clearDetailEventListeners, goToAdjacentPokemon, nextExists, previousExists };
+export { DetailView, goToAdjacentPokemon, nextExists, previousExists };

@@ -6,7 +6,7 @@ const listViewKeyDown = (e: KeyboardEvent) => {
 	const filterRoute = routes.find(route => route.viewName === 'filterview');
 
 	if(filterRoute) {
-		window.history.replaceState({}, '', filterRoute.path);
+		window.history.pushState({}, '', filterRoute.path);
 	}
 };
 

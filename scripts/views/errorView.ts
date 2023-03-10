@@ -26,7 +26,7 @@ const ErrorView = async () => {
 	});
 
 	backToHomeButton.addEventListener('click', () => {
-		window.history.pushState({}, '', '/');
+		window.history.replaceState({}, '', '/');
 	});
 
 	buttonsDiv.appendChild(backButton);

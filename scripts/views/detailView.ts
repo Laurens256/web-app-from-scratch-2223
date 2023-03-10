@@ -210,9 +210,9 @@ const goToAdjacentPokemon = (direction: 1 | -1) => {
 	const currentPokemon = window.location.pathname.split('/').pop();
 	const { previousPokemon, nextPokemon } = getAdjacentPokemon(currentPokemon);
 	if (nextPokemon && direction === 1) {
-		window.history.pushState({ pokemon: nextPokemon }, '', `/pokemon/${nextPokemon.name}`);
+		window.history.replaceState({ pokemon: nextPokemon }, '', `/pokemon/${nextPokemon.name}`);
 	} else if (previousPokemon) {
-		window.history.pushState({ pokemon: previousPokemon }, '', `/pokemon/${previousPokemon.name}`);
+		window.history.replaceState({ pokemon: previousPokemon }, '', `/pokemon/${previousPokemon.name}`);
 	}
 };
 

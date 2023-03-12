@@ -18,7 +18,6 @@
 
 .filters ul li {
 	scroll-snap-align: end;
-	scroll-margin: 1em;
 	position: relative;
 	height: 2.6em;
 	flex: 0 0 auto;

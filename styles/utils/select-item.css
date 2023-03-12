@@ -10,6 +10,13 @@
 	box-shadow: var(--right-arrow-selection);
 }
 
+/* selector om te kijken of een ander list element gefocused is, die niet degene is die gehovered wordt */
+@supports selector(:has(button:focus:not(:hover)) li:not(.loading) button:not(:disabled):hover::before) {
+	.select-list:has(button:focus:not(:hover)) li:not(.loading) button:not(:disabled):hover::before {
+		content: none;
+	}
+}	
+
 .select-list button:focus {
 	outline: none;
 }
@@ -18,6 +25,7 @@
 	.select-list button:not(:disabled):hover,
 	.select-list li button:not(:disabled):focus {
 		outline: solid 2px var(--text-black);
+		outline-offset: 2px;
 	}
 
 	/* pijltje aan de zijkant weg */

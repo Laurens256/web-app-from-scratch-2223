@@ -1,5 +1,5 @@
-.select-list li:not(.loading) button:not(:disabled):hover::before,
-.select-list li:not(.loading) button:not(:disabled):focus::before {
+.select-list li:not(.loading) a:hover::before,
+.select-list li:not(.loading) a:focus::before {
 	content: '';
 	position: absolute;
 	left: -2.5rem;
@@ -11,26 +11,26 @@
 }
 
 /* selector om te kijken of een ander list element gefocused is, die niet degene is die gehovered wordt */
-@supports selector(:has(button:focus:not(:hover)) li:not(.loading) button:not(:disabled):hover::before) {
-	.select-list:has(button:focus:not(:hover)) li:not(.loading) button:not(:disabled):hover::before {
+@supports selector(:has(a:focus:not(:hover)) li:not(.loading) a:hover::before) {
+	.select-list:has(a:focus:not(:hover)) li:not(.loading) a:hover::before {
 		content: none;
 	}
 }	
 
-.select-list button:focus {
+.select-list a:focus {
 	outline: none;
 }
 
 @media (max-width: 600px) {
-	.select-list button:not(:disabled):hover,
-	.select-list li button:not(:disabled):focus {
+	.select-list a:hover,
+	.select-list li a:focus {
 		outline: solid 2px var(--text-black);
 		outline-offset: 2px;
 	}
 
 	/* pijltje aan de zijkant weg */
-	.pokemonlist li:not(.loading) button:not(:disabled):hover::before,
-	.pokemonlist li:not(.loading) button:not(:disabled):focus::before {
+	.pokemonlist li:not(.loading) a:hover::before,
+	.pokemonlist li:not(.loading) a:focus::before {
 		content: none;
 	}
 

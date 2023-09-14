@@ -7,17 +7,17 @@ const errorViewKeyDown = async (e: KeyboardEvent) => {
 	e.preventDefault();
 	isRunning = true;
 
-	const backButton: HTMLButtonElement | null = document.querySelector('div.buttonsdiv button:first-of-type');
-	const backToHomeButton: HTMLButtonElement | null = document.querySelector('div.buttonsdiv button:last-of-type');
+	const backAnchor: HTMLAnchorElement | null = document.querySelector('div.buttonsdiv a:first-of-type');
+	const backToHomeAnchor: HTMLAnchorElement | null = document.querySelector('div.buttonsdiv a:last-of-type');
 
 	const focusedElement = document.activeElement as HTMLElement;
 	// focus 1 van de twee buttons
-	if (backButton && backToHomeButton && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-		focusedElement === backButton ? backToHomeButton.focus() : backButton.focus();
+	if (backAnchor && backToHomeAnchor && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+		focusedElement === backAnchor ? backToHomeAnchor.focus() : backAnchor.focus();
 		playBeepSound();
 
-		// klik op de button die nu focused is
-	} else if (e.key === 'a' && focusedElement === backButton || focusedElement === backToHomeButton) {
+		// klik op de anchor die nu focused is
+	} else if (e.key === 'a' && focusedElement === backAnchor || focusedElement === backToHomeAnchor) {
 		focusedElement.click();
 	}
 

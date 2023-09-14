@@ -7,7 +7,7 @@ let list: HTMLOListElement | HTMLUListElement;
 let topBoundary = 0;
 let bottomBoundary = 0;
 let listItemHeight = 0;
-let listItems: HTMLButtonElement[] = [];
+let listItems: HTMLAnchorElement[] = [];
 
 const getVisibleItems = () => {
 	const visibleItems = listItems.filter(
@@ -22,7 +22,7 @@ const getVisibleItems = () => {
 const followScroll = () => {
 	const visibleItems = getVisibleItems();
 
-	const focusedItem = document.activeElement as HTMLButtonElement;
+	const focusedItem = document.activeElement as HTMLAnchorElement;
 	const focusedItemIndex = visibleItems.indexOf(focusedItem);
 
 	const scrollMarginDown = visibleItems.length > 5 ? 3 : 1;
@@ -36,12 +36,12 @@ const followScroll = () => {
 };
 
 let isRunning = false;
-let lastFocusedItem!: HTMLButtonElement;
+let lastFocusedItem!: HTMLAnchorElement;
 // verplaats het pijltje omhoog of omlaag
 const moveArrow = async (direction: number) => {
 	if (isRunning) return;
 	isRunning = true;
-	const focusedItem = document.activeElement as HTMLButtonElement;
+	const focusedItem = document.activeElement as HTMLAnchorElement;
 
 	if (
 		(focusedItem === listItems[0] && direction === -1) ||
@@ -93,11 +93,11 @@ const checkScroll = () => {
 // function om list item te focussen gebaseerd op param
 const focusListItem = (
 	listParam: HTMLOListElement | HTMLUListElement,
-	selectItem?: HTMLButtonElement
+	selectItem?: HTMLAnchorElement
 ) => {
-	const firstItem = listParam.querySelector('button') as HTMLButtonElement;
+	const firstItem = listParam.querySelector('a') as HTMLAnchorElement;
 	list = listParam;
-	listItems = Array.from(list.querySelectorAll('button'));
+	listItems = Array.from(list.querySelectorAll('a'));
 	calcBoundingRect();
 	list.addEventListener('focusin', followScroll);
 
@@ -109,21 +109,20 @@ const focusListItem = (
 	// media query omdat de focus stijl voor mobile niet zo mooi is lol
 	if (window.matchMedia('(min-width: 600px)').matches) {
 		selectItem ? selectItem.focus() : firstItem.focus();
-		lastFocusedItem = document.activeElement as HTMLButtonElement;
+		lastFocusedItem = document.activeElement as HTMLAnchorElement;
 		list.addEventListener('scroll', checkScroll);
 		list.dispatchEvent(new Event('scroll'));
 	} else {
-		selectItem
-			? selectItem.scrollIntoView({
-					behavior: 'auto',
-					block: 'center',
-					inline: 'center'
-			  })
-			: firstItem.scrollIntoView({
-					behavior: 'auto',
-					block: 'center',
-					inline: 'center'
-			  });
+		if (!selectItem) {
+			selectItem = firstItem;
+		}
+
+		selectItem.scrollIntoView({
+			behavior: 'auto',
+			block: 'center',
+			inline: 'center'
+		});
+
 	}
 };
 

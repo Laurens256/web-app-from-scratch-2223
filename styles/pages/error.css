@@ -10,36 +10,37 @@
 }
 
 .error h2 {
-	font-size: 3em;
+	font-size: 3rem;
 	text-shadow: var(--text-shadow-black);
 }
 
 .error p {
-	font-size: 1.4em;
-	margin: .5em 0 1em 0;
+	font-size: 1.4rem;
+	margin: .75rem 0 1.25rem 0;
 	text-shadow: var(--text-shadow-black);
 }
 
 .error .buttonsdiv {
 	display: flex;
 	justify-content: center;
-	gap: .2em;
+	gap: .2rem;
 }
 
-.error .buttonsdiv button {
-	font-size: 1.4em;
-	padding: .5em 1em;
-	width: 8em;
+.error .buttonsdiv a {
+	font-size: 1.4rem;
+	padding: .75rem 1rem;
+	min-width: 8rem;
 	border-radius: 5px;
 	background-color: #fff;
 	color: #000;
 	border: solid 2px #000;
 	text-shadow: var(--text-shadow-black);
 	transition: all .15s ease-in-out;
+	text-decoration: none;
 }
 
-.error .buttonsdiv button:hover,
-.error .buttonsdiv button:focus {
+.error .buttonsdiv a:hover,
+.error .buttonsdiv a:focus {
 	border-color: var(--text-orange);
 	outline: none;
 }

@@ -53,7 +53,7 @@ const populatePokemonDetail = async (
 
 	// haal html elementen op
 	const {
-		backButton,
+		backAnchor,
 		pokemonDetail,
 		imageSection,
 		pokemonId,
@@ -65,17 +65,21 @@ const populatePokemonDetail = async (
 		pokemonFlavorText
 	} = getHtmlElements();
 
-	backButton.addEventListener('click', () => {
-		const listViewRoute = routes.find((route) => route.viewName === 'listview');
-		const sortOrder = sessionStorage.getItem('order') || 'numerical';
-		const habitat = sessionStorage.getItem('habitat') || '';
-		const params = new URLSearchParams({ order: sortOrder });
 
-		if (habitat !== '') {
-			params.append('habitat', habitat);
-		}
+	const listViewRoute = routes.find((route) => route.viewName === 'listview');
+	const sortOrder = sessionStorage.getItem('order') || 'numerical';
+	const habitat = sessionStorage.getItem('habitat') || '';
+	const params = new URLSearchParams({ order: sortOrder });
 
-		window.history.replaceState({}, '', `${listViewRoute?.path}?${params.toString()}`)
+	if (habitat !== '') {
+		params.append('habitat', habitat);
+	}
+
+	backAnchor.href = `${listViewRoute?.path}?${params.toString()}`;
+
+	backAnchor?.addEventListener('click', (e) => {
+		e.preventDefault();
+		window.history.replaceState({}, '', backAnchor.href);
 	});
 
 	// await de promise zodat de data kan worden ingeladen. Als de promise rejected wordt, error state en return
@@ -161,7 +165,7 @@ const populatePokemonDetail = async (
 };
 
 const getHtmlElements = () => {
-	const backButton = document.querySelector('button.back') as HTMLButtonElement;
+	const backAnchor = document.querySelector('a.back') as HTMLAnchorElement;
 	const pokemonDetail = document.querySelector('article.pokemondetail') as HTMLElement;
 	const topSection = pokemonDetail.children[0] as HTMLElement;
 	const bottomSection = pokemonDetail.children[1] as HTMLElement;
@@ -179,7 +183,7 @@ const getHtmlElements = () => {
 
 	//prettier-ignore
 	return {
-		topSection, backButton, pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
+		topSection, backAnchor, pokemonDetail, imageSection, pokemonId, pokemonName, pokemonSpecies, pokemonImage, pokemonHeight, pokemonWeight, pokemonFlavorText
 	};
 };
 

@@ -9,15 +9,17 @@ const SplashView = () => {
 };
 
 let splashImg: HTMLImageElement;
-let splashDiv: HTMLDivElement;
+let splashAnchor: HTMLAnchorElement;
 const buildSplash = () => {
 	document.title = 'POKéDEX';
 
 	const bgText = document.createElement('h1');
-	splashDiv = document.createElement('div');
-	splashDiv.classList.add('splashscreen');
-	splashDiv.id = 'splashview';
-	splashDiv.addEventListener('click', handleScreenMove);
+
+	splashAnchor = document.createElement('a');
+	splashAnchor.href = '/filters';
+	splashAnchor.setAttribute('aria-label', 'Press to start');
+	splashAnchor.classList.add('splashscreen');
+	splashAnchor.addEventListener('click', handleScreenMove);
 
 	splashImg = document.createElement('img');
 
@@ -27,9 +29,10 @@ const buildSplash = () => {
 	splashImg.src = '/img/splash.webp';
 	splashImg.alt = 'pokemon fire red splash screen';
 
-	splashDiv.appendChild(bgText);
-	splashDiv.appendChild(splashImg);
-	mainElement.appendChild(splashDiv);
+	splashAnchor.appendChild(bgText);
+	splashAnchor.appendChild(splashImg);
+
+	mainElement.appendChild(splashAnchor);
 
 	const listeners: eventListenerObj[] = [
 		{ target: window, event: 'resize', callback: manageWindowResize },

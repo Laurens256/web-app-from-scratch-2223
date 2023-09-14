@@ -15,9 +15,9 @@ const detailViewKeyDown = (e: KeyboardEvent) => {
 	} else if (e.key === 'b' || e.key === 'Escape') {
 		e.preventDefault();
 		// heel illegaal maar deze buton heeft alle logic er al achter en ben lui
-		const backButton = document.querySelector('button.back');
-		if (backButton instanceof HTMLButtonElement) {
-			backButton.click();
+		const backAnchor = document.querySelector('a.back');
+		if (backAnchor instanceof HTMLAnchorElement) {
+			backAnchor.click();
 		}
 	}
 };

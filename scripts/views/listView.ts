@@ -70,7 +70,7 @@ const generatePokemonList = async (
 	// shoutout ninadepina
 	const listItems = Array.from(pokemonListElement.children).map((listItem) => ({
 		listItem,
-		button: listItem.querySelector('button') as HTMLButtonElement,
+		anchor: listItem.querySelector('a') as HTMLAnchorElement,
 		idField: listItem.querySelector('section:first-of-type p') as HTMLParagraphElement,
 		nameField: listItem.querySelector('section:nth-of-type(2) h2') as HTMLHeadingElement,
 		typeSection: listItem.querySelector('section:last-of-type') as HTMLElement
@@ -86,7 +86,7 @@ const generatePokemonList = async (
 	let focusLocked = false;
 	for (const [i, pokemon] of pokemonArr.entries()) {
 
-		const { listItem, button, idField, nameField, typeSection } = listItems[i];
+		const { listItem, anchor, idField, nameField, typeSection } = listItems[i];
 
 		if (pokemon.id === 0) {
 			listError(pokemon.name, listItems[i]);
@@ -105,11 +105,13 @@ const generatePokemonList = async (
 		listItem.classList.remove('loading', 'skeleton');
 		listItem.querySelector('section:last-of-type div:not(.typebadge)')?.remove();
 
-		button.addEventListener('click', () => {
-			window.history.pushState({ pokemon: pokemon }, '', `/pokemon/${pokemon.name}`);
+		anchor.href = `/pokemon/${pokemon.name}`;
+		anchor.addEventListener('click', (e) => {
+			e.preventDefault();
+			window.history.pushState({ pokemon: pokemon }, '', anchor.href);
 		});
-		button.setAttribute('aria-label', `view details of ${pokemon.name}`);
-		button.setAttribute('data-id', pokemon.id.toString());
+		anchor.setAttribute('aria-label', `view details of ${pokemon.name}`);
+		anchor.setAttribute('data-id', pokemon.id.toString());
 
 		// voef id toe in structured format (001, 002, 003, etc.)
 		idField.textContent = pokemon.id.toLocaleString('nl-NL', {
@@ -129,9 +131,9 @@ const generatePokemonList = async (
 	if (selectedPokemonId) {
 		sessionStorage.removeItem('selectedPokemonId');
 
-		const selectItem = pokemonListElement.querySelector(
-			`button[data-id="${selectedPokemonId}"]`
-		) as HTMLButtonElement;
+		const selectItem: HTMLAnchorElement | null = pokemonListElement.querySelector(
+			`a[data-id="${selectedPokemonId}"]`
+		);
 		if (selectItem) {
 			focusListItem(pokemonListElement, selectItem);
 		} else {
@@ -162,14 +164,14 @@ const getQueryParams = () => {
 
 const listError = (name: string, listItems: {
 	listItem: Element;
-	button: HTMLButtonElement;
+	anchor: HTMLAnchorElement;
 	idField: HTMLParagraphElement;
 	nameField: HTMLHeadingElement;
 	typeSection: HTMLElement;
 }) => {
-	const { listItem, button, nameField, typeSection } = listItems;
+	const { listItem, anchor, nameField, typeSection } = listItems;
 	listItem.className = 'error';
-	button.disabled = true;
+	anchor.href = '';
 
 	nameField.textContent = name;
 	const typeDiv = getTypeBadge()

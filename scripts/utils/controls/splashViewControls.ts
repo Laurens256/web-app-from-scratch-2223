@@ -22,6 +22,8 @@ const handleScreenMove = (e: MouseEvent | KeyboardEvent) => {
 		if (e.key === 'Escape') {
 			playBgMusic('driftveil');
 		}
+	} else {
+		e.preventDefault();
 	}
 	const filterRoute = routes.find((route) => route.viewName === 'filterview');
 	window.history.pushState({}, '', filterRoute?.path || '/filters');

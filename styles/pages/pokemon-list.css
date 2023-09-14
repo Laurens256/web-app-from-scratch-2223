@@ -17,7 +17,7 @@
 	scroll-snap-align: end;
 }
 
-.pokemonlist li button {
+.pokemonlist li a {
 	/* height: calc(100% + 1em); */
 	width: 100%;
 	text-align: start;
@@ -30,9 +30,11 @@
 	text-transform: uppercase;
 	font-weight: 500;
 	font-size: clamp(0px, 1rem, 2.2vw);
+	text-decoration: none;
+	color: var(--text-color);
 }
 
-.pokemonlist li button section {
+.pokemonlist li a section {
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -41,12 +43,12 @@
 /* =================
 id section
 ================= */
-.pokemonlist li button section:first-of-type p {
+.pokemonlist li a section:first-of-type p {
 	font-size: clamp(0px, 2.5em, 4.4vw);
 	width: 2.5em;
 }
 
-.pokemonlist li:not(.loading):not(.error) button section:first-of-type p::before {
+.pokemonlist li:not(.loading):not(.error) a section:first-of-type p::before {
 	content: 'No';
 	text-transform: none;
 }
@@ -54,12 +56,12 @@ id section
 /* =================
 name section
 ================= */
-.pokemonlist li button section:nth-of-type(2) {
+.pokemonlist li a section:nth-of-type(2) {
 	font-size: clamp(0px, 1.8em, 4.4vw);
 }
 
 /* placeholder div zodat loading animation zelfde grootte houdt als geladen items */
-.pokemonlist li:is(.skeleton, .error) button section:last-of-type div {
+.pokemonlist li:is(.skeleton, .error) a section:last-of-type div {
 	content: '';
 	width: 8em;
 	aspect-ratio: 8 / 3;
